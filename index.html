@@ -16,9 +16,15 @@
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="fr_FR"/>
 <meta property="og:site_name" content="Cohesif Agro"/>
+<meta name="theme-color" content="#1A3A2A"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Cohesif Agro | Sourcing Équipements & Packaging Agroalimentaire"/>
 <meta name="twitter:description" content="Équipements IAA et packaging alimentaire sourcés en Chine, livrés conformes CE en France. 35-55% d'économie."/>
+<meta name="twitter:image" content="https://www.cohesifagro.fr/logo-cohesif-agro-full.png"/>
+<meta property="og:image" content="https://www.cohesifagro.fr/logo-cohesif-agro-full.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Cohesif Agro - Sourcing équipements et packaging agroalimentaire"/>
 <link rel="canonical" href="https://www.cohesifagro.fr"/>
 <link rel="alternate" hreflang="fr" href="https://www.cohesifagro.fr"/>
 <link rel="alternate" hreflang="en" href="https://www.cohesifagro.fr?lang=en"/>
@@ -63,6 +69,15 @@
     {"@type":"Question","name":"Les équipements sont-ils conformes aux normes européennes ?","acceptedAnswer":{"@type":"Answer","text":"Oui, tous nos équipements sont livrés avec le marquage CE obligatoire et la déclaration UE de conformité. Les certifications fournisseurs sont contrôlées avant chaque commande."}},
     {"@type":"Question","name":"Quelle économie peut-on réaliser par rapport aux fournisseurs européens ?","acceptedAnswer":{"@type":"Answer","text":"Nos clients réalisent en moyenne 35 à 55% d'économie par rapport aux fournisseurs européens, tout en bénéficiant de la conformité CE garantie."}},
     {"@type":"Question","name":"Faut-il gérer les formalités douanières ?","acceptedAnswer":{"@type":"Answer","text":"Non, Cohesif Agro gère l'intégralité des formalités : déclaration ICS2, dédouanement, transit. Zéro formalité à votre charge."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.cohesifagro.fr"}
   ]
 }
 </script>
@@ -609,8 +624,20 @@ padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.04);
 .temo-grid{grid-template-columns:1fr}
 .float-btn span{display:none}
 }
+@media(max-width:768px){
+.hero-h{font-size:clamp(1.8rem,5vw,2.4rem)}
+.heading{font-size:clamp(1.4rem,4vw,1.8rem)}
+.ocard{padding:1.8rem}
+.diff-photo{height:180px}
+.marquee-item{min-width:180px;height:80px;padding:.8rem 1.2rem}
+.marquee-item img{height:40px;max-width:140px}
+.trust-inner{grid-template-columns:1fr 1fr;gap:1rem}
+}
 @media(max-width:480px){
 .ft-top{grid-template-columns:1fr}
+.trust-inner{grid-template-columns:1fr}
+.hero-btns{flex-direction:column}
+.hero-btns .cta,.hero-btns .cta-outline{text-align:center}
 }
 
 /* ─── LANG (must be last) ─── */
@@ -621,8 +648,8 @@ body.en [data-en]{display:revert!important}
 </head>
 <body>
 
-<nav>
-  <a href="#hero" class="logo"><img src="logo-cohesif-agro.png" alt="Cohesif Agro" class="logo-img"/></a>
+<nav aria-label="Navigation principale">
+  <a href="#hero" class="logo"><img src="logo-cohesif-agro.png" alt="Cohesif Agro" class="logo-img" width="135" height="90"/></a>
   <ul class="nav-links">
     <li><a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a></li>
     <li><a href="#equipements" data-fr>Équipements</a><a href="#equipements" data-en>Equipment</a></li>
@@ -638,7 +665,7 @@ body.en [data-en]{display:revert!important}
   </div>
 </nav>
 
-<div class="mmenu" id="mmenu">
+<div class="mmenu" id="mmenu" role="navigation" aria-label="Menu mobile">
   <a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a>
   <a href="#equipements" data-fr>Équipements</a><a href="#equipements" data-en>Equipment</a>
   <a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a>
@@ -1077,7 +1104,7 @@ body.en [data-en]{display:revert!important}
 <!-- GROUPE -->
 <section class="groupe" id="groupe">
   <div class="groupe-header">
-    <img src="logo-groupe-cohesif.png" alt="Groupe Cohesif" class="groupe-logo" loading="lazy"/>
+    <img src="logo-groupe-cohesif.png" alt="Groupe Cohesif" class="groupe-logo" loading="lazy" width="120" height="80"/>
     <h3 data-fr>Un groupe, 6 pôles d'expertise</h3>
     <h3 data-en>One group, 6 areas of expertise</h3>
     <p data-fr>Cohesif Agro fait partie du Groupe Cohesif — un écosystème B2B multi-sectoriel</p>
@@ -1086,41 +1113,41 @@ body.en [data-en]{display:revert!important}
   <div class="marquee">
     <div class="marquee-track">
       <a href="https://www.cohesifcommerce.fr" class="marquee-item commerce-logo" target="_blank" rel="noopener">
-        <img src="logo-cohesif-commerce.jpeg" alt="Cohesif Commerce"/>
+        <img src="logo-cohesif-commerce.jpeg" alt="Cohesif Commerce" width="50" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifbtp.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-btp.png" alt="Cohesif BTP"/>
+        <img src="logo-cohesif-btp.png" alt="Cohesif BTP" width="125" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifenergy.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-energy.png" alt="Cohesif Energy"/>
+        <img src="logo-cohesif-energy.png" alt="Cohesif Energy" width="75" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifauto.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-auto.png" alt="Cohesif Auto"/>
+        <img src="logo-cohesif-auto.png" alt="Cohesif Auto" width="106" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifaccess.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-access.png" alt="Cohesif Access"/>
+        <img src="logo-cohesif-access.png" alt="Cohesif Access" width="100" height="50" loading="lazy"/>
       </a>
       <span class="marquee-item active">
-        <img src="logo-cohesif-agro-full.png" alt="Cohesif Agro"/>
+        <img src="logo-cohesif-agro-full.png" alt="Cohesif Agro" width="75" height="50" loading="lazy"/>
       </span>
       <!-- Duplicate for seamless loop -->
       <a href="https://www.cohesifcommerce.fr" class="marquee-item commerce-logo" target="_blank" rel="noopener">
-        <img src="logo-cohesif-commerce.jpeg" alt="Cohesif Commerce"/>
+        <img src="logo-cohesif-commerce.jpeg" alt="Cohesif Commerce" width="50" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifbtp.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-btp.png" alt="Cohesif BTP"/>
+        <img src="logo-cohesif-btp.png" alt="Cohesif BTP" width="125" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifenergy.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-energy.png" alt="Cohesif Energy"/>
+        <img src="logo-cohesif-energy.png" alt="Cohesif Energy" width="75" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifauto.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-auto.png" alt="Cohesif Auto"/>
+        <img src="logo-cohesif-auto.png" alt="Cohesif Auto" width="106" height="50" loading="lazy"/>
       </a>
       <a href="https://www.cohesifaccess.fr" class="marquee-item" target="_blank" rel="noopener">
-        <img src="logo-cohesif-access.png" alt="Cohesif Access"/>
+        <img src="logo-cohesif-access.png" alt="Cohesif Access" width="100" height="50" loading="lazy"/>
       </a>
       <span class="marquee-item active">
-        <img src="logo-cohesif-agro-full.png" alt="Cohesif Agro"/>
+        <img src="logo-cohesif-agro-full.png" alt="Cohesif Agro" width="75" height="50" loading="lazy"/>
       </span>
     </div>
   </div>
@@ -1248,7 +1275,7 @@ body.en [data-en]{display:revert!important}
   <div class="ft-inner">
     <div class="ft-top">
       <div class="ft-brand">
-        <img src="logo-cohesif-agro.png" alt="Cohesif Agro" class="ft-logo"/>
+        <img src="logo-cohesif-agro.png" alt="Cohesif Agro" class="ft-logo" width="105" height="70"/>
         <p data-fr>Sourcing d'équipements industriels et de packaging alimentaire depuis la Chine, livrés conformes en France.</p>
         <p data-en>Sourcing industrial equipment and food packaging from China, delivered compliant in France.</p>
         <div class="ft-social">
