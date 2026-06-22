@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Cohesif Agro | Sourcing Équipements & Packaging Agroalimentaire</title>
-<meta name="description" content="Cohesif Agro source vos équipements industriels et packaging alimentaire depuis la Chine. Conformité CE garantie. 35–55% d'économie. Livraison 30–45 jours."/>
+<meta name="description" content="Cohesif Agro source vos équipements industriels et packaging alimentaire depuis la Chine. Conformité CE garantie. 35-55% d'économie. Livraison 30-45 jours."/>
 <meta property="og:title" content="Cohesif Agro | Sourcing Équipements & Packaging Agroalimentaire"/>
 <meta property="og:description" content="Votre partenaire sourcing B2B pour l'industrie agroalimentaire. Équipements IAA et packaging alimentaire depuis la Chine, conformes CE."/>
 <meta property="og:url" content="https://www.cohesifagro.fr"/>
@@ -26,804 +26,559 @@
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --green-deep:#1A3A2A;
-  --green-mid:#2D6A4F;
-  --green-accent:#52B788;
-  --green-light:#EAF4ED;
-  --gold:#C9A84C;
-  --gold-warm:#D4A853;
-  --cream:#F5F1EB;
-  --white:#FFFFFF;
-  --off-white:#FAFAF7;
-  --dark:#1B1B1B;
-  --text:#2B2B2B;
-  --text-muted:#6B6B6B;
-  --font-display:'Playfair Display',serif;
-  --font-body:'Inter',sans-serif;
+--deep:#1A3A2A;
+--mid:#2D6A4F;
+--accent:#52B788;
+--pale:#EAF4ED;
+--gold:#C9A84C;
+--cream:#F5F1EB;
+--white:#FFFFFF;
+--offwh:#FAFAF7;
+--dark:#1B1B1B;
+--tx:#2B2B2B;
+--txm:#6B6B6B;
+--ff:'Playfair Display',serif;
+--fb:'Inter',sans-serif;
+--pad:clamp(1.2rem,5vw,4rem);
+--max:1140px;
 }
-
 html{scroll-behavior:smooth}
-body{font-family:var(--font-body);color:var(--text);background:var(--white);overflow-x:hidden}
-
+body{font-family:var(--fb);color:var(--tx);background:var(--white);overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none}
 ::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--green-deep)}
-::-webkit-scrollbar-thumb{background:var(--green-accent)}
+::-webkit-scrollbar-track{background:var(--deep)}
+::-webkit-scrollbar-thumb{background:var(--accent)}
 
-[data-en]{display:none}
-body.en [data-fr]{display:none}
-body.en [data-en]{display:revert}
-
-/* ── NAV ───────────────────────── */
+/* ─── NAV ─── */
 nav{
-  position:fixed;top:0;left:0;width:100%;z-index:100;
-  padding:0 clamp(1.5rem,5vw,4rem);
-  display:flex;align-items:center;justify-content:space-between;
-  height:72px;
-  transition:all .4s ease;
+position:fixed;top:0;left:0;width:100%;z-index:100;
+padding:0 var(--pad);height:64px;
+display:flex;align-items:center;justify-content:space-between;
+transition:background .35s,box-shadow .35s;
 }
-nav.scrolled{
-  background:rgba(255,255,255,0.97);
-  backdrop-filter:blur(10px);
-  box-shadow:0 1px 0 rgba(0,0,0,0.06);
+nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(8px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.logo{font-family:var(--ff);font-size:1.2rem;font-weight:700;color:#fff;transition:color .35s}
+nav.scrolled .logo{color:var(--deep)}
+.logo b{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.65);transition:color .25s}
+nav.scrolled .nav-links a{color:var(--txm)}
+.nav-links a:hover{color:var(--accent)}
+.nav-r{display:flex;align-items:center;gap:.8rem}
+.lang-btn{
+background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);
+font-family:var(--fb);font-size:.68rem;font-weight:600;letter-spacing:.06em;
+padding:.25rem .55rem;border-radius:3px;cursor:pointer;transition:all .25s;
 }
-.nav-logo{
-  font-family:var(--font-display);
-  font-size:1.3rem;font-weight:700;
-  color:var(--white);
-  text-decoration:none;
-  transition:color .4s;
-}
-nav.scrolled .nav-logo{color:var(--green-deep)}
-.nav-logo span{color:var(--green-accent)}
-.nav-links{display:flex;align-items:center;gap:2.2rem;list-style:none}
-.nav-links a{
-  color:rgba(255,255,255,0.7);
-  text-decoration:none;font-size:.8rem;
-  font-weight:500;letter-spacing:.08em;text-transform:uppercase;
-  transition:color .3s;
-}
-nav.scrolled .nav-links a{color:var(--text-muted)}
-.nav-links a:hover{color:var(--green-accent)}
-.nav-right{display:flex;align-items:center;gap:1rem}
-.lang-toggle{
-  background:none;
-  border:1px solid rgba(255,255,255,0.25);
-  color:rgba(255,255,255,0.7);
-  font-family:var(--font-body);font-size:.7rem;font-weight:600;
-  letter-spacing:.08em;padding:.3rem .65rem;
-  border-radius:4px;cursor:pointer;transition:all .3s;
-}
-nav.scrolled .lang-toggle{border-color:rgba(0,0,0,0.12);color:var(--text-muted)}
-.lang-toggle:hover{background:var(--green-accent);color:var(--green-deep);border-color:var(--green-accent)}
+nav.scrolled .lang-btn{border-color:rgba(0,0,0,.12);color:var(--txm)}
+.lang-btn:hover{background:var(--accent);color:var(--deep);border-color:var(--accent)}
 .nav-cta{
-  background:var(--green-accent);color:var(--green-deep);
-  font-size:.75rem;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;padding:.55rem 1.3rem;
-  text-decoration:none;border-radius:50px;
-  transition:all .3s;
+background:var(--accent);color:var(--deep);
+font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+padding:.5rem 1.2rem;border-radius:50px;transition:background .25s;
 }
-.nav-cta:hover{background:var(--gold-warm);color:var(--green-deep)}
+.nav-cta:hover{background:var(--gold)}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.burger span{display:block;width:22px;height:2px;background:var(--white);transition:all .3s}
+.burger span{display:block;width:20px;height:2px;background:#fff;transition:all .3s}
 nav.scrolled .burger span{background:var(--dark)}
 
-/* ── HERO ──────────────────────── */
-#hero{
-  min-height:100vh;
-  position:relative;
-  display:flex;flex-direction:column;
-  justify-content:center;
-  padding:0 clamp(1.5rem,5vw,4rem);
-  overflow:hidden;
+/* ─── HERO ─── */
+.hero{
+min-height:100vh;display:flex;flex-direction:column;
+padding:0 var(--pad);position:relative;overflow:hidden;
+background:linear-gradient(165deg,#1A3A2A 0%,#234E38 45%,#1A3A2A 100%);
 }
 .hero-bg{
-  position:absolute;inset:0;z-index:-1;
-  background:
-    linear-gradient(175deg, rgba(26,58,42,0.78) 0%, rgba(26,58,42,0.88) 100%),
-    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-  background-color:var(--green-deep);
+position:absolute;inset:0;
+background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+opacity:.18;
 }
-.hero-inner{
-  max-width:1200px;width:100%;margin:0 auto;
-  padding:140px 0 120px;
+.hero-wrap{
+max-width:var(--max);width:100%;margin:0 auto;position:relative;z-index:1;
+flex:1;display:flex;flex-direction:column;justify-content:center;
+padding-top:80px;
 }
-.hero-content{max-width:680px}
 .hero-label{
-  font-size:.72rem;font-weight:600;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--green-accent);
-  margin-bottom:1.8rem;
+font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+color:var(--accent);margin-bottom:1.5rem;
 }
-.hero-title{
-  font-family:var(--font-display);
-  font-size:clamp(2.4rem,5vw,4.2rem);
-  font-weight:700;line-height:1.12;
-  color:var(--white);
-  margin-bottom:1.5rem;
+.hero-h{
+font-family:var(--ff);font-size:clamp(2.2rem,4.5vw,3.8rem);
+font-weight:700;line-height:1.12;color:#fff;max-width:640px;margin-bottom:1.2rem;
 }
-.hero-title em{font-style:normal;color:var(--green-accent)}
-.hero-desc{
-  font-size:1.05rem;font-weight:300;line-height:1.8;
-  color:rgba(255,255,255,0.65);
-  max-width:520px;margin-bottom:2.5rem;
+.hero-h em{font-style:normal;color:var(--accent)}
+.hero-p{
+font-size:1rem;font-weight:300;line-height:1.8;
+color:rgba(255,255,255,.6);max-width:500px;margin-bottom:2rem;
 }
-.btn-hero{
-  display:inline-block;
-  background:var(--green-accent);color:var(--green-deep);
-  font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;padding:.85rem 2rem;
-  text-decoration:none;border-radius:50px;
-  transition:all .3s;
+.cta{
+display:inline-block;background:var(--accent);color:var(--deep);
+font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;
+padding:.8rem 1.8rem;border-radius:50px;transition:background .25s;
 }
-.btn-hero:hover{background:var(--gold-warm)}
-.hero-scroll{
-  position:absolute;bottom:2.5rem;left:50%;
-  transform:translateX(-50%);
-  color:rgba(255,255,255,0.35);
-  text-decoration:none;
-  animation:bobble 2.5s ease-in-out infinite;
+.cta:hover{background:var(--gold)}
+.cta-outline{
+display:inline-block;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);
+font-weight:500;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;
+padding:.8rem 1.8rem;border-radius:50px;transition:all .25s;margin-left:.8rem;
 }
-.hero-scroll svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.5}
-@keyframes bobble{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.cta-outline:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{
+display:grid;grid-template-columns:repeat(3,1fr);
+border-top:1px solid rgba(255,255,255,.08);
+padding:2rem 0 2.5rem;
+max-width:var(--max);width:100%;margin:0 auto;
+position:relative;z-index:1;
+}
+.h-stat{padding:0 1rem}
+.h-stat:not(:last-child){border-right:1px solid rgba(255,255,255,.08)}
+.h-stat strong{
+display:block;font-family:var(--ff);font-size:clamp(1.6rem,3vw,2.4rem);
+font-weight:900;color:#fff;line-height:1;margin-bottom:.3rem;
+}
+.h-stat strong span{color:var(--accent)}
+.h-stat small{font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:.04em;text-transform:uppercase;font-weight:500}
+.hero-arrow{
+position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);
+color:rgba(255,255,255,.25);animation:bob 2.5s ease-in-out infinite;
+}
+.hero-arrow svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
 
-/* ── CHIFFRES ──────────────────── */
-#chiffres{
-  background:var(--cream);
-  padding:4.5rem clamp(1.5rem,5vw,4rem);
+/* ─── SHARED ─── */
+.sec{padding:4.5rem var(--pad)}
+.inner{max-width:var(--max);margin:0 auto}
+.label{
+font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+color:var(--mid);margin-bottom:.8rem;
 }
-.chiffres-inner{
-  max-width:1200px;margin:0 auto;
-  display:grid;grid-template-columns:repeat(3,1fr);
+.label.light{color:var(--accent)}
+.heading{
+font-family:var(--ff);font-size:clamp(1.7rem,3.2vw,2.5rem);
+font-weight:700;line-height:1.18;color:var(--deep);margin-bottom:.8rem;
 }
-.chiffre{
-  padding:1.5rem 2rem;
-  border-right:1px solid rgba(0,0,0,0.08);
-}
-.chiffre:last-child{border-right:none}
-.chiffre-number{
-  font-family:var(--font-display);
-  font-size:clamp(2.2rem,4vw,3.5rem);
-  font-weight:900;line-height:1;
-  color:var(--green-deep);
-  margin-bottom:.4rem;
-}
-.chiffre-desc{
-  font-size:.88rem;color:var(--text-muted);line-height:1.5;
-}
+.heading.light{color:#fff}
+.subdesc{font-size:.9rem;color:var(--txm);line-height:1.7;max-width:540px}
+.subdesc.light{color:rgba(255,255,255,.55)}
 
-/* ── SECTION SHARED ────────────── */
-.section-pad{padding:6rem clamp(1.5rem,5vw,4rem)}
-.section-inner{max-width:1200px;margin:0 auto}
-.section-label{
-  font-size:.7rem;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--green-mid);
-  margin-bottom:1rem;
+/* ─── OFFRES ─── */
+.offres{background:var(--offwh)}
+.offres-head{margin-bottom:3rem}
+.offres-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.ocard{
+padding:2.5rem;border-radius:8px;overflow:hidden;
+transition:transform .3s,box-shadow .3s;
 }
-.section-heading{
-  font-family:var(--font-display);
-  font-size:clamp(1.8rem,3.5vw,2.8rem);
-  font-weight:700;line-height:1.18;
-  color:var(--green-deep);
-  margin-bottom:1rem;
+.ocard:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.06)}
+.ocard.lt{background:var(--white);border:1px solid rgba(0,0,0,.04)}
+.ocard.dk{background:var(--deep)}
+.ocard-img{
+width:100%;height:180px;object-fit:cover;border-radius:6px;margin-bottom:1.8rem;
+background:var(--pale);min-height:0;
 }
-.section-heading.light{color:var(--white)}
-.section-desc{
-  font-size:.95rem;color:var(--text-muted);line-height:1.75;
-  max-width:580px;
+.ocard-img[data-failed]{display:none}
+.ocard.dk .ocard-img{opacity:.8;background:var(--mid)}
+.ocard-tag{
+display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.12em;
+text-transform:uppercase;padding:.25rem .7rem;border-radius:50px;margin-bottom:1rem;
 }
-.section-desc.light{color:rgba(255,255,255,0.6)}
+.ocard.lt .ocard-tag{background:var(--accent);color:var(--deep)}
+.ocard.dk .ocard-tag{background:var(--gold);color:var(--deep)}
+.ocard-title{
+font-family:var(--ff);font-size:1.35rem;font-weight:700;
+line-height:1.25;margin-bottom:.7rem;
+}
+.ocard.lt .ocard-title{color:var(--deep)}
+.ocard.dk .ocard-title{color:#fff}
+.ocard-desc{font-size:.85rem;line-height:1.7;margin-bottom:1.5rem}
+.ocard.lt .ocard-desc{color:var(--txm)}
+.ocard.dk .ocard-desc{color:rgba(255,255,255,.55)}
+.ocard-list{list-style:none;margin-bottom:1.5rem}
+.ocard-list li{
+font-size:.82rem;padding:.45rem 0;display:flex;align-items:center;gap:.6rem;
+}
+.ocard.lt .ocard-list li{color:var(--tx);border-bottom:1px solid rgba(0,0,0,.04)}
+.ocard.dk .ocard-list li{color:rgba(255,255,255,.65);border-bottom:1px solid rgba(255,255,255,.06)}
+.ocard-list li::before{
+content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;
+}
+.ocard.lt .ocard-list li::before{background:var(--accent)}
+.ocard.dk .ocard-list li::before{background:var(--gold)}
+.ocard-foot{
+font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+.ocard.lt .ocard-foot{color:var(--mid)}
+.ocard.dk .ocard-foot{color:var(--gold)}
 
-/* ── OFFRES ────────────────────── */
-#offres{background:var(--white)}
-.offres-header{margin-bottom:3.5rem}
-.offres-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.offre-card{
-  padding:2.8rem;
-  position:relative;overflow:hidden;
-  transition:transform .3s;
-  border-radius:6px;
+/* ─── DIFFERENCE ─── */
+.diff{overflow:hidden}
+.diff-photo{
+width:100%;height:360px;object-fit:cover;display:block;background:var(--mid);
 }
-.offre-card:hover{transform:translateY(-3px)}
-.offre-card.light{
-  background:var(--off-white);
-  border:1px solid rgba(0,0,0,0.04);
+.diff-photo[data-failed]{display:none}
+.diff-body{background:var(--gold);padding:3rem var(--pad)}
+.diff-inner{
+max-width:var(--max);margin:0 auto;
+display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;
 }
-.offre-card.dark{background:var(--green-deep)}
-.offre-photo{
-  width:100%;height:200px;
-  object-fit:cover;
-  border-radius:4px;
-  margin-bottom:2rem;
-  display:block;
-  background:var(--green-light);
+.diff-text h2{
+font-family:var(--ff);font-size:clamp(1.5rem,2.8vw,2.1rem);
+font-weight:700;line-height:1.22;color:var(--deep);margin-bottom:1rem;
 }
-.offre-card.dark .offre-photo{opacity:.85}
-.offre-tag{
-  display:inline-block;
-  font-size:.62rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;
-  padding:.3rem .8rem;margin-bottom:1.2rem;
-  border-radius:50px;
+.diff-text p{font-size:.88rem;line-height:1.75;color:var(--deep);opacity:.75}
+.diff-text p strong{font-weight:700;opacity:1}
+.diff-right .cta{background:var(--deep);color:#fff;margin-bottom:1.8rem}
+.diff-right .cta:hover{background:var(--mid)}
+.diff-steps{display:flex;flex-direction:column;gap:1rem}
+.diff-step{display:flex;gap:.8rem;align-items:flex-start}
+.diff-step b{
+font-family:var(--ff);font-size:1.15rem;font-weight:900;color:var(--deep);
+min-width:22px;line-height:1.5;
 }
-.offre-card.light .offre-tag{background:var(--green-accent);color:var(--green-deep)}
-.offre-card.dark .offre-tag{background:var(--gold);color:var(--green-deep)}
-.offre-title{
-  font-family:var(--font-display);
-  font-size:1.5rem;font-weight:700;
-  margin-bottom:.8rem;line-height:1.25;
-}
-.offre-card.light .offre-title{color:var(--green-deep)}
-.offre-card.dark .offre-title{color:var(--white)}
-.offre-desc{
-  font-size:.88rem;line-height:1.7;margin-bottom:1.8rem;
-}
-.offre-card.light .offre-desc{color:var(--text-muted)}
-.offre-card.dark .offre-desc{color:rgba(255,255,255,0.6)}
-.offre-list{list-style:none;margin-bottom:1.8rem}
-.offre-list li{
-  font-size:.84rem;
-  padding:.55rem 0;
-  display:flex;align-items:center;gap:.7rem;
-}
-.offre-card.light .offre-list li{
-  color:var(--text);
-  border-bottom:1px solid rgba(0,0,0,0.05);
-}
-.offre-card.dark .offre-list li{
-  color:rgba(255,255,255,0.7);
-  border-bottom:1px solid rgba(255,255,255,0.07);
-}
-.offre-list li::before{
-  content:'';display:block;width:6px;height:6px;
-  border-radius:50%;flex-shrink:0;
-}
-.offre-card.light .offre-list li::before{background:var(--green-accent)}
-.offre-card.dark .offre-list li::before{background:var(--gold)}
-.offre-badge{
-  font-size:.72rem;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;
-  display:flex;align-items:center;gap:.5rem;
-}
-.offre-card.light .offre-badge{color:var(--green-mid)}
-.offre-card.dark .offre-badge{color:var(--gold)}
-.offre-badge::before{content:'↗';font-size:1rem}
+.diff-step span{font-size:.82rem;line-height:1.6;color:var(--deep);opacity:.7}
 
-/* ── ENGAGEMENT (photo break) ──── */
-#engagement{
-  position:relative;
-  overflow:hidden;
+/* ─── PROCESS ─── */
+.process{background:var(--white)}
+.process-head{margin-bottom:3rem}
+.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.pstep{
+padding:2rem;background:var(--offwh);border-radius:8px;
+position:relative;overflow:hidden;transition:all .3s;
+border:1px solid rgba(0,0,0,.03);
 }
-.engagement-photo{
-  width:100%;height:420px;
-  object-fit:cover;display:block;
-  background:var(--green-mid);
+.pstep:hover{background:var(--pale);transform:translateY(-2px)}
+.pstep-n{
+font-family:var(--ff);font-size:3rem;font-weight:900;
+color:rgba(45,106,79,.06);line-height:1;margin-bottom:.6rem;
 }
-.engagement-body{
-  background:var(--gold);
-  padding:4rem clamp(1.5rem,5vw,4rem);
+.pstep-t{
+font-size:.75rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+color:var(--mid);margin-bottom:.6rem;
 }
-.engagement-inner{
-  max-width:1200px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;
-  align-items:start;
+.pstep-d{font-size:.82rem;color:var(--txm);line-height:1.65}
+.pstep-bar{
+position:absolute;bottom:0;left:0;width:0;height:3px;
+background:var(--accent);transition:width .35s;
 }
-.engagement-text h2{
-  font-family:var(--font-display);
-  font-size:clamp(1.6rem,3vw,2.4rem);
-  font-weight:700;line-height:1.2;
-  color:var(--green-deep);
-  margin-bottom:1.2rem;
+.pstep:hover .pstep-bar{width:100%}
+
+/* ─── CONFORMITE ─── */
+.conf{background:var(--deep);position:relative;overflow:hidden}
+.conf-bg{
+position:absolute;right:-2vw;top:50%;transform:translateY(-50%);
+font-family:var(--ff);font-size:clamp(7rem,16vw,14rem);font-weight:900;
+color:rgba(82,183,136,.03);pointer-events:none;user-select:none;line-height:1;
 }
-.engagement-text p{
-  font-size:.92rem;line-height:1.75;
-  color:var(--green-deep);
-  opacity:.8;
+.conf-head{margin-bottom:2.5rem}
+.conf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.cblock{
+background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+border-radius:8px;padding:2rem;
 }
-.engagement-text p strong{font-weight:700;opacity:1}
-.engagement-right{padding-top:.5rem}
-.engagement-right .btn-engagement{
-  display:inline-block;
-  background:var(--green-deep);color:var(--white);
-  font-weight:700;font-size:.8rem;letter-spacing:.06em;
-  text-transform:uppercase;padding:.85rem 2rem;
-  text-decoration:none;border-radius:50px;
-  transition:all .3s;
+.cblock-label{
+font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+color:var(--accent);margin-bottom:.8rem;
 }
-.engagement-right .btn-engagement:hover{background:var(--green-mid)}
-.engagement-steps{
-  display:flex;flex-direction:column;gap:1.2rem;
-  margin-top:2rem;
+.cblock-title{
+font-family:var(--ff);font-size:1.05rem;font-weight:700;
+color:#fff;margin-bottom:.7rem;line-height:1.3;
 }
-.engagement-step{
-  display:flex;align-items:flex-start;gap:1rem;
-}
-.engagement-step-num{
-  font-family:var(--font-display);
-  font-size:1.3rem;font-weight:900;
-  color:var(--green-deep);
-  min-width:28px;
-  line-height:1.4;
-}
-.engagement-step-text{
-  font-size:.85rem;line-height:1.6;
-  color:var(--green-deep);opacity:.75;
+.cblock-desc{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.65;margin-bottom:1rem}
+.cblock-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.ctag{
+font-size:.58rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+background:rgba(82,183,136,.1);color:var(--accent);
+padding:.2rem .5rem;border-radius:3px;
 }
 
-/* ── PROCESS ───────────────────── */
-#process{background:var(--off-white)}
-.process-header{margin-bottom:3.5rem}
-.process-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1rem;
-}
-.process-step{
-  padding:2.2rem;background:var(--white);
-  border-radius:6px;
-  position:relative;overflow:hidden;
-  transition:all .3s;
-  border:1px solid rgba(0,0,0,0.04);
-}
-.process-step:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 30px rgba(0,0,0,0.06);
-}
-.process-step-num{
-  font-family:var(--font-display);
-  font-size:3.5rem;font-weight:900;
-  color:rgba(45,106,79,.07);
-  line-height:1;margin-bottom:.8rem;
-}
-.process-step-title{
-  font-size:.78rem;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;
-  color:var(--green-mid);margin-bottom:.7rem;
-}
-.process-step-desc{
-  font-size:.85rem;color:var(--text-muted);line-height:1.65;
-}
-.process-step-line{
-  position:absolute;bottom:0;left:0;
-  width:0;height:3px;background:var(--green-accent);
-  transition:width .4s ease;
-}
-.process-step:hover .process-step-line{width:100%}
-
-/* ── CONFORMITE ────────────────── */
-#conformite{
-  background:var(--green-deep);
-  position:relative;
-  overflow:hidden;
-}
-.conformite-bg-text{
-  position:absolute;
-  right:-2vw;top:50%;transform:translateY(-50%);
-  font-family:var(--font-display);
-  font-size:clamp(8rem,18vw,16rem);
-  font-weight:900;color:rgba(82,183,136,.04);
-  pointer-events:none;user-select:none;
-  line-height:1;
-}
-.conformite-header{margin-bottom:3rem}
-.conformite-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1rem;
-}
-.conformite-bloc{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:6px;
-  padding:2.2rem;
-}
-.conformite-bloc-label{
-  font-size:.62rem;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--green-accent);
-  margin-bottom:1rem;
-}
-.conformite-bloc-title{
-  font-family:var(--font-display);
-  font-size:1.1rem;font-weight:700;
-  color:var(--white);margin-bottom:.8rem;
-  line-height:1.3;
-}
-.conformite-bloc-desc{
-  font-size:.84rem;color:rgba(255,255,255,0.5);line-height:1.65;
-  margin-bottom:1.2rem;
-}
-.conformite-tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.conformite-tag{
-  font-size:.6rem;font-weight:600;letter-spacing:.06em;
-  background:rgba(82,183,136,0.12);color:var(--green-accent);
-  padding:.25rem .6rem;border-radius:3px;
-  text-transform:uppercase;
-}
-
-/* ── GROUPE ────────────────────── */
-#groupe{
-  background:var(--green-light);
-  padding:3.5rem clamp(1.5rem,5vw,4rem);
-}
+/* ─── GROUPE ─── */
+.groupe{background:var(--pale);padding:2.5rem var(--pad)}
 .groupe-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:1.5rem;
+max-width:var(--max);margin:0 auto;
+display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
 }
-.groupe-left p{
-  font-size:.68rem;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--green-mid);
-  margin-bottom:.4rem;
+.groupe-left p{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:.3rem}
+.groupe-left h3{font-family:var(--ff);font-size:1.25rem;font-weight:700;color:var(--deep)}
+.poles{display:flex;flex-wrap:wrap;gap:.4rem}
+.pole{
+font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+border:1px solid rgba(26,58,42,.12);color:var(--txm);
+padding:.35rem .8rem;border-radius:50px;transition:all .2s;
 }
-.groupe-left h3{
-  font-family:var(--font-display);
-  font-size:1.35rem;font-weight:700;color:var(--green-deep);
-}
-.groupe-poles{display:flex;flex-wrap:wrap;gap:.5rem}
-.pole-link{
-  font-size:.7rem;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;
-  border:1px solid rgba(26,58,42,0.15);
-  color:var(--text-muted);
-  padding:.4rem .9rem;border-radius:50px;
-  text-decoration:none;transition:all .2s;
-}
-.pole-link:hover{border-color:var(--green-accent);color:var(--green-mid)}
-.pole-link.active{
-  border-color:var(--green-accent);
-  color:var(--green-deep);
-  background:var(--green-accent);
-}
+.pole:hover{border-color:var(--accent);color:var(--mid)}
+.pole.on{border-color:var(--accent);color:var(--deep);background:var(--accent)}
 
-/* ── CONTACT ───────────────────── */
-#contact{background:var(--cream)}
-.contact-inner{
-  display:grid;grid-template-columns:1fr 1.3fr;
-  gap:5rem;align-items:start;
+/* ─── CONTACT ─── */
+.contact{background:var(--cream)}
+.contact-grid{
+display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start;
 }
 .contact-left h2{
-  font-family:var(--font-display);
-  font-size:clamp(1.6rem,3vw,2.4rem);
-  font-weight:700;color:var(--green-deep);
-  margin-bottom:1rem;line-height:1.2;
+font-family:var(--ff);font-size:clamp(1.5rem,2.8vw,2.2rem);
+font-weight:700;color:var(--deep);margin-bottom:.8rem;line-height:1.2;
 }
-.contact-left>p{
-  font-size:.9rem;color:var(--text-muted);line-height:1.7;
-  margin-bottom:2.5rem;
+.contact-left>p{font-size:.88rem;color:var(--txm);line-height:1.7;margin-bottom:2rem}
+.c-info{display:flex;flex-direction:column;gap:.8rem}
+.c-info-row{display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--tx)}
+.c-info-row svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:1.5;flex-shrink:0}
+.cform{display:flex;flex-direction:column;gap:1rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.fgroup{display:flex;flex-direction:column;gap:.3rem}
+.fgroup label{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.fgroup input,.fgroup select,.fgroup textarea{
+border:1px solid rgba(0,0,0,.1);background:var(--white);
+font-family:var(--fb);font-size:.85rem;color:var(--tx);
+padding:.7rem .9rem;border-radius:4px;outline:none;
+transition:border-color .25s;-webkit-appearance:none;appearance:none;
 }
-.contact-info{display:flex;flex-direction:column;gap:1rem}
-.contact-info-item{
-  display:flex;align-items:center;gap:.8rem;
-  font-size:.85rem;color:var(--text);
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:var(--accent)}
+.fgroup textarea{resize:vertical;min-height:100px}
+.fsubmit{
+background:var(--deep);color:#fff;border:none;
+font-family:var(--fb);font-size:.78rem;font-weight:700;
+letter-spacing:.08em;text-transform:uppercase;
+padding:.8rem 1.8rem;border-radius:50px;cursor:pointer;
+transition:background .25s;align-self:flex-start;
 }
-.contact-info-item svg{
-  width:16px;height:16px;stroke:var(--green-accent);fill:none;
-  stroke-width:1.5;flex-shrink:0;
-}
-.contact-form{display:flex;flex-direction:column;gap:1.1rem}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.form-group{display:flex;flex-direction:column;gap:.4rem}
-.form-group label{
-  font-size:.68rem;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--green-mid);
-}
-.form-group input,
-.form-group select,
-.form-group textarea{
-  border:1px solid rgba(0,0,0,0.1);
-  background:var(--white);
-  font-family:var(--font-body);font-size:.88rem;color:var(--text);
-  padding:.8rem 1rem;
-  outline:none;transition:border-color .3s;
-  -webkit-appearance:none;appearance:none;
-  border-radius:4px;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{border-color:var(--green-accent)}
-.form-group textarea{resize:vertical;min-height:110px}
-.form-submit{
-  background:var(--green-deep);color:var(--white);
-  border:none;font-family:var(--font-body);
-  font-size:.8rem;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;padding:.9rem 2rem;
-  cursor:pointer;transition:background .3s;
-  align-self:flex-start;border-radius:50px;
-}
-.form-submit:hover{background:var(--green-mid)}
+.fsubmit:hover{background:var(--mid)}
 
-/* ── FOOTER ────────────────────── */
-footer{
-  background:var(--dark);
-  padding:4rem clamp(1.5rem,5vw,4rem) 2rem;
+/* ─── FOOTER ─── */
+footer{background:var(--dark);padding:3.5rem var(--pad) 1.5rem}
+.ft-inner{max-width:var(--max);margin:0 auto}
+.ft-top{
+display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;
+padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.07);
 }
-.footer-inner{
-  max-width:1200px;margin:0 auto;
+.ft-brand .logo{display:inline-block;margin-bottom:.8rem;font-size:1.1rem}
+.ft-brand p{font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.6;max-width:260px}
+.ft-social{display:flex;gap:.6rem;margin-top:1rem}
+.ft-social a{
+display:flex;align-items:center;justify-content:center;
+width:32px;height:32px;border:1px solid rgba(255,255,255,.1);
+border-radius:50%;transition:all .2s;
 }
-.footer-top{
-  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;
-  gap:3rem;
-  padding-bottom:3rem;
-  border-bottom:1px solid rgba(255,255,255,0.08);
+.ft-social a:hover{border-color:var(--accent);background:rgba(82,183,136,.08)}
+.ft-social a svg{width:14px;height:14px;fill:rgba(255,255,255,.45)}
+.ft-social a:hover svg{fill:var(--accent)}
+.ft-col h4{
+font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+color:var(--accent);margin-bottom:1rem;
 }
-.footer-brand .nav-logo{
-  display:inline-block;margin-bottom:1rem;
-  font-size:1.2rem;
+.ft-col a{display:block;font-size:.78rem;color:rgba(255,255,255,.4);padding:.25rem 0;transition:color .2s}
+.ft-col a:hover{color:#fff}
+.ft-bot{
+display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;
+padding-top:1.5rem;
 }
-.footer-brand p{
-  font-size:.82rem;color:rgba(255,255,255,0.4);
-  line-height:1.65;max-width:280px;
-}
-.footer-col h4{
-  font-size:.65rem;font-weight:700;letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--green-accent);margin-bottom:1.2rem;
-}
-.footer-col a{
-  display:block;font-size:.82rem;
-  color:rgba(255,255,255,0.5);
-  text-decoration:none;
-  padding:.3rem 0;transition:color .2s;
-}
-.footer-col a:hover{color:var(--white)}
-.footer-social{
-  display:flex;gap:.8rem;margin-top:1.2rem;
-}
-.footer-social a{
-  display:flex;align-items:center;justify-content:center;
-  width:36px;height:36px;
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:50%;
-  transition:all .2s;
-  padding:0;
-}
-.footer-social a:hover{
-  border-color:var(--green-accent);
-  background:rgba(82,183,136,0.1);
-}
-.footer-social a svg{
-  width:16px;height:16px;
-  fill:rgba(255,255,255,0.5);
-}
-.footer-social a:hover svg{fill:var(--green-accent)}
-.footer-bottom{
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:.8rem;
-  padding-top:2rem;
-}
-.footer-copy{
-  font-size:.7rem;color:rgba(255,255,255,0.25);
-  letter-spacing:.03em;
-}
-.footer-legal{display:flex;gap:1.5rem}
-.footer-legal a{
-  font-size:.7rem;color:rgba(255,255,255,0.25);
-  text-decoration:none;transition:color .2s;
-}
-.footer-legal a:hover{color:rgba(255,255,255,0.5)}
+.ft-copy{font-size:.66rem;color:rgba(255,255,255,.2);letter-spacing:.02em}
+.ft-legal{display:flex;gap:1.2rem}
+.ft-legal a{font-size:.66rem;color:rgba(255,255,255,.2);transition:color .2s}
+.ft-legal a:hover{color:rgba(255,255,255,.45)}
 
-/* ── ANIMATIONS ────────────────── */
-.reveal{
-  opacity:0;transform:translateY(24px);
-  transition:opacity .65s ease,transform .65s ease;
-}
-.reveal.visible{opacity:1;transform:none}
-.reveal-d1{transition-delay:.1s}
-.reveal-d2{transition-delay:.2s}
-.reveal-d3{transition-delay:.3s}
-.reveal-d4{transition-delay:.4s}
-.reveal-d5{transition-delay:.5s}
+/* (no scroll animations - content always visible) */
 
-/* ── RESPONSIVE ────────────────── */
+/* ─── MOBILE MENU ─── */
+.mmenu{
+display:none;position:fixed;top:64px;left:0;right:0;z-index:99;
+background:#fff;padding:1rem var(--pad);
+flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+.mmenu.open{display:flex}
+.mmenu a{
+color:var(--tx);font-size:.9rem;font-weight:500;
+padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.04);
+}
+
+/* ─── RESPONSIVE ─── */
 @media(max-width:900px){
-  .nav-links{display:none}
-  .burger{display:flex}
-  .nav-cta{display:none}
-  .chiffres-inner{grid-template-columns:1fr}
-  .chiffre{border-right:none;border-bottom:1px solid rgba(0,0,0,0.06);padding:1.2rem 0}
-  .chiffre:last-child{border-bottom:none}
-  .offres-grid{grid-template-columns:1fr}
-  .engagement-photo{height:260px}
-  .engagement-inner{grid-template-columns:1fr;gap:2rem}
-  .process-grid{grid-template-columns:1fr}
-  .conformite-grid{grid-template-columns:1fr}
-  .conformite-bg-text{display:none}
-  .contact-inner{grid-template-columns:1fr;gap:3rem}
-  .form-row{grid-template-columns:1fr}
-  .groupe-inner{flex-direction:column;align-items:flex-start}
-  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
-  .footer-bottom{flex-direction:column;align-items:flex-start}
+.nav-links,.nav-cta{display:none!important}
+.burger{display:flex}
+.hero-stats{grid-template-columns:1fr;gap:0}
+.h-stat{padding:.8rem 0;border-right:none!important}
+.h-stat:not(:last-child){border-bottom:1px solid rgba(255,255,255,.06)}
+.offres-grid{grid-template-columns:1fr}
+.diff-photo{height:220px}
+.diff-inner{grid-template-columns:1fr;gap:2rem}
+.process-grid{grid-template-columns:1fr}
+.conf-grid{grid-template-columns:1fr}
+.conf-bg{display:none}
+.contact-grid{grid-template-columns:1fr;gap:2.5rem}
+.frow{grid-template-columns:1fr}
+.groupe-inner{flex-direction:column;align-items:flex-start}
+.ft-top{grid-template-columns:1fr 1fr;gap:1.5rem}
+.ft-bot{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+.ft-top{grid-template-columns:1fr}
 }
 
-@media(max-width:600px){
-  .footer-top{grid-template-columns:1fr}
-}
-
-/* Mobile menu */
-.mobile-menu{
-  display:none;position:fixed;
-  top:72px;left:0;right:0;
-  background:var(--white);
-  padding:1.5rem clamp(1.5rem,5vw,4rem);
-  flex-direction:column;gap:0;
-  z-index:99;
-  box-shadow:0 8px 30px rgba(0,0,0,0.08);
-}
-.mobile-menu.open{display:flex}
-.mobile-menu a{
-  color:var(--text);text-decoration:none;
-  font-size:.95rem;font-weight:500;
-  padding:1rem 0;
-  border-bottom:1px solid rgba(0,0,0,0.05);
-}
-.mobile-menu a:last-child{border-bottom:none}
+/* ─── LANG (must be last) ─── */
+[data-en]{display:none!important}
+body.en [data-fr]{display:none!important}
+body.en [data-en]{display:revert!important}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">Cohesif<span> Agro</span></a>
+  <a href="#hero" class="logo">Cohesif<b> Agro</b></a>
   <ul class="nav-links">
     <li><a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a></li>
     <li><a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a></li>
-    <li><a href="#conformite" data-fr>Conformité</a><a href="#conformite" data-en>Compliance</a></li>
+    <li><a href="#conf" data-fr>Conformité</a><a href="#conf" data-en>Compliance</a></li>
     <li><a href="#contact" data-fr>Contact</a><a href="#contact" data-en>Contact</a></li>
   </ul>
-  <div class="nav-right">
-    <button class="lang-toggle" id="langBtn">EN</button>
+  <div class="nav-r">
+    <button class="lang-btn" id="langBtn">EN</button>
     <a href="#contact" class="nav-cta" data-fr>Demander un devis</a>
     <a href="#contact" class="nav-cta" data-en>Get a quote</a>
-    <button class="burger" id="burgerBtn" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+<div class="mmenu" id="mmenu">
   <a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a>
   <a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a>
-  <a href="#conformite" data-fr>Conformité</a><a href="#conformite" data-en>Compliance</a>
+  <a href="#conf" data-fr>Conformité</a><a href="#conf" data-en>Compliance</a>
   <a href="#contact" data-fr>Contact</a><a href="#contact" data-en>Contact</a>
 </div>
 
-<!-- ════════ HERO ════════ -->
-<section id="hero">
+<!-- HERO -->
+<section class="hero" id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-inner">
-    <div class="hero-content">
-      <p class="hero-label" data-fr>Sourcing B2B — Industrie agroalimentaire</p>
-      <p class="hero-label" data-en>B2B Sourcing — Food industry</p>
-      <h1 class="hero-title">
-        <span data-fr>Votre partenaire sourcing pour <em>l'industrie agroalimentaire</em></span>
-        <span data-en>Your sourcing partner for <em>the food industry</em></span>
-      </h1>
-      <p class="hero-desc" data-fr>Équipements industriels et packaging alimentaire sourcés en Chine, livrés conformes en France. Process clé en main. Aucune formalité à votre charge.</p>
-      <p class="hero-desc" data-en>Industrial equipment and food packaging sourced from China, delivered compliant in France. Turnkey process. No paperwork on your end.</p>
-      <a href="#contact" class="btn-hero" data-fr>Demander un devis</a>
-      <a href="#contact" class="btn-hero" data-en>Request a quote</a>
+  <div class="hero-wrap">
+    <p class="hero-label" data-fr>Sourcing B2B - Industrie agroalimentaire</p>
+    <p class="hero-label" data-en>B2B Sourcing - Food industry</p>
+    <h1 class="hero-h">
+      <span data-fr>Vos équipements et emballages agroalimentaires, <em>sourcés en Chine, livrés conformes en France.</em></span>
+      <span data-en>Your food industry equipment and packaging, <em>sourced from China, delivered compliant in France.</em></span>
+    </h1>
+    <p class="hero-p" data-fr>Process clé en main, conformité CE garantie, zéro formalité à votre charge. Un seul interlocuteur pour toute la chaîne.</p>
+    <p class="hero-p" data-en>Turnkey process, guaranteed CE compliance, zero paperwork on your end. One point of contact for the entire chain.</p>
+    <div>
+      <a href="#contact" class="cta" data-fr>Demander un devis</a>
+      <a href="#contact" class="cta" data-en>Request a quote</a>
+      <a href="#offres" class="cta-outline" data-fr>Découvrir nos offres</a>
+      <a href="#offres" class="cta-outline" data-en>Discover our offer</a>
     </div>
   </div>
-  <a href="#chiffres" class="hero-scroll" aria-label="Défiler">
-    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-  </a>
-</section>
-
-<!-- ════════ CHIFFRES CLÉS ════════ -->
-<section id="chiffres">
-  <div class="chiffres-inner">
-    <div class="chiffre reveal">
-      <div class="chiffre-number">35–55%</div>
-      <p class="chiffre-desc" data-fr>d'économie vs fournisseurs européens</p>
-      <p class="chiffre-desc" data-en>savings vs European suppliers</p>
+  <div class="hero-stats">
+    <div class="h-stat">
+      <strong>35<span>-</span>55%</strong>
+      <small data-fr>d'économie vs fournisseurs EU</small>
+      <small data-en>savings vs EU suppliers</small>
     </div>
-    <div class="chiffre reveal reveal-d1">
-      <div class="chiffre-number">30–45j</div>
-      <p class="chiffre-desc" data-fr>délai de livraison moyen</p>
-      <p class="chiffre-desc" data-en>average delivery lead time</p>
+    <div class="h-stat">
+      <strong>30<span>-</span>45j</strong>
+      <small data-fr>délai de livraison</small>
+      <small data-en>delivery lead time</small>
     </div>
-    <div class="chiffre reveal reveal-d2">
-      <div class="chiffre-number">CE ✓</div>
-      <p class="chiffre-desc" data-fr>conformité garantie à chaque commande</p>
-      <p class="chiffre-desc" data-en>compliance guaranteed on every order</p>
+    <div class="h-stat">
+      <strong>CE</strong>
+      <small data-fr>conformité garantie</small>
+      <small data-en>compliance guaranteed</small>
     </div>
   </div>
+  <a href="#offres" class="hero-arrow" aria-label="Scroll"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
 </section>
 
-<!-- ════════ NOS OFFRES ════════ -->
-<section id="offres" class="section-pad">
-  <div class="section-inner">
-    <div class="offres-header reveal">
-      <p class="section-label" data-fr>Nos offres</p>
-      <p class="section-label" data-en>Our offer</p>
-      <h2 class="section-heading" data-fr>Deux métiers.<br>Un seul interlocuteur.</h2>
-      <h2 class="section-heading" data-en>Two services.<br>One point of contact.</h2>
-      <p class="section-desc" data-fr>Nous sourceons aussi bien vos équipements de production que vos emballages alimentaires. Aucun autre prestataire ne propose les deux.</p>
-      <p class="section-desc" data-en>We source both your production equipment and your food packaging. No other provider offers both.</p>
+<!-- OFFRES -->
+<section class="offres sec" id="offres">
+  <div class="inner">
+    <div class="offres-head">
+      <p class="label" data-fr>Nos offres</p>
+      <p class="label" data-en>Our offer</p>
+      <h2 class="heading" data-fr>Deux métiers. Un seul interlocuteur.</h2>
+      <h2 class="heading" data-en>Two services. One point of contact.</h2>
+      <p class="subdesc" data-fr>Nous sourçons vos équipements de production et vos emballages alimentaires. Aucun autre prestataire ne propose les deux.</p>
+      <p class="subdesc" data-en>We source both your production equipment and food packaging. No other provider offers both.</p>
     </div>
     <div class="offres-grid">
-      <div class="offre-card light reveal reveal-d1">
-        <img src="https://images.unsplash.com/photo-1565793298710-cf7c471bae2d?auto=format&fit=crop&w=700&q=80" alt="Équipements industriels agroalimentaires" class="offre-photo" loading="lazy"/>
-        <span class="offre-tag" data-fr>Équipements IAA</span>
-        <span class="offre-tag" data-en>Food equipment</span>
-        <h3 class="offre-title" data-fr>Machines & Matériel Industriel</h3>
-        <h3 class="offre-title" data-en>Industrial Machines & Equipment</h3>
-        <p class="offre-desc" data-fr>Fournisseurs chinois certifiés CE, vérifiés par nos soins. Prix usine, livraison dédouanée sur site.</p>
-        <p class="offre-desc" data-en>CE-certified Chinese suppliers, verified by our team. Factory pricing, delivered and cleared on site.</p>
-        <ul class="offre-list" data-fr>
+      <div class="ocard lt">
+        <img src="https://images.unsplash.com/photo-1565793298710-cf7c471bae2d?auto=format&fit=crop&w=700&q=80" alt="Équipements industriels agroalimentaires" class="ocard-img" loading="lazy" onerror="this.setAttribute('data-failed','1')"/>
+        <span class="ocard-tag" data-fr>Équipements IAA</span>
+        <span class="ocard-tag" data-en>Food equipment</span>
+        <h3 class="ocard-title" data-fr>Machines et matériel industriel</h3>
+        <h3 class="ocard-title" data-en>Industrial machines and equipment</h3>
+        <p class="ocard-desc" data-fr>Fournisseurs chinois certifiés CE, vérifiés par nos soins. Prix usine, livraison dédouanée sur site.</p>
+        <p class="ocard-desc" data-en>CE-certified Chinese suppliers, verified by our team. Factory pricing, delivered and cleared on site.</p>
+        <ul class="ocard-list" data-fr>
           <li>Matériel inox — cuves, tables, bacs</li>
-          <li>Operculeuses & filmeuses</li>
+          <li>Operculeuses et filmeuses</li>
           <li>Étiqueteuses automatiques</li>
           <li>Lignes de conditionnement</li>
-          <li>Peseuses & convoyeurs</li>
+          <li>Peseuses et convoyeurs</li>
         </ul>
-        <ul class="offre-list" data-en>
-          <li>Stainless steel — tanks, tables, bins</li>
-          <li>Sealers & wrappers</li>
+        <ul class="ocard-list" data-en>
+          <li>Stainless steel - tanks, tables, bins</li>
+          <li>Sealers and wrappers</li>
           <li>Automatic labelers</li>
           <li>Packaging lines</li>
-          <li>Weighers & conveyors</li>
+          <li>Weighers and conveyors</li>
         </ul>
-        <p class="offre-badge" data-fr>Économie moyenne 40%</p>
-        <p class="offre-badge" data-en>Average 40% savings</p>
+        <p class="ocard-foot" data-fr>Économie moyenne 40%</p>
+        <p class="ocard-foot" data-en>Average 40% savings</p>
       </div>
-      <div class="offre-card dark reveal reveal-d2">
-        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=700&q=80" alt="Packaging alimentaire" class="offre-photo" loading="lazy"/>
-        <span class="offre-tag" data-fr>Packaging alimentaire</span>
-        <span class="offre-tag" data-en>Food packaging</span>
-        <h3 class="offre-title" data-fr>Emballages Conformes CE</h3>
-        <h3 class="offre-title" data-en>CE-Compliant Packaging</h3>
-        <p class="offre-desc" data-fr>Barquettes, films, sachets, carton. Conformes CE 1935/2004. Personnalisables. Commandes récurrentes trimestrielles.</p>
-        <p class="offre-desc" data-en>Trays, films, pouches, cardboard. Compliant with CE 1935/2004. Customizable. Quarterly recurring orders.</p>
-        <ul class="offre-list" data-fr>
+      <div class="ocard dk">
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=700&q=80" alt="Packaging alimentaire" class="ocard-img" loading="lazy" onerror="this.setAttribute('data-failed','1')"/>
+        <span class="ocard-tag" data-fr>Packaging alimentaire</span>
+        <span class="ocard-tag" data-en>Food packaging</span>
+        <h3 class="ocard-title" data-fr>Emballages conformes CE</h3>
+        <h3 class="ocard-title" data-en>CE-compliant packaging</h3>
+        <p class="ocard-desc" data-fr>Barquettes, films, sachets, carton. Conformes CE 1935/2004. Personnalisables. Commandes récurrentes trimestrielles.</p>
+        <p class="ocard-desc" data-en>Trays, films, pouches, cardboard. Compliant with CE 1935/2004. Customizable. Quarterly recurring orders.</p>
+        <ul class="ocard-list" data-fr>
           <li>Barquettes thermoformées</li>
-          <li>Films & sachets sous vide</li>
+          <li>Films et sachets sous vide</li>
           <li>Sachets zip alimentaires</li>
           <li>Emballages carton personnalisés</li>
-          <li>Films biosourcés & recyclés</li>
+          <li>Films biosourcés et recyclés</li>
         </ul>
-        <ul class="offre-list" data-en>
+        <ul class="ocard-list" data-en>
           <li>Thermoformed trays</li>
-          <li>Vacuum films & pouches</li>
+          <li>Vacuum films and pouches</li>
           <li>Food zip pouches</li>
           <li>Custom cardboard packaging</li>
-          <li>Bio-based & recycled films</li>
+          <li>Bio-based and recycled films</li>
         </ul>
-        <p class="offre-badge" data-fr>Revenu récurrent trimestriel</p>
-        <p class="offre-badge" data-en>Quarterly recurring supply</p>
+        <p class="ocard-foot" data-fr>Revenu récurrent trimestriel</p>
+        <p class="ocard-foot" data-en>Quarterly recurring supply</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════ ENGAGEMENT / DIFFÉRENCE ════════ -->
-<section id="engagement">
-  <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1920&q=80" alt="Champs agricoles" class="engagement-photo" loading="lazy"/>
-  <div class="engagement-body">
-    <div class="engagement-inner">
-      <div class="engagement-text reveal">
-        <h2 data-fr>Un partenaire engagé,<br>de la machine à l'emballage</h2>
-        <h2 data-en>A committed partner,<br>from machine to packaging</h2>
-        <p data-fr>La plupart des agents sourcing travaillent sur un seul segment. <strong>Cohesif Agro accompagne ses clients sur les deux</strong> — de la machine à l'emballage. Un seul interlocuteur, des économies sur toute la chaîne. Jusqu'à 55% d'économie sur l'ensemble de votre budget.</p>
-        <p data-en>Most sourcing agents work on a single segment. <strong>Cohesif Agro supports clients on both</strong> — from machine to packaging. One contact, savings across the entire chain. Up to 55% savings on your total budget.</p>
+<!-- DIFFERENCE -->
+<section class="diff" id="diff">
+  <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1920&q=80" alt="Champs agricoles" class="diff-photo" loading="lazy" onerror="this.setAttribute('data-failed','1')"/>
+  <div class="diff-body">
+    <div class="diff-inner">
+      <div class="diff-text">
+        <h2 data-fr>Un partenaire engagé, de la machine a l'emballage</h2>
+        <h2 data-en>A committed partner, from machine to packaging</h2>
+        <p data-fr>La plupart des agents sourcing travaillent sur un seul segment. <strong>Cohesif Agro accompagne ses clients sur les deux</strong> - de la machine a l'emballage. Un seul interlocuteur, des économies sur toute la chaîne. Jusqu'a 55% d'économie sur l'ensemble de votre budget.</p>
+        <p data-en>Most sourcing agents work on a single segment. <strong>Cohesif Agro supports clients on both</strong> - from machine to packaging. One contact, savings across the entire chain. Up to 55% savings on your total budget.</p>
       </div>
-      <div class="engagement-right reveal reveal-d2">
-        <a href="#contact" class="btn-engagement" data-fr>Découvrir notre accompagnement</a>
-        <a href="#contact" class="btn-engagement" data-en>Discover our support</a>
-        <div class="engagement-steps">
-          <div class="engagement-step">
-            <span class="engagement-step-num">1.</span>
-            <p class="engagement-step-text" data-fr>Commande équipement — forte marge unitaire, premier contact client</p>
-            <p class="engagement-step-text" data-en>Equipment order — high unit margin, first client contact</p>
+      <div class="diff-right">
+        <a href="#contact" class="cta" data-fr>Découvrir notre accompagnement</a>
+        <a href="#contact" class="cta" data-en>Discover our support</a>
+        <div class="diff-steps">
+          <div class="diff-step">
+            <b>1.</b>
+            <span data-fr>Commande equipement - forte marge unitaire, premier contact client</span>
+            <span data-en>Equipment order - high unit margin, first client contact</span>
           </div>
-          <div class="engagement-step">
-            <span class="engagement-step-num">2.</span>
-            <p class="engagement-step-text" data-fr>Packaging récurrent — réapprovisionnement trimestriel automatique</p>
-            <p class="engagement-step-text" data-en>Recurring packaging — automatic quarterly replenishment</p>
+          <div class="diff-step">
+            <b>2.</b>
+            <span data-fr>Packaging récurrent - réapprovisionnement trimestriel automatique</span>
+            <span data-en>Recurring packaging - automatic quarterly replenishment</span>
           </div>
-          <div class="engagement-step">
-            <span class="engagement-step-num">3.</span>
-            <p class="engagement-step-text" data-fr>Un seul interlocuteur — vous ne gérez que Cohesif Agro</p>
-            <p class="engagement-step-text" data-en>One point of contact — you only manage Cohesif Agro</p>
+          <div class="diff-step">
+            <b>3.</b>
+            <span data-fr>Un seul interlocuteur - vous ne gérez que Cohesif Agro</span>
+            <span data-en>One point of contact - you only manage Cohesif Agro</span>
           </div>
         </div>
       </div>
@@ -831,198 +586,190 @@ footer{
   </div>
 </section>
 
-<!-- ════════ PROCESS ════════ -->
-<section id="process" class="section-pad">
-  <div class="section-inner">
-    <div class="process-header reveal">
-      <p class="section-label" data-fr>Notre process</p>
-      <p class="section-label" data-en>Our process</p>
-      <h2 class="section-heading" data-fr>Six étapes. Aucune formalité<br>à votre charge.</h2>
-      <h2 class="section-heading" data-en>Six steps. No paperwork<br>on your end.</h2>
+<!-- PROCESS -->
+<section class="process sec" id="process">
+  <div class="inner">
+    <div class="process-head">
+      <p class="label" data-fr>Notre process</p>
+      <p class="label" data-en>Our process</p>
+      <h2 class="heading" data-fr>Six étapes. Zéro formalité à votre charge.</h2>
+      <h2 class="heading" data-en>Six steps. Zero paperwork on your end.</h2>
     </div>
     <div class="process-grid">
-      <div class="process-step reveal reveal-d1">
-        <div class="process-step-num">01</div>
-        <h3 class="process-step-title" data-fr>Premier contact</h3>
-        <h3 class="process-step-title" data-en>First contact</h3>
-        <p class="process-step-desc" data-fr>Vous décrivez votre besoin. Nous qualifions ensemble le projet — équipements, packaging ou les deux.</p>
-        <p class="process-step-desc" data-en>You describe your need. We qualify the project together — equipment, packaging, or both.</p>
-        <div class="process-step-line"></div>
+      <div class="pstep">
+        <div class="pstep-n">01</div>
+        <h3 class="pstep-t" data-fr>Premier contact</h3>
+        <h3 class="pstep-t" data-en>First contact</h3>
+        <p class="pstep-d" data-fr>Vous décrivez votre besoin. Nous qualifions ensemble le projet - équipements, packaging ou les deux.</p>
+        <p class="pstep-d" data-en>You describe your need. We qualify the project together - equipment, packaging, or both.</p>
+        <div class="pstep-bar"></div>
       </div>
-      <div class="process-step reveal reveal-d2">
-        <div class="process-step-num">02</div>
-        <h3 class="process-step-title" data-fr>Cahier des charges</h3>
-        <h3 class="process-step-title" data-en>Specifications</h3>
-        <p class="process-step-desc" data-fr>Nous formalisons vos spécifications techniques et vos contraintes réglementaires.</p>
-        <p class="process-step-desc" data-en>We formalize your technical specs and regulatory requirements.</p>
-        <div class="process-step-line"></div>
+      <div class="pstep">
+        <div class="pstep-n">02</div>
+        <h3 class="pstep-t" data-fr>Cahier des charges</h3>
+        <h3 class="pstep-t" data-en>Specifications</h3>
+        <p class="pstep-d" data-fr>Nous formalisons vos spécifications techniques et vos contraintes réglementaires.</p>
+        <p class="pstep-d" data-en>We formalize your technical specs and regulatory requirements.</p>
+        <div class="pstep-bar"></div>
       </div>
-      <div class="process-step reveal reveal-d3">
-        <div class="process-step-num">03</div>
-        <h3 class="process-step-title" data-fr>Sourcing fournisseur</h3>
-        <h3 class="process-step-title" data-en>Supplier sourcing</h3>
-        <p class="process-step-desc" data-fr>3 à 5 fournisseurs vérifiés sélectionnés. Certifications contrôlées. Meilleures offres présentées.</p>
-        <p class="process-step-desc" data-en>3 to 5 verified suppliers selected. Certifications checked. Best offers presented.</p>
-        <div class="process-step-line"></div>
+      <div class="pstep">
+        <div class="pstep-n">03</div>
+        <h3 class="pstep-t" data-fr>Sourcing fournisseur</h3>
+        <h3 class="pstep-t" data-en>Supplier sourcing</h3>
+        <p class="pstep-d" data-fr>3 a 5 fournisseurs vérifiés sélectionnés. Certifications contrôlées. Meilleures offres présentées.</p>
+        <p class="pstep-d" data-en>3 to 5 verified suppliers selected. Certifications checked. Best offers presented.</p>
+        <div class="pstep-bar"></div>
       </div>
-      <div class="process-step reveal reveal-d1">
-        <div class="process-step-num">04</div>
-        <h3 class="process-step-title" data-fr>Offre commerciale</h3>
-        <h3 class="process-step-title" data-en>Commercial offer</h3>
-        <p class="process-step-desc" data-fr>Prix tout compris — produit, fret, douanes. Délai confirmé. Aucune surprise.</p>
-        <p class="process-step-desc" data-en>All-inclusive price — product, freight, customs. Confirmed lead time. No surprises.</p>
-        <div class="process-step-line"></div>
+      <div class="pstep">
+        <div class="pstep-n">04</div>
+        <h3 class="pstep-t" data-fr>Offre commerciale</h3>
+        <h3 class="pstep-t" data-en>Commercial offer</h3>
+        <p class="pstep-d" data-fr>Prix tout compris - produit, fret, douanes. Délai confirmé. Aucune surprise.</p>
+        <p class="pstep-d" data-en>All-inclusive price - product, freight, customs. Confirméd lead time. No surprises.</p>
+        <div class="pstep-bar"></div>
       </div>
-      <div class="process-step reveal reveal-d2">
-        <div class="process-step-num">05</div>
-        <h3 class="process-step-title" data-fr>Suivi & logistique</h3>
-        <h3 class="process-step-title" data-en>Tracking & logistics</h3>
-        <p class="process-step-desc" data-fr>Production en Chine, contrôle qualité, transport maritime, dédouanement. Suivi complet.</p>
-        <p class="process-step-desc" data-en>Manufacturing in China, quality control, sea freight, customs clearance. Full tracking.</p>
-        <div class="process-step-line"></div>
+      <div class="pstep">
+        <div class="pstep-n">05</div>
+        <h3 class="pstep-t" data-fr>Suivi et logistique</h3>
+        <h3 class="pstep-t" data-en>Tracking and logistics</h3>
+        <p class="pstep-d" data-fr>Production en Chine, controle qualite, transport maritime, dédouanement. Suivi complet.</p>
+        <p class="pstep-d" data-en>Manufacturing in China, quality control, sea freight, customs clearance. Full tracking.</p>
+        <div class="pstep-bar"></div>
       </div>
-      <div class="process-step reveal reveal-d3">
-        <div class="process-step-num">06</div>
-        <h3 class="process-step-title" data-fr>Livraison & fidélisation</h3>
-        <h3 class="process-step-title" data-en>Delivery & retention</h3>
-        <p class="process-step-desc" data-fr>Livraison sur site. Pour le packaging : reconduction automatique proposée chaque trimestre.</p>
-        <p class="process-step-desc" data-en>On-site delivery. For packaging: automatic renewal proposed each quarter.</p>
-        <div class="process-step-line"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════ CONFORMITÉ ════════ -->
-<section id="conformite" class="section-pad">
-  <div class="conformite-bg-text">CE</div>
-  <div class="section-inner">
-    <div class="conformite-header reveal">
-      <p class="section-label" style="color:var(--green-accent)" data-fr>Conformité & garanties</p>
-      <p class="section-label" style="color:var(--green-accent)" data-en>Compliance & guarantees</p>
-      <h2 class="section-heading light" data-fr>Chaque livraison,<br>chaque document.</h2>
-      <h2 class="section-heading light" data-en>Every delivery,<br>every document.</h2>
-      <p class="section-desc light" data-fr>La conformité n'est pas une option. Elle est intégrée à chaque étape de notre process et fournie systématiquement avec chaque commande.</p>
-      <p class="section-desc light" data-en>Compliance is not optional. It is built into every step of our process and systematically provided with every order.</p>
-    </div>
-    <div class="conformite-grid">
-      <div class="conformite-bloc reveal reveal-d1">
-        <p class="conformite-bloc-label" data-fr>Équipements</p>
-        <p class="conformite-bloc-label" data-en>Equipment</p>
-        <h3 class="conformite-bloc-title" data-fr>Marquage CE obligatoire</h3>
-        <h3 class="conformite-bloc-title" data-en>Mandatory CE marking</h3>
-        <p class="conformite-bloc-desc" data-fr>Déclaration UE de conformité fournie à chaque livraison. Contrôle des certifications fournisseurs avant commande.</p>
-        <p class="conformite-bloc-desc" data-en>EU Declaration of Conformity provided with every delivery. Supplier certifications checked before order.</p>
-        <div class="conformite-tags">
-          <span class="conformite-tag">Marquage CE</span>
-          <span class="conformite-tag">Directive machines</span>
-        </div>
-      </div>
-      <div class="conformite-bloc reveal reveal-d2">
-        <p class="conformite-bloc-label" data-fr>Packaging</p>
-        <p class="conformite-bloc-label" data-en>Packaging</p>
-        <h3 class="conformite-bloc-title" data-fr>Contact alimentaire garanti</h3>
-        <h3 class="conformite-bloc-title" data-en>Food contact guaranteed</h3>
-        <p class="conformite-bloc-desc" data-fr>Attestations de conformité aux règlements européens transmises systématiquement avec chaque livraison.</p>
-        <p class="conformite-bloc-desc" data-en>Compliance certificates to European regulations systematically provided with every delivery.</p>
-        <div class="conformite-tags">
-          <span class="conformite-tag">CE 1935/2004</span>
-          <span class="conformite-tag">CE 2023/2006</span>
-          <span class="conformite-tag">UE 10/2011</span>
-        </div>
-      </div>
-      <div class="conformite-bloc reveal reveal-d3">
-        <p class="conformite-bloc-label" data-fr>Logistique</p>
-        <p class="conformite-bloc-label" data-en>Logistics</p>
-        <h3 class="conformite-bloc-title" data-fr>Douanes & transit gérés</h3>
-        <h3 class="conformite-bloc-title" data-en>Customs & transit handled</h3>
-        <p class="conformite-bloc-desc" data-fr>Transitaire partenaire. Déclaration ICS2 anticipée. Dédouanement complet. Aucune formalité à votre charge.</p>
-        <p class="conformite-bloc-desc" data-en>Partner freight forwarder. ICS2 declaration handled. Full customs clearance. No paperwork on your end.</p>
-        <div class="conformite-tags">
-          <span class="conformite-tag">ICS2</span>
-          <span class="conformite-tag">Transitaire partenaire</span>
-        </div>
+      <div class="pstep">
+        <div class="pstep-n">06</div>
+        <h3 class="pstep-t" data-fr>Livraison et fidélisation</h3>
+        <h3 class="pstep-t" data-en>Delivery and retention</h3>
+        <p class="pstep-d" data-fr>Livraison sur site. Pour le packaging : reconduction automatique proposée chaque trimestre.</p>
+        <p class="pstep-d" data-en>On-site delivery. For packaging: automatic renewal proposed each quarter.</p>
+        <div class="pstep-bar"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════ GROUPE ════════ -->
-<section id="groupe">
+<!-- CONFORMITE -->
+<section class="conf sec" id="conf">
+  <div class="conf-bg">CE</div>
+  <div class="inner">
+    <div class="conf-head">
+      <p class="label light" data-fr>Conformité et garanties</p>
+      <p class="label light" data-en>Compliance and guarantees</p>
+      <h2 class="heading light" data-fr>Chaque livraison, chaque document.</h2>
+      <h2 class="heading light" data-en>Every delivery, every document.</h2>
+      <p class="subdesc light" data-fr>La conformité n'est pas une option. Elle est intégrée a chaque étape de notre process et fournie systématiquement avec chaque commande.</p>
+      <p class="subdesc light" data-en>Compliance is not optional. It is built into every step of our process and systematically provided with every order.</p>
+    </div>
+    <div class="conf-grid">
+      <div class="cblock">
+        <p class="cblock-label" data-fr>Équipements</p>
+        <p class="cblock-label" data-en>Equipment</p>
+        <h3 class="cblock-title" data-fr>Marquage CE obligatoire</h3>
+        <h3 class="cblock-title" data-en>Mandatory CE marking</h3>
+        <p class="cblock-desc" data-fr>Déclaration UE de conformité fournie a chaque livraison. Controle des certifications fournisseurs avant commande.</p>
+        <p class="cblock-desc" data-en>EU Déclaration of Conformity provided with every delivery. Supplier certifications checked before order.</p>
+        <div class="cblock-tags">
+          <span class="ctag">Marquage CE</span>
+          <span class="ctag">Directive machines</span>
+        </div>
+      </div>
+      <div class="cblock">
+        <p class="cblock-label" data-fr>Packaging</p>
+        <p class="cblock-label" data-en>Packaging</p>
+        <h3 class="cblock-title" data-fr>Contact alimentaire garanti</h3>
+        <h3 class="cblock-title" data-en>Food contact guaranteed</h3>
+        <p class="cblock-desc" data-fr>Attestations de conformité aux règlements européens transmises systématiquement avec chaque livraison.</p>
+        <p class="cblock-desc" data-en>Compliance certificates to European regulations systematically provided with every delivery.</p>
+        <div class="cblock-tags">
+          <span class="ctag">CE 1935/2004</span>
+          <span class="ctag">CE 2023/2006</span>
+          <span class="ctag">UE 10/2011</span>
+        </div>
+      </div>
+      <div class="cblock">
+        <p class="cblock-label" data-fr>Logistique</p>
+        <p class="cblock-label" data-en>Logistics</p>
+        <h3 class="cblock-title" data-fr>Douanes et transit geres</h3>
+        <h3 class="cblock-title" data-en>Customs and transit handled</h3>
+        <p class="cblock-desc" data-fr>Transitaire partenaire. Déclaration ICS2 anticipée. Dedouanement complet. Zéro formalité à votre charge.</p>
+        <p class="cblock-desc" data-en>Partner freight forwarder. ICS2 declaration handled. Full customs clearance. No paperwork on your end.</p>
+        <div class="cblock-tags">
+          <span class="ctag">ICS2</span>
+          <span class="ctag">Transitaire partenaire</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUPE -->
+<section class="groupe" id="groupe">
   <div class="groupe-inner">
     <div class="groupe-left">
       <p data-fr>Cohesif Agro fait partie de</p>
       <p data-en>Cohesif Agro is part of</p>
       <h3>Groupe Cohesif</h3>
     </div>
-    <div class="groupe-poles">
-      <a href="https://www.cohesifcommerce.fr" class="pole-link" target="_blank" rel="noopener">Commerce</a>
-      <a href="https://www.cohesifbtp.fr" class="pole-link" target="_blank" rel="noopener">BTP</a>
-      <a href="https://www.cohesifenergy.fr" class="pole-link" target="_blank" rel="noopener">Energy</a>
-      <a href="https://www.cohesifauto.fr" class="pole-link" target="_blank" rel="noopener">Auto</a>
-      <a href="https://www.cohesifaccess.fr" class="pole-link" target="_blank" rel="noopener">Access</a>
-      <span class="pole-link active">Agro</span>
+    <div class="poles">
+      <a href="https://www.cohesifcommerce.fr" class="pole" target="_blank" rel="noopener">Commerce</a>
+      <a href="https://www.cohesifbtp.fr" class="pole" target="_blank" rel="noopener">BTP</a>
+      <a href="https://www.cohesifenergy.fr" class="pole" target="_blank" rel="noopener">Energy</a>
+      <a href="https://www.cohesifauto.fr" class="pole" target="_blank" rel="noopener">Auto</a>
+      <a href="https://www.cohesifaccess.fr" class="pole" target="_blank" rel="noopener">Access</a>
+      <span class="pole on">Agro</span>
     </div>
   </div>
 </section>
 
-<!-- ════════ CONTACT ════════ -->
-<section id="contact" class="section-pad">
-  <div class="section-inner contact-inner">
-    <div class="contact-left reveal">
-      <p class="section-label" data-fr>Contact</p>
-      <p class="section-label" data-en>Contact</p>
+<!-- CONTACT -->
+<section class="contact sec" id="contact">
+  <div class="inner contact-grid">
+    <div class="contact-left">
+      <p class="label" data-fr>Contact</p>
+      <p class="label" data-en>Contact</p>
       <h2 data-fr>Parlons de votre projet</h2>
       <h2 data-en>Let's talk about your project</h2>
-      <p data-fr>Un besoin en équipement, en packaging, ou les deux ? Contactez-nous pour un premier échange sans engagement.</p>
-      <p data-en>A need for equipment, packaging, or both? Contact us for a first no-commitment discussion.</p>
-      <div class="contact-info">
-        <div class="contact-info-item">
+      <p data-fr>Un besoin en equipement, en packaging, ou les deux ? Contactez-nous pour un premier échange sans engagément.</p>
+      <p data-en>Need equipment, packaging, or both? Contact us for a no-commitment first discussion.</p>
+      <div class="c-info">
+        <div class="c-info-row">
           <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           agro@groupecohesif.fr
         </div>
-        <div class="contact-info-item">
+        <div class="c-info-row">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           200 rue de la Croix-Nivert, Paris 75015
         </div>
-        <div class="contact-info-item">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span data-fr>Groupe Cohesif</span><span data-en>Groupe Cohesif</span>
-        </div>
       </div>
     </div>
-    <form class="contact-form reveal reveal-d2" action="https://formspree.io/f/XXXXXXXX" method="POST">
-      <div class="form-row">
-        <div class="form-group">
-          <label data-fr>Nom</label>
-          <label data-en>Name</label>
+    <form class="cform" action="https://formspree.io/f/XXXXXXXX" method="POST">
+      <div class="frow">
+        <div class="fgroup">
+          <label data-fr>Nom</label><label data-en>Name</label>
           <input type="text" name="name" required/>
         </div>
-        <div class="form-group">
-          <label data-fr>Société</label>
-          <label data-en>Company</label>
+        <div class="fgroup">
+          <label data-fr>Société</label><label data-en>Company</label>
           <input type="text" name="company" required/>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
+      <div class="frow">
+        <div class="fgroup">
           <label>Email</label>
           <input type="email" name="email" required/>
         </div>
-        <div class="form-group">
-          <label data-fr>Téléphone</label>
-          <label data-en>Phone</label>
+        <div class="fgroup">
+          <label data-fr>Téléphone</label><label data-en>Phone</label>
           <input type="tel" name="phone"/>
         </div>
       </div>
-      <div class="form-group">
-        <label data-fr>Votre besoin</label>
-        <label data-en>Your need</label>
+      <div class="fgroup">
+        <label data-fr>Votre besoin</label><label data-en>Your need</label>
         <select name="besoin">
           <option value="" data-fr>Sélectionner...</option>
           <option value="" data-en>Select...</option>
-          <option value="equipements" data-fr>Équipements IAA</option>
-          <option value="equipements" data-en>Food Equipment</option>
+          <option value="équipements" data-fr>Équipements IAA</option>
+          <option value="équipements" data-en>Food Equipment</option>
           <option value="packaging" data-fr>Packaging alimentaire</option>
           <option value="packaging" data-en>Food Packaging</option>
           <option value="les-deux" data-fr>Les deux</option>
@@ -1031,11 +778,11 @@ footer{
           <option value="autre" data-en>Other</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="fgroup">
         <label>Message</label>
         <textarea name="message"></textarea>
       </div>
-      <button type="submit" class="form-submit">
+      <button type="submit" class="fsubmit">
         <span data-fr>Envoyer ma demande</span>
         <span data-en>Send my request</span>
       </button>
@@ -1043,50 +790,45 @@ footer{
   </div>
 </section>
 
-<!-- ════════ FOOTER ════════ -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#hero" class="nav-logo" style="color:var(--white)">Cohesif<span> Agro</span></a>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <span class="logo" style="color:#fff">Cohesif<b> Agro</b></span>
         <p data-fr>Sourcing d'équipements industriels et de packaging alimentaire depuis la Chine, livrés conformes en France.</p>
         <p data-en>Sourcing industrial equipment and food packaging from China, delivered compliant in France.</p>
-        <div class="footer-social">
+        <div class="ft-social">
           <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
           </a>
         </div>
       </div>
-      <div class="footer-col">
-        <h4 data-fr>Navigation</h4>
-        <h4 data-en>Navigation</h4>
+      <div class="ft-col">
+        <h4 data-fr>Navigation</h4><h4 data-en>Navigation</h4>
         <a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a>
         <a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a>
-        <a href="#conformite" data-fr>Conformité</a><a href="#conformite" data-en>Compliance</a>
+        <a href="#conf" data-fr>Conformité</a><a href="#conf" data-en>Compliance</a>
         <a href="#contact" data-fr>Contact</a><a href="#contact" data-en>Contact</a>
       </div>
-      <div class="footer-col">
-        <h4 data-fr>Groupe Cohesif</h4>
-        <h4 data-en>Groupe Cohesif</h4>
+      <div class="ft-col">
+        <h4>Groupe Cohesif</h4>
         <a href="https://www.cohesifcommerce.fr" target="_blank" rel="noopener">Commerce</a>
         <a href="https://www.cohesifbtp.fr" target="_blank" rel="noopener">BTP</a>
         <a href="https://www.cohesifenergy.fr" target="_blank" rel="noopener">Energy</a>
         <a href="https://www.cohesifauto.fr" target="_blank" rel="noopener">Auto</a>
         <a href="https://www.cohesifaccess.fr" target="_blank" rel="noopener">Access</a>
       </div>
-      <div class="footer-col">
-        <h4 data-fr>Contact</h4>
-        <h4 data-en>Contact</h4>
+      <div class="ft-col">
+        <h4>Contact</h4>
         <a href="mailto:agro@groupecohesif.fr">agro@groupecohesif.fr</a>
-        <a href="#" data-fr>200 rue de la Croix-Nivert</a>
-        <a href="#" data-en>200 rue de la Croix-Nivert</a>
-        <a href="#" data-fr>Paris 75015, France</a>
-        <a href="#" data-en>Paris 75015, France</a>
+        <a>200 rue de la Croix-Nivert</a>
+        <a>Paris 75015, France</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2026 Groupe Cohesif · cohesifagro.fr</p>
-      <div class="footer-legal">
+    <div class="ft-bot">
+      <p class="ft-copy">2026 Groupe Cohesif - cohesifagro.fr</p>
+      <div class="ft-legal">
         <a href="#" data-fr>Mentions légales</a><a href="#" data-en>Legal notice</a>
         <a href="#" data-fr>Politique de confidentialité</a><a href="#" data-en>Privacy policy</a>
       </div>
@@ -1095,49 +837,22 @@ footer{
 </footer>
 
 <script>
-const langBtn = document.getElementById('langBtn');
-langBtn.addEventListener('click', () => {
+document.getElementById('langBtn').addEventListener('click',function(){
   document.body.classList.toggle('en');
-  langBtn.textContent = document.body.classList.contains('en') ? 'FR' : 'EN';
+  this.textContent=document.body.classList.contains('en')?'FR':'EN';
 });
-
-const burgerBtn = document.getElementById('burgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-burgerBtn.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-});
-document.querySelectorAll('.mobile-menu a').forEach(a => {
-  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
-});
-
-const navEl = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-  navEl.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-reveals.forEach(el => observer.observe(el));
-
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 100) current = s.id;
-  });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + current
-      ? 'var(--green-accent)' : '';
-  });
-}, { passive: true });
+var burger=document.getElementById('burgerBtn'),mm=document.getElementById('mmenu');
+burger.addEventListener('click',function(){mm.classList.toggle('open')});
+document.querySelectorAll('.mmenu a').forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open')})});
+window.addEventListener('scroll',function(){
+  document.querySelector('nav').classList.toggle('scrolled',window.scrollY>50);
+},{passive:true});
+var secs=document.querySelectorAll('section[id]'),nlinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',function(){
+  var cur='';
+  secs.forEach(function(s){if(window.scrollY>=s.offsetTop-120)cur=s.id});
+  nlinks.forEach(function(a){a.style.color=a.getAttribute('href')==='#'+cur?'var(--accent)':''});
+},{passive:true});
 </script>
 </body>
 </html>
