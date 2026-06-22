@@ -60,7 +60,8 @@ transition:background .35s,box-shadow .35s;
 }
 nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(8px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
 .logo{display:flex;align-items:center}
-.logo-img{height:60px;width:auto;transition:all .35s}
+.logo-img{height:60px;width:auto;transition:all .35s;filter:brightness(0) invert(1)}
+nav.scrolled .logo-img{filter:none}
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.65);transition:color .25s}
 nav.scrolled .nav-links a{color:var(--txm)}
