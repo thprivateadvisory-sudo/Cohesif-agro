@@ -337,21 +337,69 @@ padding:.2rem .5rem;border-radius:3px;
 }
 
 /* ─── GROUPE ─── */
-.groupe{background:var(--pale);padding:2.5rem var(--pad)}
-.groupe-inner{
-max-width:var(--max);margin:0 auto;
-display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
+.groupe{background:var(--dark);padding:4rem 0;overflow:hidden;position:relative}
+.groupe::before{
+content:'';position:absolute;top:0;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent,rgba(82,183,136,.3),transparent);
 }
-.groupe-left p{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:.3rem}
-.groupe-left h3{font-family:var(--ff);font-size:1.25rem;font-weight:700;color:var(--deep)}
-.poles{display:flex;flex-wrap:wrap;gap:.4rem}
-.pole{
-font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-border:1px solid rgba(26,58,42,.12);color:var(--txm);
-padding:.35rem .8rem;border-radius:50px;transition:all .2s;
+.groupe-header{text-align:center;padding:0 var(--pad);margin-bottom:3rem}
+.groupe-logo{height:80px;width:auto;margin:0 auto 1.2rem;display:block;opacity:.9}
+.groupe-header h3{
+font-family:var(--ff);font-size:clamp(1.3rem,2.5vw,1.8rem);
+font-weight:700;color:#fff;margin-bottom:.5rem;
 }
-.pole:hover{border-color:var(--accent);color:var(--mid)}
-.pole.on{border-color:var(--accent);color:var(--deep);background:var(--accent)}
+.groupe-header p{font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.06em}
+.marquee{position:relative;width:100%;overflow:hidden;padding:1.5rem 0}
+.marquee::before,.marquee::after{
+content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
+}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--dark),transparent)}
+.marquee::after{right:0;background:linear-gradient(270deg,var(--dark),transparent)}
+.marquee-track{
+display:flex;gap:3rem;align-items:center;
+animation:marquee 25s linear infinite;
+width:max-content;
+}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-item{
+flex-shrink:0;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:12px;padding:1.2rem 2rem;
+display:flex;align-items:center;justify-content:center;
+height:90px;min-width:200px;
+transition:all .35s;
+}
+.marquee-item:hover{
+background:rgba(255,255,255,.1);
+border-color:rgba(82,183,136,.3);
+transform:scale(1.05);
+}
+.marquee-item.active{
+border-color:var(--accent);
+background:rgba(82,183,136,.08);
+box-shadow:0 0 30px rgba(82,183,136,.15);
+}
+.marquee-item img{
+height:50px;width:auto;max-width:180px;
+object-fit:contain;
+filter:brightness(0) invert(1);
+opacity:.7;
+transition:opacity .35s;
+}
+.marquee-item:hover img{opacity:1}
+.marquee-item.active img{filter:none;opacity:1}
+.marquee-item.commerce-logo img{filter:brightness(0) invert(1);height:45px}
+@keyframes marquee{
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
+}
+.groupe-bottom{
+text-align:center;padding:2rem var(--pad) 0;
+}
+.groupe-bottom p{font-size:.72rem;color:rgba(255,255,255,.25);letter-spacing:.04em}
+.groupe-bottom a{color:var(--accent);text-decoration:none;font-weight:600;transition:color .2s}
+.groupe-bottom a:hover{color:var(--gold)}
 
 /* ─── CONTACT ─── */
 .contact{background:var(--cream)}
@@ -555,7 +603,9 @@ padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.04);
 .conf-bg{display:none}
 .contact-grid{grid-template-columns:1fr;gap:2.5rem}
 .frow{grid-template-columns:1fr}
-.groupe-inner{flex-direction:column;align-items:flex-start}
+.groupe-logo{height:55px}
+.marquee-item{min-width:160px;height:70px;padding:.8rem 1.2rem}
+.marquee-item img{height:35px}
 .ft-top{grid-template-columns:1fr 1fr;gap:1.5rem}
 .ft-bot{flex-direction:column;align-items:flex-start}
 .trust-inner{grid-template-columns:repeat(2,1fr)}
@@ -1030,20 +1080,57 @@ body.en [data-en]{display:revert!important}
 
 <!-- GROUPE -->
 <section class="groupe" id="groupe">
-  <div class="groupe-inner">
-    <div class="groupe-left">
-      <p data-fr>Cohesif Agro fait partie de</p>
-      <p data-en>Cohesif Agro is part of</p>
-      <h3>Groupe Cohesif</h3>
+  <div class="groupe-header">
+    <img src="logo-groupe-cohesif.png" alt="Groupe Cohesif" class="groupe-logo" loading="lazy"/>
+    <h3 data-fr>Un groupe, 6 pôles d'expertise</h3>
+    <h3 data-en>One group, 6 areas of expertise</h3>
+    <p data-fr>Cohesif Agro fait partie du Groupe Cohesif — un écosystème B2B multi-sectoriel</p>
+    <p data-en>Cohesif Agro is part of Groupe Cohesif — a multi-sector B2B ecosystem</p>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <a href="https://www.cohesifcommerce.fr" class="marquee-item commerce-logo" target="_blank" rel="noopener">
+        <img src="logo-cohesif-commerce.jpeg" alt="Cohesif Commerce"/>
+      </a>
+      <a href="https://www.cohesifbtp.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-btp.png" alt="Cohesif BTP"/>
+      </a>
+      <a href="https://www.cohesifenergy.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-energy.png" alt="Cohesif Energy"/>
+      </a>
+      <a href="https://www.cohesifauto.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-auto.png" alt="Cohesif Auto"/>
+      </a>
+      <a href="https://www.cohesifaccess.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-access.png" alt="Cohesif Access"/>
+      </a>
+      <span class="marquee-item active">
+        <img src="logo-cohesif-agro-full.png" alt="Cohesif Agro"/>
+      </span>
+      <!-- Duplicate for seamless loop -->
+      <a href="https://www.cohesifcommerce.fr" class="marquee-item commerce-logo" target="_blank" rel="noopener">
+        <img src="logo-cohesif-commerce.jpeg" alt="Cohesif Commerce"/>
+      </a>
+      <a href="https://www.cohesifbtp.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-btp.png" alt="Cohesif BTP"/>
+      </a>
+      <a href="https://www.cohesifenergy.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-energy.png" alt="Cohesif Energy"/>
+      </a>
+      <a href="https://www.cohesifauto.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-auto.png" alt="Cohesif Auto"/>
+      </a>
+      <a href="https://www.cohesifaccess.fr" class="marquee-item" target="_blank" rel="noopener">
+        <img src="logo-cohesif-access.png" alt="Cohesif Access"/>
+      </a>
+      <span class="marquee-item active">
+        <img src="logo-cohesif-agro-full.png" alt="Cohesif Agro"/>
+      </span>
     </div>
-    <div class="poles">
-      <a href="https://www.cohesifcommerce.fr" class="pole" target="_blank" rel="noopener">Commerce</a>
-      <a href="https://www.cohesifbtp.fr" class="pole" target="_blank" rel="noopener">BTP</a>
-      <a href="https://www.cohesifenergy.fr" class="pole" target="_blank" rel="noopener">Energy</a>
-      <a href="https://www.cohesifauto.fr" class="pole" target="_blank" rel="noopener">Auto</a>
-      <a href="https://www.cohesifaccess.fr" class="pole" target="_blank" rel="noopener">Access</a>
-      <span class="pole on">Agro</span>
-    </div>
+  </div>
+  <div class="groupe-bottom">
+    <p data-fr>Découvrir l'écosystème — <a href="https://www.groupecohesif.fr" target="_blank" rel="noopener">groupecohesif.fr</a></p>
+    <p data-en>Discover the ecosystem — <a href="https://www.groupecohesif.fr" target="_blank" rel="noopener">groupecohesif.fr</a></p>
   </div>
 </section>
 
