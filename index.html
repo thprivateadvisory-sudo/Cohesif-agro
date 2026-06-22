@@ -59,9 +59,9 @@ display:flex;align-items:center;justify-content:space-between;
 transition:background .35s,box-shadow .35s;
 }
 nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(8px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
-.logo{font-family:var(--ff);font-size:1.2rem;font-weight:700;color:#fff;transition:color .35s}
-nav.scrolled .logo{color:var(--deep)}
-.logo b{color:var(--accent)}
+.logo{display:flex;align-items:center}
+.logo-img{height:38px;width:auto;filter:brightness(0) invert(1);transition:filter .35s}
+nav.scrolled .logo-img{filter:none}
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.65);transition:color .25s}
 nav.scrolled .nav-links a{color:var(--txm)}
@@ -352,7 +352,7 @@ footer{background:var(--dark);padding:3.5rem var(--pad) 1.5rem}
 display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;
 padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.07);
 }
-.ft-brand .logo{display:inline-block;margin-bottom:.8rem;font-size:1.1rem}
+.ft-brand .ft-logo{height:48px;width:auto;filter:brightness(0) invert(1);margin-bottom:1rem;display:block}
 .ft-brand p{font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.6;max-width:260px}
 .ft-social{display:flex;gap:.6rem;margin-top:1rem}
 .ft-social a{
@@ -424,7 +424,7 @@ body.en [data-en]{display:revert!important}
 <body>
 
 <nav>
-  <a href="#hero" class="logo">Cohesif<b> Agro</b></a>
+  <a href="#hero" class="logo"><img src="logo-cohesif-agro.png" alt="Cohesif Agro" class="logo-img"/></a>
   <ul class="nav-links">
     <li><a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a></li>
     <li><a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a></li>
@@ -796,7 +796,7 @@ body.en [data-en]{display:revert!important}
   <div class="ft-inner">
     <div class="ft-top">
       <div class="ft-brand">
-        <span class="logo" style="color:#fff">Cohesif<b> Agro</b></span>
+        <img src="logo-cohesif-agro.png" alt="Cohesif Agro" class="ft-logo"/>
         <p data-fr>Sourcing d'équipements industriels et de packaging alimentaire depuis la Chine, livrés conformes en France.</p>
         <p data-en>Sourcing industrial equipment and food packaging from China, delivered compliant in France.</p>
         <div class="ft-social">
