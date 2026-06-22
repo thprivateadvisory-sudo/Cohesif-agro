@@ -119,10 +119,11 @@ font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;
 padding:.8rem 1.8rem;border-radius:50px;transition:background .25s;
 }
 .cta:hover{background:var(--gold)}
+.hero-btns{display:flex;flex-wrap:wrap;gap:.8rem}
 .cta-outline{
 display:inline-block;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);
 font-weight:500;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;
-padding:.8rem 1.8rem;border-radius:50px;transition:all .25s;margin-left:.8rem;
+padding:.8rem 1.8rem;border-radius:50px;transition:all .25s;
 }
 .cta-outline:hover{border-color:var(--accent);color:var(--accent)}
 .hero-stats{
@@ -457,7 +458,7 @@ body.en [data-en]{display:revert!important}
     </h1>
     <p class="hero-p" data-fr>Process clé en main, conformité CE garantie, zéro formalité à votre charge. Un seul interlocuteur pour toute la chaîne.</p>
     <p class="hero-p" data-en>Turnkey process, guaranteed CE compliance, zero paperwork on your end. One point of contact for the entire chain.</p>
-    <div>
+    <div class="hero-btns">
       <a href="#contact" class="cta" data-fr>Demander un devis</a>
       <a href="#contact" class="cta" data-en>Request a quote</a>
       <a href="#offres" class="cta-outline" data-fr>Découvrir nos offres</a>
