@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.cohesifagro.fr/</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/logo-cohesif-agro-full.png</image:loc>
+      <image:title>Cohesif Agro - Sourcing équipements IAA et packaging alimentaire</image:title>
+      <image:caption>Cohesif Agro, filiale du Groupe Cohesif, spécialisée dans le sourcing d'équipements agroalimentaires et de packaging alimentaire depuis la Chine.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1920&amp;q=80</image:loc>
+      <image:title>Champs agricoles - Cohesif Agro sourcing agroalimentaire</image:title>
+      <image:caption>Sourcing agroalimentaire clé en main — équipements IAA et packaging alimentaire conformes CE, livrés en France.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/logo-cohesif-agro.png</image:loc>
+      <image:title>Logo Cohesif Agro</image:title>
+      <image:caption>Logo officiel de Cohesif Agro, pôle agroalimentaire du Groupe Cohesif</image:caption>
+    </image:image>
   </url>
 </urlset>
