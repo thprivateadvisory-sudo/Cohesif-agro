@@ -672,29 +672,6 @@ max-height:0;overflow:hidden;transition:max-height .35s ease;
 .faq-a-inner{padding:0 1.5rem 1.2rem;font-size:.85rem;color:var(--txm);line-height:1.7}
 .faq-item.open .faq-a{max-height:300px}
 
-/* ─── FLOATING CTA ─── */
-.float-cta{
-position:fixed;bottom:1.5rem;right:1.5rem;z-index:90;
-display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;
-}
-.float-btn{
-display:flex;align-items:center;gap:.6rem;
-background:var(--accent);color:var(--deep);
-font-weight:700;font-size:.78rem;letter-spacing:.03em;
-padding:.7rem 1.2rem;border-radius:50px;
-box-shadow:0 4px 20px rgba(82,183,136,.35);
-transition:all .25s;cursor:pointer;border:none;
-text-decoration:none;
-}
-.float-btn:hover{background:var(--gold);box-shadow:0 6px 28px rgba(201,168,76,.35);transform:translateY(-2px)}
-.float-btn svg{width:18px;height:18px;fill:currentColor}
-.float-phone{
-background:var(--deep);color:#fff;
-font-size:.72rem;padding:.5rem 1rem;border-radius:50px;
-box-shadow:0 4px 16px rgba(0,0,0,.15);
-}
-.float-phone:hover{background:var(--mid)}
-.float-phone svg{fill:#fff}
 
 /* ─── URGENCY BANNER ─── */
 .urgency{
@@ -741,7 +718,6 @@ padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.04);
 .trust-inner{grid-template-columns:repeat(2,1fr)}
 .equip-grid{grid-template-columns:1fr}
 .temo-grid{grid-template-columns:1fr}
-.float-btn span{display:none}
 }
 @media(max-width:768px){
 .hero-h{font-size:clamp(1.8rem,5vw,2.4rem)}
@@ -1441,19 +1417,808 @@ body.en [data-en]{display:revert!important}
   </div>
 </footer>
 
-<!-- FLOATING CTA -->
-<div class="float-cta">
-  <a href="#contact" class="float-btn">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span data-fr>Devis gratuit</span>
-    <span data-en>Free quote</span>
-  </a>
-  <a href="mailto:cohesifagro@outlook.com" class="float-btn float-phone">
-    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    <span data-fr>Email</span>
-    <span data-en>Email</span>
-  </a>
+<!-- ═══════════════════════════════════════════════
+     ASSISTANT IA — COHESIF AGRO
+════════════════════════════════════════════════ -->
+<style>
+/* ── Launcher ── */
+#chat-launcher {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 300;
+  width: 62px;
+  height: 62px;
+}
+
+@keyframes chatPulse {
+  0%   { transform: scale(1); opacity: .7; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+.chat-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(82,183,136,.3);
+  animation: chatPulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+#chat-bubble-btn {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--deep);
+  border: 2.5px solid var(--accent);
+  box-shadow: 0 4px 22px rgba(26,58,42,.38);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s, box-shadow .2s;
+  padding: 0;
+}
+
+#chat-bubble-btn:hover { transform: scale(1.07); box-shadow: 0 6px 30px rgba(26,58,42,.48); }
+
+.cb-icon-chat  { display: block; }
+.cb-icon-close { display: none; }
+#chat-bubble-btn.open .cb-icon-chat  { display: none; }
+#chat-bubble-btn.open .cb-icon-close { display: block; }
+
+#chat-badge {
+  position: absolute;
+  top: -3px; right: -3px;
+  width: 19px; height: 19px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--deep);
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  animation: badgePop .3s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+@keyframes badgePop { from { transform: scale(0); } to { transform: scale(1); } }
+
+/* ── Window ── */
+#chat-window {
+  position: fixed;
+  bottom: 106px;
+  right: 28px;
+  z-index: 300;
+  width: 375px;
+  max-height: 564px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(26,58,42,.22), 0 2px 8px rgba(26,58,42,.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(.9) translateY(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .28s cubic-bezier(.34,1.56,.64,1), opacity .2s;
+  transform-origin: bottom right;
+}
+
+#chat-window.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Header */
+.ch-header {
+  background: var(--deep);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.ch-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ch-info { flex: 1; min-width: 0; }
+.ch-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; }
+.ch-status {
+  font-size: 11px;
+  color: rgba(255,255,255,.5);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+}
+.ch-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; flex-shrink: 0; }
+
+/* Messages */
+.ch-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #f4f8f5;
+  scrollbar-width: thin;
+  scrollbar-color: #c3d9cc transparent;
+}
+.ch-messages::-webkit-scrollbar { width: 3px; }
+.ch-messages::-webkit-scrollbar-thumb { background: #c3d9cc; border-radius: 2px; }
+
+.ch-msg { display: flex; gap: 8px; align-items: flex-end; max-width: 91%; }
+.ch-msg.bot { align-self: flex-start; }
+.ch-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+.ch-av {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ch-bubble {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+.ch-msg.bot .ch-bubble {
+  background: #fff;
+  color: var(--deep);
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
+
+.ch-msg.user .ch-bubble {
+  background: var(--deep);
+  color: #fff;
+  border-radius: 14px 4px 14px 14px;
+}
+
+/* Quick replies */
+.ch-qr { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+
+.ch-qr-btn {
+  background: #fff;
+  border: 1.5px solid var(--accent);
+  color: var(--deep);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background .15s, color .15s;
+  line-height: 1.3;
+}
+.ch-qr-btn:hover { background: var(--accent); color: var(--deep); }
+
+/* Typing */
+@keyframes typeDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: .35; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+.ch-typing {
+  display: flex; gap: 5px; align-items: center;
+  padding: 11px 14px;
+  background: #fff;
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.07);
+  width: fit-content;
+}
+.ch-typing span {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #9ab8a8;
+  animation: typeDot 1.2s ease-in-out infinite;
+  display: block;
+}
+.ch-typing span:nth-child(2) { animation-delay: .2s; }
+.ch-typing span:nth-child(3) { animation-delay: .4s; }
+
+/* CTA inside bubble */
+.ch-cta {
+  display: inline-block;
+  margin-top: 9px;
+  background: var(--accent);
+  color: var(--deep);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 7px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background .15s;
+  border: none;
+}
+.ch-cta:hover { background: var(--mid); color: #fff; }
+
+/* Input bar */
+.ch-input-bar {
+  padding: 11px 13px;
+  background: #fff;
+  border-top: 1px solid #dde8e2;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+#ch-input {
+  flex: 1;
+  border: 1.5px solid #dde8e2;
+  border-radius: 22px;
+  padding: 9px 16px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  color: var(--deep);
+  outline: none;
+  background: #f4f8f5;
+  transition: border-color .2s;
+  transform-origin: left center;
+}
+#ch-input:focus { border-color: var(--deep); }
+#ch-input::placeholder { color: #9ab8a8; }
+
+#ch-send {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--deep);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s, transform .15s;
+  padding: 0;
+}
+#ch-send:hover { background: var(--accent); transform: scale(1.06); }
+
+/* Powered-by */
+.ch-powered {
+  font-size: 10px;
+  color: #9ab8a8;
+  text-align: center;
+  padding: 6px 0 8px;
+  background: #fff;
+  border-top: 1px solid #dde8e2;
+  flex-shrink: 0;
+  letter-spacing: .02em;
+}
+
+/* ── Live agent chip on launcher ── */
+#ch-live-chip {
+  position: absolute;
+  top: -3px; left: -3px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+  padding: 2px 6px 2px 5px;
+  border-radius: 8px;
+  letter-spacing: .06em;
+  font-family: 'Inter', sans-serif;
+  display: none;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(34,197,94,.35);
+  animation: badgePop .35s cubic-bezier(.34,1.56,.64,1) both;
+}
+#ch-live-chip.visible { display: flex; }
+#ch-live-chip::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.75); }
+}
+
+#ch-agent-dot { transition: background .4s; }
+
+.ch-agent-confirm {
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 11.5px;
+  line-height: 1.55;
+  font-weight: 600;
+}
+.ch-agent-confirm.online {
+  background: #f0fdf4;
+  border: 1.5px solid #4ade80;
+  color: #166534;
+}
+.ch-agent-confirm.offline {
+  background: #f8fafc;
+  border: 1.5px solid #94a3b8;
+  color: #475569;
+}
+
+@media (max-width: 430px) {
+  #chat-window { right: 10px; left: 10px; width: auto; bottom: 96px; }
+  #chat-launcher { right: 14px; bottom: 14px; }
+}
+</style>
+
+<!-- LAUNCHER -->
+<div id="chat-launcher">
+  <div class="chat-pulse" id="ch-pulse"></div>
+  <button id="chat-bubble-btn" onclick="chToggle()" aria-label="Ouvrir l'assistant Cohesif Agro">
+    <svg class="cb-icon-chat" width="27" height="27" viewBox="0 0 27 27" fill="none" aria-hidden="true">
+      <path d="M13.5 3C8.25 3 4 6.91 4 11.75c0 2.04.77 3.92 2.06 5.43L5 23l5.62-2.07A10.5 10.5 0 0013.5 21.5C18.75 21.5 23 17.59 23 12.75S18.75 3 13.5 3z" fill="white"/>
+      <circle cx="9.5" cy="12.5" r="1.4" fill="#1A3A2A"/>
+      <circle cx="13.5" cy="12.5" r="1.4" fill="#1A3A2A"/>
+      <circle cx="17.5" cy="12.5" r="1.4" fill="#1A3A2A"/>
+    </svg>
+    <svg class="cb-icon-close" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <path d="M5 5l12 12M17 5L5 17" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+    <span id="chat-badge" aria-hidden="true">1</span>
+    <span id="ch-live-chip" aria-hidden="true"></span>
+  </button>
 </div>
+
+<!-- CHAT WINDOW -->
+<div id="chat-window" role="dialog" aria-modal="false" aria-label="Assistant Cohesif Agro">
+  <div class="ch-header">
+    <div class="ch-avatar">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" fill="white"/>
+        <path d="M4 20c0-3.31 3.58-6 8-6s8 2.69 8 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="ch-info">
+      <div class="ch-name">Assistant Cohesif Agro</div>
+      <div class="ch-status" id="ch-status-bar"><span class="ch-dot" id="ch-agent-dot"></span><span id="ch-status-text">En ligne · Répond instantanément</span></div>
+    </div>
+  </div>
+  <div class="ch-messages" id="ch-messages"></div>
+  <div class="ch-input-bar">
+    <input id="ch-input" type="text" placeholder="Posez votre question…" autocomplete="off" maxlength="320" onkeydown="if(event.key==='Enter'){event.preventDefault();chSend();}">
+    <button id="ch-send" onclick="chSend()" aria-label="Envoyer">
+      <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+        <path d="M15 8.5L2 2.5l3.2 6-3.2 6 13-6z" fill="white"/>
+      </svg>
+    </button>
+  </div>
+  <div class="ch-powered">Propulsé par l'IA · Cohesif Agro</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// ASSISTANT IA · COHESIF AGRO
+// ═══════════════════════════════════════════════
+(function() {
+  var isOpen = false;
+  var started = false;
+  var agentState = null; // null | 'await_name' | 'await_phone'
+  var agentInfo = {};
+  var chatLog = [];
+
+  // ── Business hours: is an expert available? ──
+  function isAgentAvailable() {
+    var now = new Date();
+    var day = now.getDay();
+    var t = now.getHours() * 60 + now.getMinutes();
+    if (day >= 1 && day <= 5) return t >= 540 && t < 1080; // Lun–Ven 9h–18h
+    return false;
+  }
+
+  // ── Update header status & launcher LIVE chip ──
+  function updateAgentStatus() {
+    var dot  = document.getElementById('ch-agent-dot');
+    var txt  = document.getElementById('ch-status-text');
+    var chip = document.getElementById('ch-live-chip');
+    var avail = isAgentAvailable();
+    if (dot)  dot.style.background = avail ? '#4ade80' : '#94a3b8';
+    if (txt)  txt.textContent = avail ? 'Expert disponible · Répond rapidement' : 'Expert hors ligne · Répond sous 24h';
+    if (chip) chip.classList.toggle('visible', avail);
+    if (chip && avail) chip.textContent = 'LIVE';
+  }
+
+  // ── Send urgent alert via Formspree ──
+  function sendAgentAlert(name, phone) {
+    var fd = new FormData();
+    fd.append('_subject', '🟢 [COHESIF AGRO] EXPERT EN DIRECT — ' + name + ' (' + phone + ')');
+    fd.append('nom', name);
+    fd.append('telephone', phone);
+    fd.append('site', 'COHESIF AGRO — cohesifagro.fr');
+    fd.append('service', 'Demande expert en direct — Cohesif Agro');
+    fd.append('message',
+      '⚡ DEMANDE DE MISE EN RELATION EN DIRECT\n' +
+      '📌 SITE : COHESIF AGRO (cohesifagro.fr)\n\n' +
+      'Nom : ' + name + '\n' +
+      'Téléphone : ' + phone + '\n' +
+      'Heure : ' + new Date().toLocaleString('fr-FR') + '\n' +
+      'Expert disponible : ' + (isAgentAvailable() ? 'OUI (heures ouvrables)' : 'NON — hors horaires') + '\n\n' +
+      '— Historique conversation —\n' + (chatLog.length ? chatLog.join('\n') : '(pas de messages précédents)')
+    );
+    fetch('https://formspree.io/f/mzdnndna', {
+      method: 'POST',
+      body: fd,
+      headers: { 'Accept': 'application/json' }
+    });
+  }
+
+  // ── Live agent intent handler ──
+  function intentAgent() {
+    var avail = isAgentAvailable();
+    agentState = 'await_name';
+    agentInfo = {};
+    var msgOnline  = '\u{1F464} <strong>Un expert est disponible !</strong><br><br>Pour vous mettre en relation, quel est votre <strong>prénom</strong> ?';
+    var msgOffline = '\u{1F464} <strong>Nos experts sont hors ligne</strong> pour le moment.<br><small>Horaires : Lun–Ven 9h–18h</small><br><br>Laissez vos coordonnées et on vous rappelle dès l\'ouverture.<br><br>Votre <strong>prénom</strong> ?';
+    chBot(avail ? msgOnline : msgOffline, [], 550);
+  }
+
+  // ── Toggle ──────────────────────────────────
+  window.chToggle = function() {
+    isOpen = !isOpen;
+    var btn = document.getElementById('chat-bubble-btn');
+    var win = document.getElementById('chat-window');
+    var badge = document.getElementById('chat-badge');
+    var pulse = document.getElementById('ch-pulse');
+
+    btn.classList.toggle('open', isOpen);
+    win.classList.toggle('open', isOpen);
+
+    if (isOpen) {
+      if (badge) badge.remove();
+      if (pulse) pulse.style.animation = 'none';
+      if (!started) { started = true; setTimeout(chInit, 220); }
+      else { updateAgentStatus(); }
+      setTimeout(function() {
+        var inp = document.getElementById('ch-input');
+        if (inp) inp.focus();
+      }, 300);
+    }
+  };
+
+  // ── Init greeting ───────────────────────────
+  function chInit() {
+    updateAgentStatus();
+    var avail = isAgentAvailable();
+    chBot(
+      "👋 Bonjour ! Je suis l'assistant de <strong>Cohesif Agro</strong>, spécialiste du sourcing d'équipements IAA et packaging alimentaire depuis la Chine.<br><br>Comment puis-je vous aider ?",
+      [
+        { l: "💰 Économies & tarifs",     v: "tarifs" },
+        { l: "🏭 Équipements IAA",        v: "equipements" },
+        { l: "📦 Packaging alimentaire",  v: "packaging" },
+        { l: "✅ Conformité CE",          v: "conformite" },
+        { l: "⏱️ Délais & process",       v: "process" },
+        { l: "📋 Devis gratuit",          v: "devis" },
+        { l: avail ? "👤 Parler à un expert" : "👤 Laisser un message", v: "agent" }
+      ]
+    );
+  }
+
+  // ── Send user input ──────────────────────────
+  window.chSend = function() {
+    var inp = document.getElementById('ch-input');
+    var txt = inp.value.trim();
+    if (!txt) return;
+    inp.value = '';
+    chUser(txt);
+
+    if (agentState === 'await_name') {
+      agentInfo.name = txt;
+      agentState = 'await_phone';
+      return chBot('Merci <strong>' + esc(txt) + '</strong> ! 📞 Votre <strong>numéro de téléphone</strong> ?', [], 500);
+    }
+    if (agentState === 'await_phone') {
+      var name = agentInfo.name, phone = txt;
+      agentState = null;
+      sendAgentAlert(name, phone);
+      var avail = isAgentAvailable();
+      return chBot(
+        (avail
+          ? '✅ <strong>C\'est noté !</strong><div class="ch-agent-confirm online">🟢 Un expert va vous appeler au <strong>' + esc(phone) + '</strong> dans quelques minutes.</div>'
+          : '✅ <strong>Demande enregistrée !</strong><div class="ch-agent-confirm offline">🕐 Nous vous rappellerons au <strong>' + esc(phone) + '</strong> dès l\'ouverture (Lun–Ven 9h–18h).</div>'),
+        [{ l: '📋 Envoyer aussi un devis', v: 'devis' }],
+        650
+      );
+    }
+
+    chProcess(txt);
+  };
+
+  // ── Quick-reply delegation ───────────────────
+  document.getElementById('ch-messages').addEventListener('click', function(e) {
+    var btn = e.target.closest('.ch-qr-btn');
+    if (!btn) return;
+    if (agentState) return;
+    var v = btn.getAttribute('data-v');
+    btn.closest('.ch-qr') && (btn.closest('.ch-qr').style.pointerEvents = 'none');
+    chUser(btn.textContent.replace(/^[^\w]/,'').trim());
+    chProcess(v);
+  });
+
+  // ── Render user bubble ───────────────────────
+  function chUser(txt) {
+    chatLog.push('Vous : ' + txt);
+    var msgs = document.getElementById('ch-messages');
+    var el = document.createElement('div');
+    el.className = 'ch-msg user';
+    el.innerHTML = '<div class="ch-bubble">' + esc(txt) + '</div>';
+    msgs.appendChild(el);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  // ── Render bot bubble (with typing delay) ────
+  function chBot(html, qrs, delay) {
+    var msgs = document.getElementById('ch-messages');
+    var typingWrap = document.createElement('div');
+    typingWrap.className = 'ch-msg bot';
+    typingWrap.innerHTML =
+      '<div class="ch-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="white"/><path d="M4 20c0-3.31 3.58-6 8-6s8 2.69 8 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>' +
+      '<div class="ch-typing"><span></span><span></span><span></span></div>';
+    msgs.appendChild(typingWrap);
+    msgs.scrollTop = msgs.scrollHeight;
+
+    var ms = delay || Math.min(650 + html.replace(/<[^>]+>/g,'').length * 10, 1400);
+
+    setTimeout(function() {
+      typingWrap.remove();
+      var el = document.createElement('div');
+      el.className = 'ch-msg bot';
+      var qrHtml = '';
+      if (qrs && qrs.length) {
+        qrHtml = '<div class="ch-qr">';
+        qrs.forEach(function(q) {
+          qrHtml += '<button class="ch-qr-btn" data-v="' + esc(q.v) + '">' + q.l + '</button>';
+        });
+        qrHtml += '</div>';
+      }
+      el.innerHTML =
+        '<div class="ch-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="white"/><path d="M4 20c0-3.31 3.58-6 8-6s8 2.69 8 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>' +
+        '<div><div class="ch-bubble">' + html + '</div>' + qrHtml + '</div>';
+      msgs.appendChild(el);
+      msgs.scrollTop = msgs.scrollHeight;
+    }, ms);
+  }
+
+  // ── Escape HTML ──────────────────────────────
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Normalize text for intent matching ───────
+  function norm(s) {
+    return s.toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g,'')
+      .replace(/[^a-z0-9 ]/g,' ');
+  }
+
+  // ── Scroll to contact section ────────────────
+  function goDevis() {
+    var el = document.getElementById('contact');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (isOpen) chToggle();
+  }
+
+  // ── Process message / intent engine ──────────
+  window.chProcess = function(raw) {
+    var t = norm(raw);
+
+    // Special internal values from quick replies
+    if (t === 'devis' || t === 'go devis') {
+      goDevis();
+      return chBot('Je vous redirige vers le formulaire de devis 📋<br><br>Décrivez votre besoin — réponse garantie sous <strong>48h</strong>, sans engagement.', [], 400);
+    }
+    if (t === 'tarifs')     return intentTarifs();
+    if (t === 'equipements') return intentEquipements();
+    if (t === 'packaging')  return intentPackaging();
+    if (t === 'conformite') return intentConformite();
+    if (t === 'process')    return intentProcess();
+    if (t === 'groupecohesif') {
+      window.open('https://groupecohesif.fr','_blank');
+      return chBot('J\'ouvre le site du <strong>Groupe Cohesif</strong> dans un nouvel onglet.', [], 300);
+    }
+
+    // ─ SALUTATION ─
+    if (/^(bonjour|bonsoir|salut|hello|coucou|hi |hey |bjr|bsr)/.test(t)) {
+      return chBot('Bonjour ! 👋 Ravi de vous accueillir.<br>Comment puis-je vous aider aujourd\'hui ?', [
+        { l: '🏭 Équipements IAA',       v: 'equipements' },
+        { l: '📦 Packaging alimentaire', v: 'packaging' },
+        { l: '💰 Économies réalisables', v: 'tarifs' },
+        { l: '📋 Devis gratuit',         v: 'devis' }
+      ]);
+    }
+
+    // ─ TARIFS / PRIX / ÉCONOMIES ─
+    if (/tarif|prix|cout|coute|cher|pas cher|combien|gratuit|devis|budget|economie|economiser|reduction|remise|moins cher|rabais/.test(t)) return intentTarifs();
+
+    // ─ ÉQUIPEMENTS IAA ─
+    if (/equipement|machine|materiel|cuve|inox|operculeuse|etiqueteuse|convoyeur|peseus|pese|conditionnement|ligne|industriel|production|usine|outil|appareillage|scelleuse|barquetteuse|thermoformeuse|doseur|dosage|melangeur|malaxeur|pasteurisateur|sterilisateur/.test(t)) return intentEquipements();
+
+    // ─ PACKAGING / EMBALLAGE ─
+    if (/packaging|emballage|barquette|film|sachet|boite|pot|sac|sous vide|thermoform|opercul|etiquette|etiquet|conditionnement secondaire|carton|contenant|bouteille|flacon/.test(t)) return intentPackaging();
+
+    // ─ CONFORMITÉ CE ─
+    if (/conformite|conforme|ce|norme|certificat|attestation|securite|reglementation|reglementaire|europeen|directive|iaf|alimentation contact|brc|ifs|haccp/.test(t)) return intentConformite();
+
+    // ─ DÉLAIS / PROCESS ─
+    if (/delai|livraison|quand|combien de temps|planifier|vite|rapide|urgent|etape|comment|fonctionne|processus|process|sourcing|etapes/.test(t)) return intentProcess();
+
+    // ─ ZONE / FRANCE ─
+    if (/zone|france|region|departement|territoire|international|europe|pays|partout|national/.test(t)) {
+      return chBot(
+        '🇫🇷 <strong>Zone d\'intervention</strong><br><br>' +
+        'Cohesif Agro opère sur l\'ensemble du territoire <strong>français</strong>.<br><br>' +
+        '📍 Siège : Paris 15e — Groupe Cohesif<br>' +
+        '🌏 Sourcing : Chine (contrôle qualité sur site)<br>' +
+        '🚚 Livraison : France entière, dédouanement inclus<br><br>' +
+        'Nos clients sont répartis partout en France : industries agroalimentaires, traiteurs industriels, PME IAA.',
+        [{ l: '📋 Demander un devis', v: 'devis' }]
+      );
+    }
+
+    // ─ HORAIRES ─
+    if (/horaire|heure|ouvert|ferme|disponible|semaine|week.end/.test(t)) {
+      return chBot(
+        '🕐 <strong>Nos horaires</strong><br><br>' +
+        '📅 Lundi – Vendredi : <strong>9h00 – 18h00</strong><br>' +
+        '❌ Week-end : fermé<br><br>' +
+        'Notre formulaire de devis est disponible <strong>24h/24</strong> — réponse sous 48h ouvrées.',
+        [{ l: '📋 Envoyer un devis', v: 'devis' }]
+      );
+    }
+
+    // ─ GROUPE COHESIF ─
+    if (/groupe cohesif|groupe|cohesif|paris|siret|filiale|pole|qui etes vous|qui sommes nous|presentation/.test(t)) {
+      return chBot(
+        '🏛️ <strong>Cohesif Agro</strong> est un pôle du <strong>Groupe Cohesif</strong>, groupe multi-activités fondé en 2024, dont le siège est à Paris 15e.<br><br>' +
+        'Le Groupe opère <strong>8+ pôles</strong> : Net, Commerce, Access (Immo), BTP, Auto, Énergie, Négoce, Sport.<br><br>' +
+        'SIRET : 889 287 462 00036',
+        [
+          { l: '🌐 Voir le groupe', v: 'groupecohesif' },
+          { l: '📋 Demander un devis', v: 'devis' }
+        ]
+      );
+    }
+
+    // ─ MERCI ─
+    if (/merci|super|parfait|nickel|top|genial|excellent|compris|tres bien|cool/.test(t)) {
+      return chBot('Avec plaisir ! 😊 N\'hésitez pas si vous avez d\'autres questions.', [{ l: '📋 Demander un devis', v: 'devis' }]);
+    }
+
+    // ─ AU REVOIR ─
+    if (/au revoir|bye|bonne journee|bonne soiree|a bientot|ciao/.test(t)) {
+      return chBot('À bientôt ! 👋 Bonne journée !', [], 350);
+    }
+
+    // ─ AGENT EN DIRECT ─
+    if (t === 'agent' || /\b(agent|expert|humain|personne|conseiller|rappel|rappelle|appelle.moi|telephone|parler a un|contact direct|vrai|quelqu.un)\b/.test(t)) {
+      return intentAgent();
+    }
+
+    // ─ DEFAULT ─
+    return chBot(
+      'Je n\'ai pas tout à fait saisi votre demande. 😊<br><br>Je peux vous renseigner sur nos <strong>équipements IAA, packaging, délais, conformité CE et économies réalisables</strong>. Ou vous rediriger vers notre formulaire de devis.',
+      [
+        { l: '🏭 Équipements IAA',       v: 'equipements' },
+        { l: '📦 Packaging alimentaire', v: 'packaging' },
+        { l: '💰 Économies réalisables', v: 'tarifs' },
+        { l: '✅ Conformité CE',         v: 'conformite' },
+        { l: '📋 Demander un devis',     v: 'devis' },
+        { l: '👤 Parler à un expert',    v: 'agent' }
+      ]
+    );
+  };
+
+  // ── Intent helpers ────────────────────────────
+
+  function intentTarifs() {
+    chBot(
+      '💰 <strong>Économies réalisables</strong><br><br>' +
+      'Nos clients réalisent en moyenne <strong>35 à 55 % d\'économie</strong> par rapport aux fournisseurs européens, CE garantie incluse.<br><br>' +
+      '📊 Exemple concret : operculeuse achetée <strong>42 % moins cher</strong> qu\'un devis français, conforme, installée en 2 jours.<br><br>' +
+      '📋 Chaque devis inclut un <strong>comparatif prix France / Chine</strong> détaillé. Gratuit, sans engagement — réponse sous <strong>48h</strong>.',
+      [
+        { l: '📋 Demander un devis',  v: 'devis' },
+        { l: '🏭 Équipements IAA',    v: 'equipements' },
+        { l: '📦 Packaging',          v: 'packaging' }
+      ]
+    );
+  }
+
+  function intentEquipements() {
+    chBot(
+      '🏭 <strong>Équipements IAA — machines industrielles</strong><br><br>' +
+      '✅ Cuves inox 304 / 316L alimentaires<br>' +
+      '✅ Operculeuses & scelleuses automatiques<br>' +
+      '✅ Étiqueteuses automatiques<br>' +
+      '✅ Convoyeurs alimentaires<br>' +
+      '✅ Peseuses associatives multi-têtes<br>' +
+      '✅ Lignes de conditionnement complètes<br>' +
+      '✅ Barquetteuses & thermoformeuses<br>' +
+      '✅ Doseurs, malaxeurs, pasteurisateurs…<br><br>' +
+      '🔖 Conformité CE garantie · 30–45 jours livraison · 35–55 % d\'économie',
+      [
+        { l: '📋 Demander un devis',  v: 'devis' },
+        { l: '✅ Conformité CE',      v: 'conformite' },
+        { l: '⏱️ Délais & process',  v: 'process' }
+      ]
+    );
+  }
+
+  function intentPackaging() {
+    chBot(
+      '📦 <strong>Packaging alimentaire</strong><br><br>' +
+      '✅ Barquettes thermoformées<br>' +
+      '✅ Films sous vide alimentaires<br>' +
+      '✅ Sachets & emballages flexibles<br>' +
+      '✅ Pots, boîtes, contenants rigides<br>' +
+      '✅ Étiquettes & films d\'operculation<br><br>' +
+      '🔖 Conformité contact alimentaire garantie (attestations CE transmises à chaque livraison) · 35–55 % d\'économie vs fournisseurs européens.',
+      [
+        { l: '📋 Demander un devis', v: 'devis' },
+        { l: '✅ Conformité CE',     v: 'conformite' },
+        { l: '🏭 Équipements IAA',  v: 'equipements' }
+      ]
+    );
+  }
+
+  function intentConformite() {
+    chBot(
+      '✅ <strong>Conformité CE — notre engagement</strong><br><br>' +
+      '🔒 Marquage CE systématique sur tous les équipements<br>' +
+      '📄 Attestations de conformité transmises avec chaque livraison<br>' +
+      '🍽️ Certification contact alimentaire garantie (packaging)<br>' +
+      '🔍 Contrôle qualité sur site en Chine avant expédition<br>' +
+      '📦 Dédouanement complet inclus dans le process<br><br>' +
+      'Aucune formalité à votre charge. Un seul interlocuteur de la commande à la livraison.',
+      [
+        { l: '📋 Demander un devis', v: 'devis' },
+        { l: '⏱️ Voir le process',  v: 'process' }
+      ]
+    );
+  }
+
+  function intentProcess() {
+    chBot(
+      '⏱️ <strong>Notre process en 5 étapes</strong><br><br>' +
+      '<strong>1.</strong> Premier contact — vous décrivez votre besoin<br>' +
+      '<strong>2.</strong> Étude & devis — comparatif France / Chine sous <strong>48h</strong><br>' +
+      '<strong>3.</strong> Sélection fournisseur — audit de 3 à 5 usines qualifiées<br>' +
+      '<strong>4.</strong> Contrôle qualité sur site en Chine avant expédition<br>' +
+      '<strong>5.</strong> Livraison en France — dédouanement & certificats CE inclus<br><br>' +
+      '🗓️ Délai moyen : <strong>30 à 45 jours</strong> de la commande à la livraison.',
+      [
+        { l: '📋 Demander un devis', v: 'devis' },
+        { l: '👤 Parler à un expert', v: 'agent' }
+      ]
+    );
+  }
+
+})();
+</script>
 
 <script>
 document.getElementById('langBtn').addEventListener('click',function(){
