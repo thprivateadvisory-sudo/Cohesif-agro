@@ -1846,20 +1846,21 @@ body.en [data-en]{display:revert!important}
   // ── Send urgent alert via Formspree ──
   function sendAgentAlert(name, phone) {
     var fd = new FormData();
-    fd.append('_subject', '🔴 EXPERT EN DIRECT — ' + name + ' (' + phone + ')');
+    fd.append('_subject', '🟢 [COHESIF AGRO] EXPERT EN DIRECT — ' + name + ' (' + phone + ')');
     fd.append('nom', name);
     fd.append('telephone', phone);
+    fd.append('site', 'COHESIF AGRO — cohesifagro.fr');
     fd.append('service', 'Demande expert en direct — Cohesif Agro');
     fd.append('message',
-      '⚡ DEMANDE DE MISE EN RELATION EN DIRECT\n\n' +
+      '⚡ DEMANDE DE MISE EN RELATION EN DIRECT\n' +
+      '📌 SITE : COHESIF AGRO (cohesifagro.fr)\n\n' +
       'Nom : ' + name + '\n' +
       'Téléphone : ' + phone + '\n' +
       'Heure : ' + new Date().toLocaleString('fr-FR') + '\n' +
       'Expert disponible : ' + (isAgentAvailable() ? 'OUI (heures ouvrables)' : 'NON — hors horaires') + '\n\n' +
       '— Historique conversation —\n' + (chatLog.length ? chatLog.join('\n') : '(pas de messages précédents)')
     );
-    // TODO: remplacer XXXXXXXX par votre ID Formspree (cohesifagro@outlook.com)
-    fetch('https://formspree.io/f/XXXXXXXX', {
+    fetch('https://formspree.io/f/mzdnndna', {
       method: 'POST',
       body: fd,
       headers: { 'Accept': 'application/json' }
