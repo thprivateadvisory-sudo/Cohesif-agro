@@ -740,6 +740,231 @@ padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.04);
 body.en [data-fr]{display:none!important}
 body.en [data-en]{display:revert!important}
 </style>
+<style>
+    /* ──────────────────────────────────────── LEASING POPUP */
+    .leasing-trigger {
+      position: fixed;
+      bottom: 100px;
+      left: 24px;
+      z-index: 45;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1a2744;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 18px 13px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(26,39,68,0.40);
+      transform: translateX(calc(-100% - 30px));
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s, opacity 0.3s;
+    }
+    .leasing-trigger.show { transform: translateX(0); }
+    .leasing-trigger:hover {
+      box-shadow: 0 10px 32px rgba(26,39,68,0.50);
+      transform: translateX(0) translateY(-2px);
+    }
+    .leasing-trigger-icon {
+      width: 30px; height: 30px;
+      background: #c9a840;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .leasing-trigger-text { line-height: 1.25; }
+    .leasing-trigger-text small {
+      display: block;
+      font-size: 10px;
+      color: #c9a840;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .leasing-trigger-dismiss {
+      position: absolute;
+      top: -9px;
+      right: -9px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid rgba(26,39,68,0.18);
+      color: #1a2744;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      padding: 0;
+      z-index: 1;
+      transition: background 0.2s;
+    }
+    .leasing-trigger-dismiss:hover { background: #f0f0f0; }
+
+    .leasing-modal-overlay {
+      position: fixed; inset: 0; z-index: 9500;
+      background: rgba(0,0,0,0.62);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .leasing-modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .leasing-modal {
+      background: #fff;
+      border-radius: 22px;
+      max-width: 620px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .leasing-modal-overlay.open .leasing-modal { transform: translateY(0) scale(1); }
+
+    .leasing-modal-header {
+      border-radius: 22px 22px 0 0;
+      overflow: hidden;
+    }
+    .leasing-logo-zone {
+      background: #fff;
+      padding: 18px 32px 16px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(26,39,68,0.10);
+    }
+    .leasing-header-text {
+      background: linear-gradient(135deg, #1a2744 0%, #243561 100%);
+      padding: 22px 32px 26px;
+    }
+    .leasing-modal-close {
+      position: absolute; top: 12px; right: 14px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(26,39,68,0.08);
+      border: none; color: #1a2744; font-size: 20px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; line-height: 1;
+    }
+    .leasing-modal-close:hover { background: rgba(26,39,68,0.16); }
+    .leasing-logo-img { height: 52px; width: auto; display: block; }
+    .leasing-modal-header h2 {
+      color: #fff; font-size: 22px; font-weight: 800;
+      line-height: 1.3; margin: 0 0 7px;
+    }
+    .leasing-modal-header p { color: rgba(255,255,255,0.72); font-size: 14px; margin: 0; }
+
+    .leasing-modal-body { padding: 28px 32px 30px; }
+
+    .leasing-simulator {
+      background: #f7f8fc;
+      border: 1.5px solid #e5e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 26px;
+    }
+    .leasing-section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #1a2744; margin-bottom: 16px;
+    }
+    .leasing-sim-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; margin-bottom: 16px;
+    }
+    .leasing-sim-field label {
+      display: block; font-size: 12px; font-weight: 600;
+      color: #4a4a4a; margin-bottom: 6px;
+    }
+    .leasing-sim-field input[type="number"],
+    .leasing-sim-field select {
+      width: 100%; padding: 10px 12px;
+      border: 1.5px solid #d4d4d4;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 14px; color: #0a0a0a;
+      background: #fff; outline: none;
+      transition: border-color 0.2s;
+    }
+    .leasing-sim-field input:focus,
+    .leasing-sim-field select:focus { border-color: #c9a840; }
+    .leasing-sim-result {
+      background: #1a2744; border-radius: 10px;
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .leasing-sim-result-label { color: rgba(255,255,255,0.72); font-size: 13px; }
+    .leasing-sim-result-amount {
+      color: #c9a840; font-size: 26px; font-weight: 800;
+    }
+    .leasing-sim-result-sub { color: rgba(255,255,255,0.45); font-size: 11px; margin-top: 3px; }
+
+    .leasing-form-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 12px;
+    }
+    .leasing-form-field { display: flex; flex-direction: column; gap: 5px; }
+    .leasing-form-field label { font-size: 12px; font-weight: 600; color: #4a4a4a; }
+    .leasing-form-field input,
+    .leasing-form-field textarea {
+      padding: 10px 12px;
+      border: 1.5px solid #d4d4d4; border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 14px; color: #0a0a0a;
+      outline: none; transition: border-color 0.2s; background: #fff;
+    }
+    .leasing-form-field input:focus,
+    .leasing-form-field textarea:focus { border-color: #1a2744; }
+    .leasing-form-field textarea { resize: vertical; min-height: 80px; }
+    .leasing-form-submit {
+      width: 100%; padding: 16px;
+      background: #1a2744; color: #fff; border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700;
+      cursor: pointer; margin-top: 6px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .leasing-form-submit:hover { background: #243561; transform: translateY(-1px); }
+    .leasing-form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .leasing-success {
+      display: none; text-align: center; padding: 28px 20px;
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      border-radius: 12px; margin-bottom: 8px;
+    }
+    .leasing-success .l-check { font-size: 40px; margin-bottom: 12px; }
+    .leasing-success h3 { color: #15803d; font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .leasing-success p { color: #4a4a4a; font-size: 14px; line-height: 1.5; }
+
+    .leasing-modal-footer {
+      border-top: 1px solid #f0f0f0;
+      padding: 16px 32px; text-align: center;
+    }
+    .leasing-modal-footer a { font-size: 13px; color: #737373; transition: color 0.2s; }
+    .leasing-modal-footer a:hover { color: #1a2744; }
+    .leasing-modal-footer a span { color: #c9a840; font-weight: 600; }
+
+    @media (max-width: 640px) {
+      .leasing-trigger { bottom: 80px; left: 14px; padding: 11px 14px 11px 12px; }
+      .leasing-logo-zone { padding: 14px 20px 12px; }
+      .leasing-header-text { padding: 16px 20px 20px; }
+      .leasing-modal-body { padding: 20px 20px 24px; }
+      .leasing-modal-footer { padding: 14px 20px; }
+      .leasing-sim-row { grid-template-columns: 1fr; }
+      .leasing-form-row { grid-template-columns: 1fr; }
+      .leasing-sim-result { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .leasing-modal-header h2 { font-size: 19px; }
+    }
+</style>
 </head>
 <body>
 
@@ -2259,6 +2484,212 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
     if(!wasOpen)item.classList.add('open');
   });
 });
+</script>
+
+<!-- ════════════════════════════════════════════ LEASING — BOUTON FLOTTANT -->
+<button class="leasing-trigger" id="leasing-trigger" onclick="openLeasingModal()" aria-label="Financer votre projet avec Cohesif Leasing">
+  <span class="leasing-trigger-dismiss" onclick="dismissLeasingTrigger(event)" role="button" tabindex="0" aria-label="Masquer">×</span>
+  <div class="leasing-trigger-icon">€</div>
+  <div class="leasing-trigger-text">
+    Financer votre projet
+    <small>via Cohesif Leasing</small>
+  </div>
+</button>
+
+<!-- ════════════════════════════════════════════ LEASING — MODAL -->
+<div class="leasing-modal-overlay" id="leasing-modal-overlay" onclick="closeLeasingModalOutside(event)" role="dialog" aria-modal="true" aria-labelledby="leasing-modal-title">
+  <div class="leasing-modal">
+
+    <!-- Header -->
+    <div class="leasing-modal-header">
+
+      <!-- Zone blanche : logo -->
+      <div class="leasing-logo-zone">
+        <button class="leasing-modal-close" onclick="closeLeasingModal()" aria-label="Fermer">×</button>
+        <img src="cohesif-leasing-logo.png?v=3" alt="Cohesif Leasing" class="leasing-logo-img"/>
+      </div>
+
+      <!-- Zone navy : titre + sous-titre -->
+      <div class="leasing-header-text">
+        <h2 id="leasing-modal-title">Financez votre projet<br>en toute sérénité</h2>
+        <p>Étalez le coût de votre projet, sans sortir la totalité de la somme d'un coup.</p>
+      </div>
+
+    </div>
+
+    <!-- Body -->
+    <div class="leasing-modal-body">
+
+      <!-- Simulateur -->
+      <div class="leasing-simulator">
+        <div class="leasing-section-label">Simulateur de mensualités</div>
+        <div class="leasing-sim-row">
+          <div class="leasing-sim-field">
+            <label for="leasing-amount">Montant du projet (€)</label>
+            <input type="number" id="leasing-amount" min="1000" max="500000" step="500" value="20000" placeholder="ex : 20 000" oninput="calcLeasing()"/>
+          </div>
+          <div class="leasing-sim-field">
+            <label for="leasing-duration">Durée de financement</label>
+            <select id="leasing-duration" onchange="calcLeasing()">
+              <option value="12">12 mois (1 an)</option>
+              <option value="24">24 mois (2 ans)</option>
+              <option value="36" selected>36 mois (3 ans)</option>
+              <option value="48">48 mois (4 ans)</option>
+              <option value="60">60 mois (5 ans)</option>
+            </select>
+          </div>
+        </div>
+        <div class="leasing-sim-result">
+          <div>
+            <div class="leasing-sim-result-label">Estimation mensualité</div>
+            <div class="leasing-sim-result-sub">Taux indicatif 3,9 % · sans engagement</div>
+          </div>
+          <div>
+            <div class="leasing-sim-result-amount" id="leasing-monthly">590 €<span style="font-size:14px;font-weight:500;color:rgba(201,168,64,0.75)">&thinsp;/mois</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="leasing-section-label">Demande de financement</div>
+
+      <div class="leasing-success" id="leasing-success">
+        <div class="l-check">✅</div>
+        <h3>Demande envoyée !</h3>
+        <p>Un conseiller Cohesif Leasing vous contactera<br>sous 24h ouvrées pour étudier votre dossier.</p>
+      </div>
+
+      <form id="leasing-form" action="https://formspree.io/f/mzdnndna" method="POST" onsubmit="handleLeasingForm(event)">
+        <input type="hidden" name="_subject" value="Demande de financement — Cohesif Leasing (via Agro)"/>
+        <input type="hidden" name="source" value="Cohesif Agro · Popup Leasing"/>
+        <input type="hidden" name="montant_projet" id="l-hidden-amount" value="20 000 €"/>
+        <input type="hidden" name="duree_souhaitee" id="l-hidden-duration" value="36 mois"/>
+        <input type="hidden" name="mensualite_estimee" id="l-hidden-monthly" value=""/>
+
+        <div class="leasing-form-row">
+          <div class="leasing-form-field">
+            <label for="l-prenom">Prénom *</label>
+            <input type="text" id="l-prenom" name="prenom" required autocomplete="given-name" placeholder="Jean"/>
+          </div>
+          <div class="leasing-form-field">
+            <label for="l-nom">Nom *</label>
+            <input type="text" id="l-nom" name="nom" required autocomplete="family-name" placeholder="Dupont"/>
+          </div>
+        </div>
+        <div class="leasing-form-row">
+          <div class="leasing-form-field">
+            <label for="l-email">Email *</label>
+            <input type="email" id="l-email" name="email" required autocomplete="email" placeholder="jean@exemple.fr"/>
+          </div>
+          <div class="leasing-form-field">
+            <label for="l-tel">Téléphone *</label>
+            <input type="tel" id="l-tel" name="telephone" required autocomplete="tel" placeholder="06 xx xx xx xx"/>
+          </div>
+        </div>
+        <div class="leasing-form-row" style="grid-template-columns:1fr;margin-bottom:16px">
+          <div class="leasing-form-field">
+            <label for="l-projet">Décrivez votre projet</label>
+            <textarea id="l-projet" name="projet" placeholder="Type de travaux, surface, localisation, délai souhaité…"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="leasing-form-submit" id="leasing-submit">
+          Envoyer ma demande de financement →
+        </button>
+        <p style="font-size:11px;color:#999;text-align:center;margin-top:10px;line-height:1.5">
+          En soumettant ce formulaire, vous acceptez d'être recontacté par Cohesif Leasing. Sans engagement.
+        </p>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="leasing-modal-footer">
+      <a href="https://cohesifleasing.fr" target="_blank" rel="noopener noreferrer">
+        En savoir plus sur <span>Cohesif Leasing</span> →
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ──────────────────────────────────── LEASING POPUP
+
+  function calcLeasing() {
+    var amount = parseFloat(document.getElementById('leasing-amount').value) || 0;
+    var n = parseInt(document.getElementById('leasing-duration').value) || 36;
+    var r = 0.039 / 12;
+    var monthly = 0;
+    if (amount > 0 && n > 0) {
+      monthly = amount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    }
+    var display = monthly > 0 ? Math.ceil(monthly).toLocaleString('fr-FR') + ' €' : '—';
+    document.getElementById('leasing-monthly').innerHTML =
+      display + '<span style="font-size:14px;font-weight:500;color:rgba(201,168,64,0.75)">&thinsp;/mois</span>';
+    document.getElementById('l-hidden-amount').value = amount.toLocaleString('fr-FR') + ' €';
+    document.getElementById('l-hidden-duration').value = n + ' mois';
+    document.getElementById('l-hidden-monthly').value = Math.ceil(monthly) + ' €/mois';
+  }
+
+  function openLeasingModal() {
+    document.getElementById('leasing-modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    calcLeasing();
+  }
+
+  function dismissLeasingTrigger(e) {
+    e.stopPropagation();
+    var trigger = document.getElementById('leasing-trigger');
+    trigger.style.opacity = '0';
+    trigger.style.transform = 'translateX(calc(-100% - 30px))';
+    setTimeout(function() { trigger.style.display = 'none'; }, 350);
+  }
+
+  function closeLeasingModal() {
+    document.getElementById('leasing-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLeasingModalOutside(e) {
+    if (e.target === document.getElementById('leasing-modal-overlay')) closeLeasingModal();
+  }
+
+  function handleLeasingForm(e) {
+    e.preventDefault();
+    var btn = document.getElementById('leasing-submit');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+    var form = document.getElementById('leasing-form');
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res) {
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('leasing-success').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande de financement →';
+        alert('Une erreur est survenue. Veuillez réessayer.');
+      }
+    }).catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Envoyer ma demande de financement →';
+      alert('Une erreur est survenue. Vérifiez votre connexion internet.');
+    });
+  }
+
+  // Afficher le bouton flottant après 5 secondes
+  setTimeout(function() {
+    var t = document.getElementById('leasing-trigger');
+    if (t) t.classList.add('show');
+  }, 5000);
+
+  // Fermer avec Echap
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLeasingModal();
+  });
 </script>
 </body>
 </html>
