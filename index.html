@@ -735,6 +735,78 @@ padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.04);
 .hero-btns .cta,.hero-btns .cta-outline{text-align:center}
 }
 
+/* ─── SIMULATEUR D'ÉCONOMIES ─── */
+.simul{background:var(--pale)}
+.simul-head{margin-bottom:2.5rem}
+.simul-card{
+background:var(--white);border-radius:12px;
+padding:2.5rem;box-shadow:0 4px 30px rgba(0,0,0,.06);
+max-width:820px;margin:0 auto;
+}
+.simul-types{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem}
+.stype-btn{
+background:var(--offwh);border:1.5px solid rgba(0,0,0,.09);
+color:var(--txm);font-family:var(--fb);font-size:.82rem;font-weight:600;
+padding:.55rem 1.2rem;border-radius:50px;cursor:pointer;transition:all .2s;
+}
+.stype-btn.active,.stype-btn:hover{background:var(--deep);color:#fff;border-color:var(--deep)}
+.simul-input-zone{margin-bottom:2rem}
+.simul-input-zone>label{
+display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;
+text-transform:uppercase;color:var(--mid);margin-bottom:1rem;
+}
+.simul-range-row{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.simul-range{
+flex:1;min-width:180px;-webkit-appearance:none;appearance:none;
+height:6px;border-radius:3px;outline:none;cursor:pointer;
+background:linear-gradient(to right,var(--accent) 0%,var(--accent) var(--fill,9%),#dce8e0 var(--fill,9%));
+}
+.simul-range::-webkit-slider-thumb{
+-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+background:var(--deep);border:3px solid var(--accent);
+cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+.simul-range::-moz-range-thumb{
+width:18px;height:18px;border-radius:50%;
+background:var(--deep);border:3px solid var(--accent);
+cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+.simul-amount-box{
+display:flex;align-items:baseline;gap:.25rem;
+font-family:var(--ff);font-size:1.9rem;font-weight:900;color:var(--deep);
+white-space:nowrap;
+}
+.simul-amount-box small{font-family:var(--fb);font-size:1rem;font-weight:600;color:var(--txm)}
+.simul-result{
+background:linear-gradient(135deg,var(--deep) 0%,var(--mid) 100%);
+border-radius:10px;padding:1.8rem 2rem;
+display:flex;align-items:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap;
+}
+.simul-res-left{flex:1;min-width:180px}
+.simul-res-lbl{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.4rem}
+.simul-res-amount{font-family:var(--ff);font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--accent);line-height:1.15;margin-bottom:.4rem}
+.simul-res-sub{font-size:.72rem;color:rgba(255,255,255,.4)}
+.simul-res-right{display:flex;flex-direction:column;align-items:center;gap:.4rem;flex-shrink:0}
+.simul-donut{width:88px;height:88px}
+.simul-donut-pct{font-family:var(--ff);font-size:.85rem;font-weight:900;color:var(--accent);text-align:center}
+.simul-breakdown{border:1px solid rgba(0,0,0,.07);border-radius:8px;overflow:hidden;margin-bottom:1.8rem}
+.simul-bk-row{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.3rem;font-size:.85rem}
+.simul-bk-row+.simul-bk-row{border-top:1px solid rgba(0,0,0,.06)}
+.simul-bk-row.hl{background:var(--pale)}
+.simul-bk-lbl{color:var(--txm)}
+.simul-bk-val{font-weight:700;color:var(--deep)}
+.simul-bk-val.v-green{color:var(--mid)}
+.simul-bk-val.v-accent{color:var(--accent);font-size:.95rem}
+.simul-cta-zone{text-align:center}
+.simul-cta-zone .cta{font-size:.82rem;padding:.9rem 2.2rem;display:inline-block;margin-bottom:.7rem}
+.simul-note{font-size:.68rem;color:var(--txm);line-height:1.5;max-width:500px;margin:0 auto}
+@media(max-width:600px){
+.simul-card{padding:1.5rem}
+.simul-result{flex-direction:column;align-items:flex-start;gap:1.2rem}
+.simul-res-right{flex-direction:row;align-items:center;gap:1rem}
+.simul-amount-box{font-size:1.5rem}
+}
+
 /* ─── LANG (must be last) ─── */
 [data-en]{display:none!important}
 body.en [data-fr]{display:none!important}
@@ -1123,6 +1195,88 @@ body.en [data-en]{display:revert!important}
         </ul>
         <p class="ocard-foot" data-fr>Revenu récurrent trimestriel</p>
         <p class="ocard-foot" data-en>Quarterly recurring supply</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATEUR D'ÉCONOMIES -->
+<section class="simul sec" id="simulateur">
+  <div class="inner">
+    <div class="simul-head">
+      <p class="label" data-fr>Simulateur d'économies</p>
+      <p class="label" data-en>Savings calculator</p>
+      <h2 class="heading" data-fr>Combien pouvez-vous économiser ?</h2>
+      <h2 class="heading" data-en>How much could you save?</h2>
+      <p class="subdesc" data-fr>Renseignez votre budget actuel chez des fournisseurs européens et visualisez instantanément votre économie potentielle avec Cohesif Agro.</p>
+      <p class="subdesc" data-en>Enter your current budget with European suppliers and instantly see your potential savings with Cohesif Agro.</p>
+    </div>
+    <div class="simul-card">
+      <!-- Type selector -->
+      <div class="simul-types">
+        <button class="stype-btn active" data-type="equipements">
+          <span data-fr>Équipements IAA</span><span data-en>Food equipment</span>
+        </button>
+        <button class="stype-btn" data-type="packaging">
+          <span data-fr>Packaging alimentaire</span><span data-en>Food packaging</span>
+        </button>
+        <button class="stype-btn" data-type="les-deux">
+          <span data-fr>Les deux</span><span data-en>Both</span>
+        </button>
+      </div>
+      <!-- Budget input -->
+      <div class="simul-input-zone">
+        <label data-fr>Votre budget annuel actuel (fournisseurs européens)</label>
+        <label data-en>Your current annual budget (European suppliers)</label>
+        <div class="simul-range-row">
+          <input type="range" id="simBudget" class="simul-range" min="5000" max="500000" step="5000" value="50000" aria-label="Budget annuel"/>
+          <div class="simul-amount-box">
+            <span id="simBudgetVal">50&nbsp;000</span><small>€</small>
+          </div>
+        </div>
+      </div>
+      <!-- Result block -->
+      <div class="simul-result">
+        <div class="simul-res-left">
+          <div class="simul-res-lbl" data-fr>Économie estimée / an</div>
+          <div class="simul-res-lbl" data-en>Estimated savings / year</div>
+          <div class="simul-res-amount" id="simSaveRange">17&nbsp;500 – 27&nbsp;500 €</div>
+          <div class="simul-res-sub" id="simSaveSub">soit 35% à 55% de votre budget actuel</div>
+        </div>
+        <div class="simul-res-right">
+          <svg class="simul-donut" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="9"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#52B788" stroke-width="9"
+              stroke-linecap="round" stroke-dasharray="238.76" stroke-dashoffset="107.44"
+              transform="rotate(-90 50 50)" id="simArc"/>
+          </svg>
+          <div class="simul-donut-pct" id="simPctLabel">35–55%</div>
+        </div>
+      </div>
+      <!-- Breakdown table -->
+      <div class="simul-breakdown">
+        <div class="simul-bk-row">
+          <span class="simul-bk-lbl" data-fr>Budget actuel (fournisseurs EU)</span>
+          <span class="simul-bk-lbl" data-en>Current budget (EU suppliers)</span>
+          <span class="simul-bk-val" id="simBkCurrent">50&nbsp;000 €</span>
+        </div>
+        <div class="simul-bk-row hl">
+          <span class="simul-bk-lbl" data-fr>Budget estimé avec Cohesif Agro</span>
+          <span class="simul-bk-lbl" data-en>Estimated budget with Cohesif Agro</span>
+          <span class="simul-bk-val v-green" id="simBkNew">22&nbsp;500 – 32&nbsp;500 €</span>
+        </div>
+        <div class="simul-bk-row">
+          <span class="simul-bk-lbl" data-fr>Économie potentielle / an</span>
+          <span class="simul-bk-lbl" data-en>Potential savings / year</span>
+          <span class="simul-bk-val v-accent" id="simBkSaving">17&nbsp;500 – 27&nbsp;500 €</span>
+        </div>
+      </div>
+      <!-- CTA -->
+      <div class="simul-cta-zone">
+        <a href="#contact" class="cta" data-fr>Obtenir mon devis personnalisé →</a>
+        <a href="#contact" class="cta" data-en>Get my custom quote →</a>
+        <p class="simul-note" data-fr>Estimation indicative basée sur les économies moyennes constatées chez nos clients. Votre devis précis est fourni gratuitement sous 48h.</p>
+        <p class="simul-note" data-en>Indicative estimate based on average savings observed across our clients. Your precise free quote is provided within 48h.</p>
       </div>
     </div>
   </div>
@@ -2049,6 +2203,80 @@ body.en [data-en]{display:revert!important}
   </div>
   <div class="ch-powered">Propulsé par l'IA · Cohesif Agro</div>
 </div>
+
+<script>
+// ═══════════════════════════════════════════════
+// SIMULATEUR D'ÉCONOMIES · COHESIF AGRO
+// ═══════════════════════════════════════════════
+(function(){
+  'use strict';
+  var RATES = {
+    equipements: {min:.35, max:.55},
+    packaging:   {min:.30, max:.45},
+    'les-deux':  {min:.35, max:.55}
+  };
+  var CIRC = 238.76; // 2 * PI * 38
+  var currentType = 'equipements';
+  var budget = 50000;
+
+  function fmt(n){
+    return Math.round(n).toLocaleString('fr-FR');
+  }
+
+  function update(){
+    var r = RATES[currentType];
+    var saveMin = budget * r.min;
+    var saveMax = budget * r.max;
+    var newMin  = budget - saveMax;
+    var newMax  = budget - saveMin;
+    var pctMin  = Math.round(r.min * 100);
+    var pctMax  = Math.round(r.max * 100);
+    var avgPct  = (r.min + r.max) / 2;
+
+    // Budget label
+    document.getElementById('simBudgetVal').textContent = fmt(budget);
+
+    // Range track fill
+    var fill = ((budget - 5000) / (500000 - 5000) * 100).toFixed(1) + '%';
+    document.getElementById('simBudget').style.setProperty('--fill', fill);
+
+    // Result
+    document.getElementById('simSaveRange').textContent = fmt(saveMin) + ' – ' + fmt(saveMax) + ' €';
+    var isEn = document.body.classList.contains('en');
+    document.getElementById('simSaveSub').textContent = isEn
+      ? (pctMin + '% to ' + pctMax + '% of your current budget')
+      : ('soit ' + pctMin + '% à ' + pctMax + '% de votre budget actuel');
+
+    // Donut arc
+    document.getElementById('simArc').setAttribute('stroke-dashoffset', (CIRC * (1 - avgPct)).toFixed(2));
+    document.getElementById('simPctLabel').textContent = pctMin + '–' + pctMax + '%';
+
+    // Breakdown
+    document.getElementById('simBkCurrent').textContent = fmt(budget) + ' €';
+    document.getElementById('simBkNew').textContent     = fmt(newMin) + ' – ' + fmt(newMax) + ' €';
+    document.getElementById('simBkSaving').textContent  = fmt(saveMin) + ' – ' + fmt(saveMax) + ' €';
+  }
+
+  var rangeEl = document.getElementById('simBudget');
+  if(!rangeEl) return;
+
+  rangeEl.addEventListener('input', function(){
+    budget = parseInt(this.value, 10);
+    update();
+  });
+
+  document.querySelectorAll('.stype-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.stype-btn').forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      currentType = this.getAttribute('data-type');
+      update();
+    });
+  });
+
+  update();
+})();
+</script>
 
 <script>
 // ═══════════════════════════════════════════════
