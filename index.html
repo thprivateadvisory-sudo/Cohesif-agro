@@ -1045,6 +1045,7 @@ body.en [data-en]{display:revert!important}
   <ul class="nav-links">
     <li><a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a></li>
     <li><a href="#equipements" data-fr>Équipements</a><a href="#equipements" data-en>Equipment</a></li>
+    <li><a href="boutique.html" data-fr>Boutique</a><a href="boutique.html" data-en>Shop</a></li>
     <li><a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a></li>
     <li><a href="#conf" data-fr>Conformité</a><a href="#conf" data-en>Compliance</a></li>
     <li><a href="#contact" data-fr>Contact</a><a href="#contact" data-en>Contact</a></li>
@@ -1060,6 +1061,7 @@ body.en [data-en]{display:revert!important}
 <div class="mmenu" id="mmenu" role="navigation" aria-label="Menu mobile">
   <a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a>
   <a href="#equipements" data-fr>Équipements</a><a href="#equipements" data-en>Equipment</a>
+  <a href="boutique.html" data-fr>Boutique</a><a href="boutique.html" data-en>Shop</a>
   <a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a>
   <a href="#conf" data-fr>Conformité</a><a href="#conf" data-en>Compliance</a>
   <a href="#contact" data-fr>Contact</a><a href="#contact" data-en>Contact</a>
@@ -1283,6 +1285,32 @@ body.en [data-en]{display:revert!important}
 </section>
 
 <!-- EQUIPEMENTS GALLERY -->
+<!-- BOUTIQUE -->
+<section class="shop-band" aria-label="Boutique distributeurs automatiques">
+  <div class="shop-band-in">
+    <img src="img/boutique/pizza-interieur.webp" alt="Distributeur automatique de pizzas" width="140" height="180" loading="lazy"/>
+    <div class="shop-band-txt">
+      <p class="shop-band-k" data-fr>Nouveau · Boutique</p><p class="shop-band-k" data-en>New · Shop</p>
+      <h2 data-fr>Distributeurs automatiques de pizzas, frites, glaces et café</h2>
+      <h2 data-en>Vending machines for pizza, fries, ice cream and coffee</h2>
+      <p data-fr>Vendez 24 h/24 sans personnel. Machines conformes CE, livrées en France, en achat ou en leasing.</p>
+      <p data-en>Sell 24/7 with no staff. CE-compliant machines delivered in France, to buy or lease.</p>
+    </div>
+    <a href="boutique.html" class="cta" data-fr>Voir la boutique</a><a href="boutique.html" class="cta" data-en>Visit the shop</a>
+  </div>
+</section>
+<style>
+.shop-band{background:var(--cream);padding:2.5rem var(--pad)}
+.shop-band-in{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:2rem;background:var(--deep);border-radius:14px;padding:1.5rem 2rem;color:#fff}
+.shop-band-in img{height:150px;width:auto;background:#fff;border-radius:8px;padding:6px;flex-shrink:0}
+.shop-band-txt{flex:1}
+.shop-band-k{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.shop-band h2{font-family:var(--ff);font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.2;margin-bottom:.4rem}
+.shop-band-txt p:not(.shop-band-k){color:rgba(255,255,255,.7);font-size:.92rem}
+.shop-band .cta{flex-shrink:0}
+@media(max-width:760px){.shop-band-in{flex-direction:column;align-items:flex-start;padding:1.5rem}.shop-band-in img{height:120px}}
+</style>
+
 <section class="equip" id="equipements">
   <div class="inner">
     <div class="equip-head">
@@ -1777,6 +1805,7 @@ body.en [data-en]{display:revert!important}
       <div class="ft-col">
         <h4 data-fr>Navigation</h4><h4 data-en>Navigation</h4>
         <a href="#offres" data-fr>Nos offres</a><a href="#offres" data-en>Our offer</a>
+        <a href="boutique.html" data-fr>Boutique</a><a href="boutique.html" data-en>Shop</a>
         <a href="#process" data-fr>Process</a><a href="#process" data-en>Process</a>
         <a href="#conf" data-fr>Conformité</a><a href="#conf" data-en>Compliance</a>
         <a href="#contact" data-fr>Contact</a><a href="#contact" data-en>Contact</a>
