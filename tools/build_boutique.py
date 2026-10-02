@@ -6,7 +6,7 @@
 Produit :
   - boutique.html            (catalogue)
   - boutique-*.html          (une fiche par machine)
-  - sitemap.xml              (ajoute les URL boutique si absentes)
+  - sitemap.xml              (régénéré : accueil, boutique, fiches + images)
 
 Pour afficher un prix : renseigner "prix" (€ HT) et, si besoin, "leasingMois"
 dans data/boutique.json, puis relancer le script. Tant que "prix" vaut null,
@@ -14,7 +14,6 @@ la fiche affiche « Prix sur demande » et le bouton ouvre la demande de prix.
 """
 import html
 import json
-import re
 from pathlib import Path
 from urllib.parse import quote
 
@@ -61,7 +60,28 @@ def lieu_label(p):
 
 # ─────────────────────────── gabarit commun
 
-def head(title, desc, url, image, extra_ld=""):
+TEL = "+" + WA
+TEL_TXT = "0" + WA[2] + " " + " ".join(WA[i:i + 2] for i in range(3, 11, 2))
+# Zones couvertes : livraison et accompagnement partout en France (SEO local + réassurance)
+VILLES = ["Paris et Île-de-France", "Lyon", "Marseille", "Toulouse", "Bordeaux", "Lille", "Nantes", "Strasbourg",
+          "Nice", "Montpellier", "Rennes", "Grenoble", "Rouen", "Toulon", "Reims", "Dijon", "Angers", "Clermont-Ferrand",
+          "Tours", "Metz", "Orléans", "Le Mans", "Perpignan", "Brest", "Limoges", "Caen", "Amiens", "Besançon",
+          "Nancy", "Avignon", "Pau", "La Rochelle", "Poitiers", "Annecy"]
+REGIONS = ["Île-de-France", "Auvergne-Rhône-Alpes", "Provence-Alpes-Côte d'Azur", "Occitanie", "Nouvelle-Aquitaine",
+           "Hauts-de-France", "Grand Est", "Pays de la Loire", "Bretagne", "Normandie", "Bourgogne-Franche-Comté",
+           "Centre-Val de Loire", "Corse"]
+ORGA = {"@type": "Organization", "@id": f"{SITE}/#organization", "name": "Cohesif Agro", "alternateName": "Cohésif Agro",
+        "url": f"{SITE}/", "logo": f"{SITE}/logo-cohesif-agro.png", "email": "cohesifagro@outlook.com", "telephone": TEL,
+        "address": {"@type": "PostalAddress", "streetAddress": "200 rue de la Croix-Nivert", "addressLocality": "Paris",
+                    "postalCode": "75015", "addressRegion": "Île-de-France", "addressCountry": "FR"},
+        "areaServed": [{"@type": "Country", "name": "France"}] + [{"@type": "AdministrativeArea", "name": r} for r in REGIONS],
+        "contactPoint": {"@type": "ContactPoint", "telephone": TEL, "email": "cohesifagro@outlook.com",
+                         "contactType": "sales", "areaServed": "FR", "availableLanguage": ["French", "English"]},
+        "parentOrganization": {"@type": "Organization", "name": "Groupe Cohesif", "url": "https://www.groupecohesif.fr"},
+        "sameAs": ["https://www.linkedin.com/company/cohesifpartners/", "https://www.groupecohesif.fr"]}
+
+
+def head(title, desc, url, image, extra_ld="", image_alt=""):
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -69,8 +89,13 @@ def head(title, desc, url, image, extra_ld=""):
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>{E(title)}</title>
 <meta name="description" content="{E(desc)}"/>
-<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+<meta name="author" content="Cohesif Agro - Groupe Cohesif"/>
 <link rel="canonical" href="{url}"/>
+<link rel="alternate" hreflang="fr-FR" href="{url}"/>
+<link rel="alternate" hreflang="x-default" href="{url}"/>
+<meta name="geo.region" content="FR"/>
+<meta name="geo.placename" content="France"/>
 <meta property="og:title" content="{E(title)}"/>
 <meta property="og:description" content="{E(desc)}"/>
 <meta property="og:url" content="{url}"/>
@@ -78,10 +103,16 @@ def head(title, desc, url, image, extra_ld=""):
 <meta property="og:locale" content="fr_FR"/>
 <meta property="og:site_name" content="Cohesif Agro"/>
 <meta property="og:image" content="{SITE}/{image}"/>
+<meta property="og:image:alt" content="{E(image_alt or title)}"/>
 <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{E(title)}"/>
+<meta name="twitter:description" content="{E(desc)}"/>
+<meta name="twitter:image" content="{SITE}/{image}"/>
 <meta name="theme-color" content="#1A3A2A"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="favicon.svg"/>
 <link rel="manifest" href="site.webmanifest"/>
+<link rel="preload" as="image" href="{image}" fetchpriority="high"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -92,7 +123,12 @@ def head(title, desc, url, image, extra_ld=""):
 """
 
 
-NAV = """<nav class="bq-nav" aria-label="Navigation principale">
+TOPBAR = f"""<div class="bq-top">
+  <span>Livraison partout en France</span><span class="bq-top-sep">·</span><span>Conformes CE</span><span class="bq-top-sep">·</span><span>Devis tout compris sous 48 h</span>
+</div>
+"""
+
+NAV = TOPBAR + f"""<nav class="bq-nav" aria-label="Navigation principale">
   <a href="index.html" class="bq-logo"><img src="img/boutique/logo-cohesif-agro-trim.webp" alt="Cohesif Agro" width="520" height="133"/></a>
   <ul class="bq-links">
     <li><a href="boutique.html#machines">Les machines</a></li>
@@ -103,6 +139,7 @@ NAV = """<nav class="bq-nav" aria-label="Navigation principale">
     <li><a href="index.html">Cohesif Agro</a></li>
   </ul>
   <div class="bq-nav-r">
+    <a href="tel:{TEL}" class="bq-call" aria-label="Appeler un conseiller au {TEL_TXT}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><span>{TEL_TXT}</span></a>
     <a href="#devis" class="bq-btn bq-btn-sm">Demander les prix</a>
     <button class="bq-burger" id="bqBurger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
@@ -113,7 +150,9 @@ NAV = """<nav class="bq-nav" aria-label="Navigation principale">
   <a href="boutique.html#rentabilite">Rentabilité</a>
   <a href="boutique.html#financement">Financement</a>
   <a href="boutique.html#faq">Questions</a>
+  <a href="boutique.html#france">Livraison en France</a>
   <a href="index.html">Cohesif Agro</a>
+  <a href="tel:{TEL}">Appeler un conseiller : {TEL_TXT}</a>
   <a href="#devis" class="bq-btn">Demander les prix</a>
 </div>
 """
@@ -217,12 +256,16 @@ FOOTER = f"""<footer class="bq-foot">
       <a href="index.html#equipements">Équipements IAA</a>
       <a href="index.html#offres">Packaging alimentaire</a>
       <a href="https://www.cohesifleasing.fr" target="_blank" rel="noopener">Cohesif Leasing</a>
+      <a href="https://www.cohesifenergy.fr" target="_blank" rel="noopener">Cohesif Energy</a>
+      <a href="https://www.groupecohesif.fr" target="_blank" rel="noopener">Groupe Cohesif</a>
     </div>
     <div>
       <h4>Contact</h4>
+      <a href="tel:{TEL}">Téléphone : {TEL_TXT}</a>
       <a href="mailto:cohesifagro@outlook.com">cohesifagro@outlook.com</a>
-      <a href="{wa_link("Bonjour, j'ai une question sur vos distributeurs automatiques.")}" target="_blank" rel="noopener">WhatsApp : 07 56 85 57 27</a>
+      <a href="{wa_link("Bonjour, j'ai une question sur vos distributeurs automatiques.")}" target="_blank" rel="noopener">WhatsApp : {TEL_TXT}</a>
       <span>200 rue de la Croix-Nivert, 75015 Paris</span>
+      <a href="boutique.html#france">Livraison partout en France</a>
     </div>
   </div>
   <div class="bq-in bq-foot-bot">
@@ -286,7 +329,10 @@ FAQ = [
      "Oui. L'habillage, le logo et la langue de l'écran sont personnalisables. C'est idéal pour créer votre propre marque ou développer un réseau."),
     ("Qui fournit les pizzas, frites ou burgers ?",
      "Vous choisissez librement vos fournisseurs de produits. Et comme Cohesif Agro source aussi le packaging alimentaire (boîtes à pizza, barquettes, gobelets), nous pouvons fournir vos emballages au meilleur prix."),
+    ("Livrez-vous partout en France ?",
+     "Oui. Nous livrons et accompagnons nos clients partout en France : Paris et l'Île-de-France, Lyon, Marseille, Toulouse, Bordeaux, Lille, Nantes, Strasbourg, Nice, Montpellier, Rennes et toutes les autres villes. Le transport jusqu'à votre adresse est inclus dans le devis."),
 ]
+FAQ_FICHE_DEFAUT = [FAQ[0], FAQ[2], FAQ[9], FAQ[6], FAQ[4]]
 
 
 def faq_html(items):
@@ -342,6 +388,48 @@ def sav_html(p):
   </section>"""
 
 
+# ─────────────────────────── accès rapide + zones desservies
+
+def quick_html():
+    """Toutes les machines visibles dès l'arrivée, sans scroller : un clic = la fiche."""
+    items = "".join(
+        f'<a href="{p["slug"]}.html" class="bq-q"><img src="{p["image"]}" alt="" width="64" height="64"/>'
+        f'<span><b>{E(p["court"])}</b><small>{E(CATS[p["categorie"]])} · {E(lieu_label(p))}</small></span></a>'
+        for p in DISTRIBUTEURS + EQUIPEMENTS)
+    return f"""<div class="bq-quick" aria-label="Accès direct aux machines">
+    <p class="bq-quick-t">Choisissez votre machine</p>
+    <div class="bq-quick-row">{items}</div>
+  </div>"""
+
+
+def france_html():
+    villes = "".join(f"<li>{E(v)}</li>" for v in VILLES)
+    return f"""<section class="bq-sec bq-france" id="france">
+  <div class="bq-in bq-france-grid">
+    <div>
+      <p class="bq-kicker">Partout en France</p>
+      <h2>Distributeurs automatiques livrés dans toute la France</h2>
+      <p>Cohesif Agro est basé à Paris et livre ses distributeurs automatiques et équipements professionnels dans toutes les régions : Île-de-France, Auvergne-Rhône-Alpes, Provence-Alpes-Côte d'Azur, Occitanie, Nouvelle-Aquitaine, Hauts-de-France, Grand Est, Pays de la Loire, Bretagne, Normandie, Bourgogne-Franche-Comté, Centre-Val de Loire et Corse.</p>
+      <ul class="bq-checks">
+        <li>Transport et livraison jusqu'à votre adresse inclus dans le devis</li>
+        <li>Un conseiller unique, joignable par téléphone, email et WhatsApp</li>
+        <li>Aide au choix de l'emplacement, où que vous soyez</li>
+      </ul>
+      <div class="bq-hero-btns">
+        <a href="#devis" class="bq-btn bq-btn-lg">Demander les prix</a>
+        <a href="tel:{TEL}" class="bq-btn bq-btn-lg bq-btn-ghost">Appeler le {TEL_TXT}</a>
+      </div>
+    </div>
+    <div class="bq-france-card">
+      <h3>Nous livrons notamment à</h3>
+      <ul class="bq-villes">{villes}</ul>
+      <p>… et dans toutes les autres communes de France.</p>
+    </div>
+  </div>
+</section>
+"""
+
+
 # ─────────────────────────── page catalogue
 
 def equipements_html():
@@ -378,11 +466,19 @@ def equipements_html():
 
 def build_catalogue():
     url = f"{SITE}/boutique.html"
-    title = "Distributeurs automatiques de pizzas, frites, glaces et café | Boutique Cohesif Agro"
-    desc = ("Achetez votre distributeur automatique de pizzas, frites, burgers, glaces ou café, conforme CE et livré en France. "
-            "Vente 24 h/24 sans personnel. Aussi : filmeuse à palettes pour l'industrie. Devis tout compris sous 48 h, achat ou leasing.")
+    title = "Distributeur automatique à vendre : pizza, frites, glace, café | Cohesif Agro"
+    desc = ("Achetez votre distributeur automatique de pizzas, frites, burgers, glaces ou café, conforme CE, livré partout en France. "
+            "Vente 24 h/24 sans personnel. Aussi : filmeuse à palettes. Devis tout compris sous 48 h, achat ou leasing.")
     ld_obj = {"@context": "https://schema.org", "@graph": [
-        {"@type": "CollectionPage", "name": "Boutique Cohesif Agro : distributeurs automatiques", "url": url, "description": desc},
+        ORGA,
+        {"@type": "WebSite", "@id": f"{SITE}/#website", "name": "Cohesif Agro", "url": f"{SITE}/", "inLanguage": "fr-FR",
+         "publisher": {"@id": f"{SITE}/#organization"}},
+        {"@type": "CollectionPage", "name": "Boutique Cohesif Agro : distributeurs automatiques", "url": url, "description": desc,
+         "inLanguage": "fr-FR", "isPartOf": {"@id": f"{SITE}/#website"}, "about": {"@id": f"{SITE}/#organization"},
+         "primaryImageOfPage": f"{SITE}/img/boutique/pizza-interieur.webp"},
+        {"@type": "Service", "name": "Vente et livraison de distributeurs automatiques", "serviceType": "Vente de distributeurs automatiques",
+         "provider": {"@id": f"{SITE}/#organization"}, "areaServed": ORGA["areaServed"],
+         "description": "Distributeurs automatiques de pizzas, frites, burgers, glaces et café conformes CE, livrés partout en France, en achat ou en leasing."},
         {"@type": "ItemList", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "url": f"{SITE}/{p['slug']}.html", "name": p["nom"]}
             for i, p in enumerate(DISTRIBUTEURS + EQUIPEMENTS)]},
@@ -401,15 +497,16 @@ def build_catalogue():
         f'<option value="{k}">{v}</option>' for k, v in
         [("pizza", "Pizzas"), ("frites", "Frites"), ("burger", "Burgers"), ("glace", "Glaces"), ("cafe", "Cafés")])
 
-    body = head(title, desc, url, "img/boutique/pizza-interieur.webp", ld(ld_obj)) + NAV + f"""
+    body = head(title, desc, url, "img/boutique/pizza-interieur.webp", ld(ld_obj),
+                "Distributeur automatique de pizzas Cohesif Agro") + NAV + f"""
 <header class="bq-hero">
   <div class="bq-in bq-hero-grid">
     <div class="bq-hero-txt">
-      <p class="bq-kicker">Boutique · Distributeurs automatiques</p>
-      <h1>Votre point de vente ouvert <em>24 h/24</em>, sans personnel.</h1>
-      <p class="bq-hero-p">Pizzas chaudes en 90 secondes, frites à la minute, burgers, glaces et café : des distributeurs automatiques conformes CE, livrés et prêts à vendre partout en France.</p>
+      <p class="bq-kicker">Boutique · Livraison partout en France</p>
+      <h1>Distributeurs automatiques à vendre, <em>ouverts 24 h/24</em> sans personnel.</h1>
+      <p class="bq-hero-p">Pizzas chaudes en 90 secondes, frites, burgers, glaces et café : des machines conformes CE, livrées prêtes à vendre partout en France. Prix tout compris sous 48 h.</p>
       <div class="bq-hero-btns">
-        <a href="#machines" class="bq-btn bq-btn-lg">Voir les machines</a>
+        <a href="#devis" class="bq-btn bq-btn-lg">Recevoir les prix</a>
         <a href="#rentabilite" class="bq-btn bq-btn-lg bq-btn-line">Calculer mes revenus</a>
       </div>
     </div>
@@ -420,11 +517,12 @@ def build_catalogue():
       <div class="hv-tag"><b>90 s</b><span>une pizza chaude</span></div>
     </div>
   </div>
+  <div class="bq-in">{quick_html()}</div>
   <ul class="bq-in bq-trust">
-    <li><b>Conformes CE</b><span>Normes françaises et européennes</span></li>
+    <li><b>Conformes CE</b><span>Déclaration UE de conformité fournie</span></li>
     <li><b>Prix tout compris</b><span>Machine, transport, douane</span></li>
+    <li><b>Partout en France</b><span>Livraison jusqu'à votre adresse</span></li>
     <li><b>Achat ou leasing</b><span>Avec Cohesif Leasing</span></li>
-    <li><b>Suivi à distance</b><span>Ventes et stocks sur mobile</span></li>
   </ul>
 </header>
 
@@ -521,6 +619,7 @@ def build_catalogue():
   </div>
 </section>
 
+{france_html()}
 <section class="bq-sec bq-faq" id="faq">
   <div class="bq-in bq-faq-in">
     <div class="bq-sec-head">
@@ -533,6 +632,10 @@ def build_catalogue():
 
 {form_html()}
 </main>
+<div class="bq-sticky">
+  <a href="tel:{TEL}" class="bq-btn bq-btn-ghost bq-sticky-call" aria-label="Appeler un conseiller"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg> Appeler</a>
+  <a href="#devis" class="bq-btn">Recevoir les prix</a>
+</div>
 """ + FOOTER + wa_float("Bonjour, je souhaite des informations sur vos distributeurs automatiques.") + TAIL
     (ROOT / "boutique.html").write_text(body, encoding="utf-8")
 
@@ -541,18 +644,21 @@ def build_catalogue():
 
 def build_fiche(p):
     url = f"{SITE}/{p['slug']}.html"
-    title = f"{p['nom']} | Boutique Cohesif Agro"
-    desc = f"{p['accroche']} Conforme CE, livré en France. Devis tout compris sous 48 h, achat ou leasing."
+    title = p.get("seoTitre") or f"{p['nom']} à vendre | Cohesif Agro"
+    desc = f"{p['accroche']} Conforme CE, livré partout en France. Devis tout compris sous 48 h, achat ou leasing."
     lieu = lieu_label(p)
     faq_ld_fiche = [faq_ld([tuple(x) for x in p["faq"]])] if p.get("faq") else []
     produit_ld = {"@type": "Product", "name": p["nom"], "sku": p["ref"], "description": p["accroche"],
                   "image": [f"{SITE}/{g}" for g in p["galerie"]], "category": p.get("typeLd", "Distributeur automatique"),
-                  "brand": {"@type": "Brand", "name": "Cohesif Agro"}}
+                  "brand": {"@type": "Brand", "name": "Cohesif Agro"}, "url": url, "mpn": p["ref"],
+                  "audience": {"@type": "BusinessAudience", "audienceType": "Professionnels et entrepreneurs"},
+                  "additionalProperty": [{"@type": "PropertyValue", "name": k, "value": v} for k, v in p["specs"]]}
     if p.get("prix"):
         produit_ld["offers"] = {"@type": "Offer", "price": p["prix"], "priceCurrency": "EUR", "url": url,
                                 "availability": "https://schema.org/PreOrder",
                                 "seller": {"@type": "Organization", "name": "Cohesif Agro"}}
     ld_obj = {"@context": "https://schema.org", "@graph": [
+        ORGA,
         produit_ld,
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Accueil", "item": f"{SITE}/"},
@@ -593,15 +699,15 @@ def build_fiche(p):
     </div>
   </section>""" if autres else ""
 
-    faq_fiche = [tuple(x) for x in p["faq"]] if p.get("faq") else [FAQ[0], FAQ[2], FAQ[6], FAQ[4]]
+    faq_fiche = [tuple(x) for x in p["faq"]] if p.get("faq") else FAQ_FICHE_DEFAUT
     tags = ('<ul class="bq-ptags">' + "".join(f"<li>{E(x)}</li>" for x in p["tags"]) + "</ul>") if p.get("tags") else ""
     reass = "".join(f"<li>{E(r)}</li>" for r in p.get("reass", [
         "Conforme CE, déclaration UE de conformité fournie",
         "Prix tout compris : transport et dédouanement inclus",
-        "Livraison en France en 30 à 45 jours en moyenne",
+        "Livraison partout en France en 30 à 45 jours en moyenne",
         "Achat comptant ou leasing avec Cohesif Leasing"]))
 
-    body = head(title, desc, url, p["image"], ld(ld_obj)) + NAV + f"""
+    body = head(title, desc, url, p["image"], ld(ld_obj), p["nom"]) + NAV + f"""
 <main class="bq-fiche">
   <div class="bq-in">
     <nav class="bq-crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> › <a href="boutique.html">Boutique</a> › <span>{E(p["court"])}</span></nav>
@@ -621,7 +727,10 @@ def build_fiche(p):
       <div class="bq-buy">
         <div class="bq-px bq-px-lg">{prix_html(p)}</div>
         <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">Recevoir le prix et le devis</a>
-        <a href="{wa_link(wa_txt)}" class="bq-btn bq-btn-lg bq-btn-full bq-btn-wa" target="_blank" rel="noopener">Demander sur WhatsApp</a>
+        <div class="bq-buy-2">
+          <a href="{wa_link(wa_txt)}" class="bq-btn bq-btn-lg bq-btn-wa" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="tel:{TEL}" class="bq-btn bq-btn-lg bq-btn-ghost">Appeler</a>
+        </div>
         <ul class="bq-reass">{reass}</ul>
       </div>
     </div>
@@ -669,8 +778,9 @@ def build_fiche(p):
 
   {alt}
 </main>
-<div class="bq-sticky" aria-hidden="false">
+<div class="bq-sticky">
   <div><b>{E(p["court"])}</b><span>{"Prix sur demande" if not p.get("prix") else euros(p["prix"]) + " HT"}</span></div>
+  <a href="tel:{TEL}" class="bq-btn bq-btn-ghost bq-sticky-call" aria-label="Appeler un conseiller"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg></a>
   <a href="#devis" class="bq-btn">Recevoir le prix</a>
 </div>
 """ + FOOTER + wa_float(wa_txt) + TAIL
@@ -678,19 +788,31 @@ def build_fiche(p):
 
 
 def update_sitemap():
-    path = ROOT / "sitemap.xml"
-    xml = path.read_text(encoding="utf-8")
-    urls = ["boutique.html"] + [f"{p['slug']}.html" for p in PRODUITS]
-    ajout = ""
-    for u in urls:
-        loc = f"{SITE}/{u}"
-        if f"<loc>{loc}</loc>" in xml:
-            xml = re.sub(rf"(<loc>{re.escape(loc)}</loc>\s*<lastmod>)[^<]*", rf"\g<1>{DATA['misAJour']}", xml)
-            continue
-        ajout += (f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{DATA['misAJour']}</lastmod>\n"
-                  f"    <changefreq>weekly</changefreq>\n    <priority>{'0.9' if u == 'boutique.html' else '0.8'}</priority>\n  </url>\n")
-    xml = xml.replace("</urlset>", ajout + "</urlset>")
-    path.write_text(xml, encoding="utf-8")
+    """Réécrit sitemap.xml : accueil, boutique et fiches, avec leurs photos pour Google Images (pages légales en noindex : exclues)."""
+    d = DATA["misAJour"]
+
+    def img(loc, titre, legende=""):
+        cap = f"\n      <image:caption>{E(legende)}</image:caption>" if legende else ""
+        return (f"    <image:image>\n      <image:loc>{SITE}/{loc}</image:loc>\n"
+                f"      <image:title>{E(titre)}</image:title>{cap}\n    </image:image>\n")
+
+    def url(loc, prio, freq="weekly", images=""):
+        return (f"  <url>\n    <loc>{SITE}/{loc}</loc>\n    <lastmod>{d}</lastmod>\n"
+                f"    <changefreq>{freq}</changefreq>\n    <priority>{prio}</priority>\n{images}  </url>\n")
+
+    out = url("", "1.0", images=(
+        img("logo-cohesif-agro-full.png", "Cohesif Agro - Équipements agroalimentaires et distributeurs automatiques",
+            "Cohesif Agro, filiale du Groupe Cohesif : équipements IAA, packaging alimentaire et distributeurs automatiques livrés partout en France.")
+        + img("img/boutique/pizza-interieur.webp", "Distributeur automatique de pizzas - Boutique Cohesif Agro")))
+    out += url("boutique.html", "0.9", images="".join(
+        img(p["image"], p["nom"], p["accroche"]) for p in DISTRIBUTEURS + EQUIPEMENTS))
+    for p in PRODUITS:
+        out += url(f"{p['slug']}.html", "0.8", images="".join(
+            img(g, p["nom"] if i == 0 else f"{p['nom']} - photo {i + 1}") for i, g in enumerate(p["galerie"])))
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+           '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + out + "</urlset>\n")
+    (ROOT / "sitemap.xml").write_text(xml, encoding="utf-8")
 
 
 if __name__ == "__main__":

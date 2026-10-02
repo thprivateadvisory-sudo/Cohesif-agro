@@ -3,23 +3,17 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.cohesifagro.fr/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://www.cohesifagro.fr/logo-cohesif-agro-full.png</image:loc>
-      <image:title>Cohesif Agro - Sourcing équipements IAA et packaging alimentaire</image:title>
-      <image:caption>Cohesif Agro, filiale du Groupe Cohesif, spécialisée dans le sourcing d'équipements agroalimentaires et de packaging alimentaire depuis la Chine.</image:caption>
+      <image:title>Cohesif Agro - Équipements agroalimentaires et distributeurs automatiques</image:title>
+      <image:caption>Cohesif Agro, filiale du Groupe Cohesif : équipements IAA, packaging alimentaire et distributeurs automatiques livrés partout en France.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1920&amp;q=80</image:loc>
-      <image:title>Champs agricoles - Cohesif Agro sourcing agroalimentaire</image:title>
-      <image:caption>Sourcing agroalimentaire clé en main — équipements IAA et packaging alimentaire conformes CE, livrés en France.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.cohesifagro.fr/logo-cohesif-agro.png</image:loc>
-      <image:title>Logo Cohesif Agro</image:title>
-      <image:caption>Logo officiel de Cohesif Agro, pôle agroalimentaire du Groupe Cohesif</image:caption>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-interieur.webp</image:loc>
+      <image:title>Distributeur automatique de pizzas - Boutique Cohesif Agro</image:title>
     </image:image>
   </url>
   <url>
@@ -27,53 +21,225 @@
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-interieur.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur</image:title>
+      <image:caption>Une pizza chaude et croustillante servie en 90 secondes, 24 h/24, sans personnel.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-exterieur.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur</image:title>
+      <image:caption>La même pizzeria automatique, protégée par un auvent : installez-la dehors, elle vend jour et nuit, par tous les temps.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-premium.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur</image:title>
+      <image:caption>Un écran géant de 55 pouces visible de loin pour attirer les clients, et une pizza chaude servie en 90 secondes.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/frites.webp</image:loc>
+      <image:title>Distributeur de frites fraîches</image:title>
+      <image:caption>Des frites chaudes frites à la minute et servies en 3 minutes, sans friteuse à surveiller ni personnel.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/burger.webp</image:loc>
+      <image:title>Distributeur de burgers chauds</image:title>
+      <image:caption>Plus de 20 recettes de burgers réchauffés en quelques instants et servis chauds, jour et nuit.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/glace.webp</image:loc>
+      <image:title>Distributeur de glaces à l&#x27;italienne avec robot</image:title>
+      <image:caption>Un bras robotisé prépare la glace à l&#x27;italienne sous les yeux du client : un spectacle qui fait vendre.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/cafe.webp</image:loc>
+      <image:title>Distributeur de café compact</image:title>
+      <image:caption>Un café de qualité en un geste, dans moins d&#x27;un mètre carré : la machine la plus facile à placer.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/filmeuse-palettes.webp</image:loc>
+      <image:title>Filmeuse à palettes à plateau tournant Ø 1650</image:title>
+      <image:caption>Vos palettes filmées serrées et stables, jusqu&#x27;à 40 par heure, par un seul opérateur et sur une simple prise 220 V.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-pizza-interieur.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-interieur.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-v-interieur-32.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur - photo 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-1.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur - photo 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-2.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur - photo 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-3.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur - photo 5</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-pizza-exterieur.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-exterieur.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-v-kiosque-32.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur - photo 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-1.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur - photo 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-2.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur - photo 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-3.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur - photo 5</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-pizza-premium-55.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-premium.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-v-interieur-55.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur - photo 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-v-kiosque-55.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur - photo 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-1.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur - photo 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-3.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur - photo 5</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-frites.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/frites.webp</image:loc>
+      <image:title>Distributeur de frites fraîches</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/frites-detail-1.webp</image:loc>
+      <image:title>Distributeur de frites fraîches - photo 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/frites-detail-2.webp</image:loc>
+      <image:title>Distributeur de frites fraîches - photo 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/frites-detail-3.webp</image:loc>
+      <image:title>Distributeur de frites fraîches - photo 4</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-burgers.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/burger.webp</image:loc>
+      <image:title>Distributeur de burgers chauds</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/burger-detail-1.webp</image:loc>
+      <image:title>Distributeur de burgers chauds - photo 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/burger-detail-2.webp</image:loc>
+      <image:title>Distributeur de burgers chauds - photo 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/burger-detail-3.webp</image:loc>
+      <image:title>Distributeur de burgers chauds - photo 4</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-glaces-robot.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/glace.webp</image:loc>
+      <image:title>Distributeur de glaces à l&#x27;italienne avec robot</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/glace-detail-1.webp</image:loc>
+      <image:title>Distributeur de glaces à l&#x27;italienne avec robot - photo 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/glace-detail-2.webp</image:loc>
+      <image:title>Distributeur de glaces à l&#x27;italienne avec robot - photo 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/glace-detail-3.webp</image:loc>
+      <image:title>Distributeur de glaces à l&#x27;italienne avec robot - photo 4</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-cafe-compact.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/cafe.webp</image:loc>
+      <image:title>Distributeur de café compact</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/cafe-detail-1.webp</image:loc>
+      <image:title>Distributeur de café compact - photo 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/cafe-detail-2.webp</image:loc>
+      <image:title>Distributeur de café compact - photo 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/cafe-detail-3.webp</image:loc>
+      <image:title>Distributeur de café compact - photo 4</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-filmeuse-palettes.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/filmeuse-palettes.webp</image:loc>
+      <image:title>Filmeuse à palettes à plateau tournant Ø 1650</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/filmeuse-entrepot.webp</image:loc>
+      <image:title>Filmeuse à palettes à plateau tournant Ø 1650 - photo 2</image:title>
+    </image:image>
   </url>
 </urlset>
