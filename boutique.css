@@ -416,5 +416,16 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* menu : jamais de libellé coupé sur deux lignes ; menu burger sur tablette */
 .bq-links a{white-space:nowrap}
 .bq-links{gap:clamp(1rem,1.7vw,1.8rem)}
-@media (max-width:1240px){.bq-links{display:none}.bq-burger{display:flex}}
+/* tablette : barre de liens compacte sur une ligne (menu burger seulement sous 900 px) */
+@media (max-width:1240px){
+  .bq-links{display:flex;gap:clamp(.7rem,1.3vw,1.2rem)}
+  .bq-links a{font-size:.76rem}
+  .bq-burger{display:none}
+  .bq-call span{display:none}
+  .bq-call{padding:.55rem}
+  .bq-logo img{height:34px}
+  .bq-btn-sm{padding:.5rem .85rem;font-size:.74rem}
+}
+@media (max-width:1060px){.bq-links li:last-child{display:none}}
+@media (max-width:899px){.bq-links{display:none}.bq-burger{display:flex}}
 .bq-logo{flex-shrink:0}
