@@ -124,6 +124,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .bq-card-more .bq-kicker{color:var(--gold);margin:0}
 .bq-card-more h3{font-family:var(--ff);font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.15}
 .bq-card-more p{color:rgba(255,255,255,.72);max-width:520px;margin-bottom:.6rem}
+.bq-pro{background:var(--cream)}
+.bq-checks-dark{margin:.2rem 0 1rem}
+.bq-checks-dark li{color:rgba(255,255,255,.85);font-size:.9rem}
 .bq-more{margin-top:2rem;text-align:center;color:var(--txm);font-size:.92rem}
 .bq-more a{color:var(--mid);font-weight:700;text-decoration:underline}
 

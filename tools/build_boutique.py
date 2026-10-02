@@ -25,6 +25,9 @@ FORM = DATA["formspree"]
 WA = DATA["whatsapp"]
 PRODUITS = DATA["produits"]
 CATS = DATA["categories"]
+# "famille": "equipement" = matériel professionnel (filmeuse…), présenté à part des distributeurs
+EQUIPEMENTS = [p for p in PRODUITS if p.get("famille") == "equipement"]
+DISTRIBUTEURS = [p for p in PRODUITS if p.get("famille") != "equipement"]
 E = html.escape
 
 
@@ -46,6 +49,14 @@ def prix_html(p, grand=False):
 
 def wa_link(texte):
     return f"https://wa.me/{WA}?text={quote(texte)}"
+
+
+def est_equipement(p):
+    return p.get("famille") == "equipement"
+
+
+def lieu_label(p):
+    return p.get("lieu") or ("Intérieur" if p["emplacement"] == "interieur" else "Extérieur")
 
 
 # ─────────────────────────── gabarit commun
@@ -85,6 +96,7 @@ NAV = """<nav class="bq-nav" aria-label="Navigation principale">
   <a href="index.html" class="bq-logo"><img src="img/boutique/logo-cohesif-agro-trim.webp" alt="Cohesif Agro" width="520" height="133"/></a>
   <ul class="bq-links">
     <li><a href="boutique.html#machines">Les machines</a></li>
+    <li><a href="boutique.html#equipements">Équipements pro</a></li>
     <li><a href="boutique.html#rentabilite">Rentabilité</a></li>
     <li><a href="boutique.html#financement">Financement</a></li>
     <li><a href="boutique.html#faq">Questions</a></li>
@@ -97,6 +109,7 @@ NAV = """<nav class="bq-nav" aria-label="Navigation principale">
 </nav>
 <div class="bq-mmenu" id="bqMenu">
   <a href="boutique.html#machines">Les machines</a>
+  <a href="boutique.html#equipements">Équipements pro</a>
   <a href="boutique.html#rentabilite">Rentabilité</a>
   <a href="boutique.html#financement">Financement</a>
   <a href="boutique.html#faq">Questions</a>
@@ -107,6 +120,13 @@ NAV = """<nav class="bq-nav" aria-label="Navigation principale">
 
 
 def form_html(selected=None, titre="Recevez les prix et un devis sous 48 h"):
+    sel = next((p for p in PRODUITS if p["slug"] == selected), None)
+    if sel and est_equipement(sel):
+        sujet = f"Cohesif Agro · Demande de prix {sel['court'].lower()}"
+        wa_txt = f"Bonjour, je souhaite recevoir le prix de la « {sel['nom']} »."
+    else:
+        sujet = "Cohesif Agro · Demande de prix distributeur automatique"
+        wa_txt = "Bonjour, je souhaite recevoir les prix de vos distributeurs automatiques."
     opts = "".join(
         f'<option value="{E(p["nom"])}" data-slug="{p["slug"]}"{" selected" if p["slug"] == selected else ""}>{E(p["nom"])}</option>'
         for p in PRODUITS)
@@ -121,13 +141,13 @@ def form_html(selected=None, titre="Recevez les prix et un devis sous 48 h"):
         <li>Achat comptant ou financement en leasing</li>
         <li>Conseil sur l'emplacement et la rentabilité</li>
       </ul>
-      <a class="bq-wa-inline" href="{wa_link("Bonjour, je souhaite recevoir les prix de vos distributeurs automatiques.")}" target="_blank" rel="noopener">
+      <a class="bq-wa-inline" href="{wa_link(wa_txt)}" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.05 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.5A9.9 9.9 0 1 0 12.05 2zm5.8 14.1c-.25.7-1.45 1.33-2 1.4-.52.08-1.17.11-1.88-.12-.43-.13-.99-.32-1.7-.62-3-1.3-4.94-4.3-5.1-4.5-.14-.2-1.2-1.6-1.2-3.07s.76-2.18 1.04-2.48c.27-.3.6-.37.8-.37h.57c.18 0 .43-.07.67.5.25.6.84 2.06.92 2.2.07.15.12.33.02.52-.1.2-.15.32-.3.5-.14.17-.3.38-.44.52-.15.15-.3.3-.13.6.17.3.77 1.27 1.65 2.05 1.14 1.01 2.1 1.33 2.4 1.48.3.15.47.12.64-.07.18-.2.75-.87.94-1.17.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.35.07.12.07.7-.18 1.4z"/></svg>
         Ou écrivez-nous sur WhatsApp
       </a>
     </div>
     <form class="bq-form" action="{FORM}" method="POST" data-bq-form>
-      <input type="hidden" name="_subject" value="Cohesif Agro · Demande de prix distributeur automatique"/>
+      <input type="hidden" name="_subject" value="{E(sujet)}"/>
       <input type="hidden" name="source" value="Boutique Cohesif Agro"/>
       <input type="text" name="_gotcha" class="bq-hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
       <div class="bq-frow">
@@ -155,6 +175,7 @@ def form_html(selected=None, titre="Recevez les prix et un devis sous 48 h"):
             <option>Gare, campus, hôpital</option>
             <option>Devant mon commerce</option>
             <option>Lieu de loisirs / tourisme</option>
+            <option>Usine / entrepôt / atelier</option>
             <option>Pas encore trouvé</option>
           </select>
         </label>
@@ -224,7 +245,7 @@ TAIL = '<script src="boutique.js" defer></script>\n</body>\n</html>\n'
 
 def card(p):
     chips = "".join(f'<li><b>{E(v)}</b> {E(l)}</li>' for v, l in p["chiffres"][:3])
-    lieu = "Intérieur" if p["emplacement"] == "interieur" else "Extérieur"
+    lieu = lieu_label(p)
     return f"""<article class="bq-card" data-cat="{p["categorie"]}" data-lieu="{p["emplacement"]}">
   <a href="{p["slug"]}.html" class="bq-card-img">
     <span class="bq-badge">{E(p["badge"])}</span>
@@ -283,26 +304,57 @@ def ld(obj):
 
 # ─────────────────────────── page catalogue
 
+def equipements_html():
+    if not EQUIPEMENTS:
+        return ""
+    return f"""<section class="bq-sec bq-pro" id="equipements">
+  <div class="bq-in">
+    <div class="bq-sec-head">
+      <p class="bq-kicker">Équipements professionnels</p>
+      <h2>Pour votre usine, votre entrepôt ou votre atelier</h2>
+      <p>Le même sérieux que pour nos distributeurs : machines sélectionnées, conformes CE, livrées en France avec un prix tout compris.</p>
+    </div>
+    <div class="bq-grid">
+      {"".join(card(p) for p in EQUIPEMENTS)}
+      <aside class="bq-card-more">
+        <p class="bq-kicker">Pourquoi acheter chez Cohesif Agro</p>
+        <h3>Un interlocuteur en France, du devis à la livraison</h3>
+        <ul class="bq-checks bq-checks-dark">
+          <li>Machines conformes CE, déclaration UE de conformité fournie</li>
+          <li>Composants industriels de grandes marques (Omron, Panasonic…)</li>
+          <li>Transport, dédouanement et livraison gérés par nos soins</li>
+          <li>Consommables fournis : film étirable, packaging alimentaire</li>
+          <li>Achat comptant ou leasing avec Cohesif Leasing</li>
+        </ul>
+        <a href="#devis" class="bq-btn bq-btn-lg">Demander un devis</a>
+      </aside>
+    </div>
+  </div>
+</section>
+"""
+
+
 def build_catalogue():
     url = f"{SITE}/boutique.html"
     title = "Distributeurs automatiques de pizzas, frites, glaces et café | Boutique Cohesif Agro"
     desc = ("Achetez votre distributeur automatique de pizzas, frites, burgers, glaces ou café, conforme CE et livré en France. "
-            "Vente 24 h/24 sans personnel, devis tout compris sous 48 h, achat ou leasing.")
+            "Vente 24 h/24 sans personnel. Aussi : filmeuse à palettes pour l'industrie. Devis tout compris sous 48 h, achat ou leasing.")
     ld_obj = {"@context": "https://schema.org", "@graph": [
         {"@type": "CollectionPage", "name": "Boutique Cohesif Agro : distributeurs automatiques", "url": url, "description": desc},
         {"@type": "ItemList", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "url": f"{SITE}/{p['slug']}.html", "name": p["nom"]}
-            for i, p in enumerate(PRODUITS)]},
+            for i, p in enumerate(DISTRIBUTEURS + EQUIPEMENTS)]},
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Accueil", "item": f"{SITE}/"},
             {"@type": "ListItem", "position": 2, "name": "Boutique", "item": url}]},
         faq_ld(FAQ)]}
-    filtres = '<button class="bq-filter is-on" data-f="tout">Toutes <span>' + str(len(PRODUITS)) + '</span></button>'
+    filtres = '<button class="bq-filter is-on" data-f="tout">Toutes <span>' + str(len(DISTRIBUTEURS)) + '</span></button>'
     for k, v in CATS.items():
-        n = sum(1 for p in PRODUITS if p["categorie"] == k)
-        filtres += f'<button class="bq-filter" data-f="{k}">{E(v)} <span>{n}</span></button>'
+        n = sum(1 for p in DISTRIBUTEURS if p["categorie"] == k)
+        if n:
+            filtres += f'<button class="bq-filter" data-f="{k}">{E(v)} <span>{n}</span></button>'
     filtres += '<button class="bq-filter" data-f="exterieur">Extérieur <span>' + str(
-        sum(1 for p in PRODUITS if p["emplacement"] == "exterieur")) + '</span></button>'
+        sum(1 for p in DISTRIBUTEURS if p["emplacement"] == "exterieur")) + '</span></button>'
     sim_opts = "".join(
         f'<option value="{k}">{v}</option>' for k, v in
         [("pizza", "Pizzas"), ("frites", "Frites"), ("burger", "Burgers"), ("glace", "Glaces"), ("cafe", "Cafés")])
@@ -339,12 +391,12 @@ def build_catalogue():
   <div class="bq-in">
     <div class="bq-sec-head">
       <p class="bq-kicker">Notre sélection</p>
-      <h2>{len(PRODUITS)} machines choisies pour le marché français</h2>
+      <h2>{len(DISTRIBUTEURS)} machines choisies pour le marché français</h2>
       <p>Nous avons retenu les modèles les plus rentables et les plus simples à exploiter. La pizza est notre spécialité, en intérieur comme en extérieur.</p>
     </div>
     <div class="bq-filters" role="group" aria-label="Filtrer les machines">{filtres}</div>
     <div class="bq-grid" id="bqGrid">
-      {"".join(card(p) for p in PRODUITS)}
+      {"".join(card(p) for p in DISTRIBUTEURS)}
       <aside class="bq-card-more">
         <p class="bq-kicker">Sur commande</p>
         <h3>Vous cherchez un autre distributeur ?</h3>
@@ -355,6 +407,7 @@ def build_catalogue():
   </div>
 </section>
 
+{equipements_html()}
 <section class="bq-sec bq-why">
   <div class="bq-in">
     <div class="bq-sec-head">
@@ -448,9 +501,10 @@ def build_fiche(p):
     url = f"{SITE}/{p['slug']}.html"
     title = f"{p['nom']} | Boutique Cohesif Agro"
     desc = f"{p['accroche']} Conforme CE, livré en France. Devis tout compris sous 48 h, achat ou leasing."
-    lieu = "Intérieur" if p["emplacement"] == "interieur" else "Extérieur"
+    lieu = lieu_label(p)
+    faq_ld_fiche = [faq_ld([tuple(x) for x in p["faq"]])] if p.get("faq") else []
     produit_ld = {"@type": "Product", "name": p["nom"], "sku": p["ref"], "description": p["accroche"],
-                  "image": [f"{SITE}/{g}" for g in p["galerie"]], "category": "Distributeur automatique",
+                  "image": [f"{SITE}/{g}" for g in p["galerie"]], "category": p.get("typeLd", "Distributeur automatique"),
                   "brand": {"@type": "Brand", "name": "Cohesif Agro"}}
     if p.get("prix"):
         produit_ld["offers"] = {"@type": "Offer", "price": p["prix"], "priceCurrency": "EUR", "url": url,
@@ -461,7 +515,7 @@ def build_fiche(p):
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Accueil", "item": f"{SITE}/"},
             {"@type": "ListItem", "position": 2, "name": "Boutique", "item": f"{SITE}/boutique.html"},
-            {"@type": "ListItem", "position": 3, "name": p["nom"], "item": url}]}]}
+            {"@type": "ListItem", "position": 3, "name": p["nom"], "item": url}]}] + faq_ld_fiche}
 
     thumbs = "".join(
         f'<button class="bq-thumb{" is-on" if i == 0 else ""}" data-src="{g}" aria-label="Photo {i + 1}"><img src="{g}" alt="" loading="lazy"/></button>'
@@ -471,7 +525,7 @@ def build_fiche(p):
     specs = "".join(f'<tr><th>{E(k)}</th><td>{E(v)}</td></tr>' for k, v in p["specs"])
     cibles = "".join(f"<li>{E(c)}</li>" for c in p["cible"])
     prevoir = "".join(f"<li>{E(c)}</li>" for c in p["prevoir"])
-    wa_txt = f"Bonjour, je souhaite recevoir le prix du « {p['nom']} »."
+    wa_txt = f"Bonjour, je souhaite recevoir le prix {'de la' if est_equipement(p) else 'du'} « {p['nom']} »."
 
     gamme = ""
     if p["categorie"] == "pizza":
@@ -488,10 +542,21 @@ def build_fiche(p):
   </div>
 </section>"""
 
-    autres = [q for q in PRODUITS if q["slug"] != p["slug"]]
+    autres = [q for q in PRODUITS if q["slug"] != p["slug"] and est_equipement(q) == est_equipement(p)]
     autres = sorted(autres, key=lambda q: (q["categorie"] != p["categorie"]))[:3]
+    alt = f"""<section class="bq-sec bq-alt">
+    <div class="bq-in">
+      <div class="bq-sec-head"><p class="bq-kicker">Complétez votre offre</p><h2>Ces machines peuvent aussi vous intéresser</h2></div>
+      <div class="bq-grid bq-grid-3">{"".join(card(q) for q in autres)}</div>
+    </div>
+  </section>""" if autres else ""
 
-    faq_fiche = [FAQ[0], FAQ[2], FAQ[6], FAQ[4]]
+    faq_fiche = [tuple(x) for x in p["faq"]] if p.get("faq") else [FAQ[0], FAQ[2], FAQ[6], FAQ[4]]
+    reass = "".join(f"<li>{E(r)}</li>" for r in p.get("reass", [
+        "Conforme CE, déclaration UE de conformité fournie",
+        "Prix tout compris : transport et dédouanement inclus",
+        "Livraison en France en 30 à 45 jours en moyenne",
+        "Achat comptant ou leasing avec Cohesif Leasing"]))
 
     body = head(title, desc, url, p["image"], ld(ld_obj)) + NAV + f"""
 <main class="bq-fiche">
@@ -502,7 +567,7 @@ def build_fiche(p):
     <div class="bq-gal">
       <div class="bq-gal-main"><span class="bq-badge">{E(p["badge"])}</span><img src="{p["image"]}" alt="{E(p["nom"])}" id="bqMainImg"/></div>
       <div class="bq-thumbs">{thumbs}</div>
-      <p class="bq-gal-note">Habillage personnalisable à vos couleurs.</p>
+      <p class="bq-gal-note">{E(p.get("galNote", "Habillage personnalisable à vos couleurs."))}</p>
     </div>
     <div class="bq-info">
       <p class="bq-card-cat">{E(CATS[p["categorie"]])} · {lieu} · Réf. {E(p["ref"])}</p>
@@ -513,19 +578,14 @@ def build_fiche(p):
         <div class="bq-px bq-px-lg">{prix_html(p)}</div>
         <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">Recevoir le prix et le devis</a>
         <a href="{wa_link(wa_txt)}" class="bq-btn bq-btn-lg bq-btn-full bq-btn-wa" target="_blank" rel="noopener">Demander sur WhatsApp</a>
-        <ul class="bq-reass">
-          <li>Conforme CE, déclaration UE de conformité fournie</li>
-          <li>Prix tout compris : transport et dédouanement inclus</li>
-          <li>Livraison en France en 30 à 45 jours en moyenne</li>
-          <li>Achat comptant ou leasing avec Cohesif Leasing</li>
-        </ul>
+        <ul class="bq-reass">{reass}</ul>
       </div>
     </div>
   </section>
 
   <section class="bq-sec">
     <div class="bq-in">
-      <div class="bq-sec-head"><p class="bq-kicker">Pourquoi cette machine</p><h2>Ce qui la rend rentable</h2></div>
+      <div class="bq-sec-head"><p class="bq-kicker">Pourquoi cette machine</p><h2>{E(p.get("pointsTitre", "Ce qui la rend rentable"))}</h2></div>
       <div class="bq-pts">{points}</div>
     </div>
   </section>
@@ -561,12 +621,7 @@ def build_fiche(p):
 
   {form_html(p["slug"], "Recevez le prix de cette machine sous 48 h")}
 
-  <section class="bq-sec bq-alt">
-    <div class="bq-in">
-      <div class="bq-sec-head"><p class="bq-kicker">Complétez votre offre</p><h2>Ces machines peuvent aussi vous intéresser</h2></div>
-      <div class="bq-grid bq-grid-3">{"".join(card(q) for q in autres)}</div>
-    </div>
-  </section>
+  {alt}
 </main>
 <div class="bq-sticky" aria-hidden="false">
   <div><b>{E(p["court"])}</b><span>{"Prix sur demande" if not p.get("prix") else euros(p["prix"]) + " HT"}</span></div>

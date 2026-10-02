@@ -3,13 +3,14 @@
   "site": "https://www.cohesifagro.fr",
   "formspree": "https://formspree.io/f/mzdnndna",
   "whatsapp": "33756855727",
-  "misAJour": "2026-09-28",
+  "misAJour": "2026-10-02",
   "note": "prix : null = « Prix sur demande ». Renseigner un nombre (€ HT) puis relancer python3 tools/build_boutique.py. leasingMois : mensualité indicative facultative (€ HT/mois).",
   "categories": {
     "pizza": "Pizza",
     "snacking": "Snacking",
     "glace": "Glaces",
-    "cafe": "Café"
+    "cafe": "Café",
+    "emballage": "Emballage & fin de ligne"
   },
   "produits": [
     {
@@ -288,6 +289,76 @@
         ["Structure", "Tôle d'acier"]
       ],
       "prevoir": ["Une surface au sol de moins de 1 m²", "Une prise électrique standard (1,5 kW)", "Un point d'eau ou des réservoirs à remplir (à préciser sur devis)", "Un approvisionnement en café et gobelets"],
+      "prix": null,
+      "leasingMois": null
+    },
+    {
+      "slug": "boutique-filmeuse-palettes",
+      "ref": "CA-FP-1650",
+      "famille": "equipement",
+      "categorie": "emballage",
+      "emplacement": "interieur",
+      "lieu": "Industrie",
+      "typeLd": "Filmeuse à palettes",
+      "nom": "Filmeuse à palettes à plateau tournant Ø 1650",
+      "court": "Filmeuse à palettes",
+      "accroche": "Vos palettes filmées serrées et stables, jusqu'à 40 par heure, par un seul opérateur et sur une simple prise 220 V.",
+      "badge": "Nouveau · Pro",
+      "cible": ["Industries agroalimentaires", "Entrepôts et logistique", "Grossistes et négoce", "Usines et ateliers", "Producteurs et coopératives"],
+      "image": "img/boutique/filmeuse-palettes.webp",
+      "galerie": ["img/boutique/filmeuse-palettes.webp", "img/boutique/filmeuse-film-etirable.webp"],
+      "galNote": "Machine configurable : plateau, colonne, pesée, rampe, couleur.",
+      "chiffres": [["40", "palettes / heure"], ["2 t", "charge max"], ["250 %", "pré-étirage"], ["220 V", "prise standard"]],
+      "pointsTitre": "Ce qui vous fait gagner du temps et de l'argent",
+      "points": [
+        ["Jusqu'à 40 palettes par heure", "20 à 40 palettes filmées par heure selon la hauteur et le programme. Fini le filmage à la main, long, fatigant et irrégulier."],
+        ["Beaucoup moins de film", "Le pré-étirage à 250 % allonge le film avant la pose : 1 mètre de rouleau devient 3,5 mètres sur la palette."],
+        ["Des palettes qui arrivent intactes", "Un filmage serré et régulier qui tient la charge pendant le transport, protège de la poussière et de l'humidité, et limite la casse et les litiges."],
+        ["Un seul opérateur, sans formation longue", "Écran tactile : on pose la palette, on choisit le programme, on lance. Plateau bas de 83 mm, facile à charger."],
+        ["Des composants de grandes marques", "Capteurs Omron et Panasonic, automate et écran tactile Inovance : du matériel industriel fiable et des pièces standard du marché."],
+        ["Configurée pour votre site", "Taille du plateau, hauteur de colonne, pesée intégrée, coupe du film, tension, rampe d'accès, couleur : la machine s'adapte à vos palettes."]
+      ],
+      "specs": [
+        ["Diamètre du plateau", "Ø 1 650 mm"],
+        ["Palettes acceptées", "L 500 à 1 200 × l 500 à 1 200 × H 500 à 2 000 mm"],
+        ["Charge maximale", "2 000 kg"],
+        ["Hauteur du plateau", "83 mm"],
+        ["Épaisseur du plateau", "10 mm"],
+        ["Vitesse du plateau", "0 à 12 tours/min, réglable"],
+        ["Cadence", "20 à 40 palettes par heure"],
+        ["Pré-étirage du film", "250 %"],
+        ["Alimentation", "Monophasée 220 V, 50 Hz, prise européenne"],
+        ["Puissance", "1,55 kW"],
+        ["Automate et écran tactile", "Inovance"],
+        ["Variateur", "SJZO"],
+        ["Moteurs", "Levage Deli · Plateau Taili · Chariot de film Hanju"],
+        ["Capteurs", "Fins de course et détecteurs de proximité Omron, cellule photoélectrique Panasonic"],
+        ["Film recommandé", "Film étirable PE (LLDPE) pré-étirable, laize 500 mm, 25 µm, mandrin Ø 76,2 mm, ≈ 1 200 m et 15 kg par rouleau"],
+        ["Colis de livraison", "≈ 2,8 × 1,8 × 1 m, 700 kg"],
+        ["Options", "Taille du plateau, hauteur de colonne, pesée, coupe du film, tension, rampe, couleur, chariot de film à porte"]
+      ],
+      "prevoir": [
+        "Une surface au sol d'environ 2,8 × 1,8 m, plus la place pour manœuvrer le chariot",
+        "Une simple prise électrique 220 V monophasée : aucun travaux électriques",
+        "Un sol plan, capable de supporter des palettes jusqu'à 2 tonnes",
+        "Un chariot élévateur, ou un transpalette avec la rampe en option",
+        "Des rouleaux de film étirable 500 mm (nous pouvons vous les fournir)"
+      ],
+      "reass": [
+        "Conforme CE, déclaration UE de conformité fournie",
+        "Prix tout compris : transport et dédouanement inclus",
+        "Livraison en France en 30 à 45 jours en moyenne",
+        "Branchement sur prise 220 V, sans travaux",
+        "Achat comptant ou leasing avec Cohesif Leasing"
+      ],
+      "faq": [
+        ["Pourquoi le prix n'est-il pas affiché ?", "Le prix dépend des options choisies (taille du plateau, hauteur de colonne, pesée, rampe…) et du lieu de livraison. Nous vous envoyons un devis tout compris sous 48 h : machine, transport, dédouanement et livraison en France."],
+        ["Est-ce compliqué à installer et à utiliser ?", "Non. La machine se pose au sol et se branche sur une prise 220 V classique. L'opérateur pose la palette, choisit un programme sur l'écran tactile et lance le filmage : la prise en main est rapide."],
+        ["Quel film utiliser ? Pouvez-vous le fournir ?", "Un film étirable PE pré-étirable de 500 mm de large et 25 µm d'épaisseur, sur mandrin de 76,2 mm. Cohesif Agro source aussi le packaging : nous pouvons vous livrer le film avec la machine, puis en réassort."],
+        ["La machine est-elle conforme pour la France ?", "Oui. Elle est livrée avec le marquage CE et la déclaration UE de conformité, comme tous les équipements Cohesif Agro."],
+        ["Quel est le délai de livraison ?", "Comptez en moyenne 30 à 45 jours entre la validation de la commande et la livraison sur site. Le planning précis figure dans votre devis."],
+        ["Puis-je payer en plusieurs fois ?", "Oui. Avec Cohesif Leasing, la société de financement du Groupe Cohesif, vous payez une mensualité fixe et préservez votre trésorerie. Indiquez « Leasing » dans votre demande."]
+      ],
       "prix": null,
       "leasingMois": null
     }
