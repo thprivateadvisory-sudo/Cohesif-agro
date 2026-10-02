@@ -401,14 +401,23 @@ def sav_html(p):
 # ─────────────────────────── accès rapide + zones desservies
 
 def quick_html():
-    """Toutes les machines visibles dès l'arrivée, sans scroller : un clic = la fiche."""
-    items = "".join(
-        f'<a href="{p["slug"]}.html" class="bq-q"><img src="{p["image"]}" alt="" width="64" height="64"/>'
-        f'<span><b>{E(p["court"])}</b><small>{E(CATS[p["categorie"]])} · {E(lieu_label(p))}</small></span></a>'
-        for p in DISTRIBUTEURS + EQUIPEMENTS)
+    """Accès direct dès l'arrivée, sans scroller : les distributeurs d'un côté, les équipements pro à part."""
+    def item(p, sous_titre):
+        return (f'<a href="{p["slug"]}.html" class="bq-q"><img src="{p["image"]}" alt="" width="64" height="64"/>'
+                f'<span><b>{E(p["court"])}</b><small>{E(sous_titre)}</small></span></a>')
+    distrib = "".join(item(p, f'{CATS[p["categorie"]]} · {lieu_label(p)}') for p in DISTRIBUTEURS)
+    pro = "".join(
+        f'<a href="{p["slug"]}.html" class="bq-quick-pro-it"><img src="{p["image"]}" alt="" width="40" height="40"/>'
+        f'<span><b>{E(p["court"])}</b> · {E(CATS[p["categorie"]])}</span><i aria-hidden="true">→</i></a>'
+        for p in EQUIPEMENTS)
+    pro_html = f"""
+    <div class="bq-quick-pro">
+      <p class="bq-quick-pro-t">Vous êtes une entreprise industrielle ? <span>Équipements professionnels</span></p>
+      {pro}
+    </div>""" if EQUIPEMENTS else ""
     return f"""<div class="bq-quick" aria-label="Accès direct aux machines">
-    <p class="bq-quick-t">Choisissez votre machine</p>
-    <div class="bq-quick-row">{items}</div>
+    <p class="bq-quick-t">Choisissez votre distributeur automatique</p>
+    <div class="bq-quick-row">{distrib}</div>{pro_html}
   </div>"""
 
 
