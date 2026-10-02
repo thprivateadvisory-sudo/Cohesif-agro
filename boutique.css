@@ -429,3 +429,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (max-width:1060px){.bq-links li:last-child{display:none}}
 @media (max-width:899px){.bq-links{display:none}.bq-burger{display:flex}}
 .bq-logo{flex-shrink:0}
+/* accès rapide : équipements pro séparés des distributeurs */
+.bq-quick-pro{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem 1rem;margin-top:1rem;padding-top:1rem;border-top:1px dashed rgba(255,255,255,.22)}
+.bq-quick-pro-t{font-size:.85rem;color:rgba(255,255,255,.75)}
+.bq-quick-pro-t span{display:block;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.bq-quick-pro-it{display:inline-flex;align-items:center;gap:.6rem;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:.3rem .9rem .3rem .35rem;font-size:.85rem;transition:border-color .2s,background .2s}
+.bq-quick-pro-it:hover{border-color:var(--gold);background:rgba(255,255,255,.06)}
+.bq-quick-pro-it img{width:34px;height:34px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
+.bq-quick-pro-it i{font-style:normal;color:var(--gold);font-weight:700}
