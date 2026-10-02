@@ -305,8 +305,9 @@
       "accroche": "Vos palettes filmées serrées et stables, jusqu'à 40 par heure, par un seul opérateur et sur une simple prise 220 V.",
       "badge": "Nouveau · Pro",
       "cible": ["Industries agroalimentaires", "Entrepôts et logistique", "Grossistes et négoce", "Usines et ateliers", "Producteurs et coopératives"],
-      "image": "img/boutique/filmeuse-palettes.webp",
-      "galerie": ["img/boutique/filmeuse-palettes.webp", "img/boutique/filmeuse-film-etirable.webp"],
+      "image": "img/boutique/filmeuse-entrepot.webp",
+      "galerie": ["img/boutique/filmeuse-entrepot.webp", "img/boutique/filmeuse-palettes.webp", "img/boutique/filmeuse-film-etirable.webp"],
+      "tags": ["Conforme CE", "Garantie 12 mois", "Livraison sur site", "SAV en France"],
       "galNote": "Machine configurable : plateau, colonne, pesée, rampe, couleur.",
       "chiffres": [["40", "palettes / heure"], ["2 t", "charge max"], ["250 %", "pré-étirage"], ["220 V", "prise standard"]],
       "pointsTitre": "Ce qui vous fait gagner du temps et de l'argent",
@@ -348,13 +349,32 @@
         "Conforme CE, déclaration UE de conformité fournie",
         "Prix tout compris : transport et dédouanement inclus",
         "Livraison en France en 30 à 45 jours en moyenne",
+        "Livraison sur site · mise en service en option",
+        "Garantie 12 mois, pièces détachées et SAV assurés par Cohesif Agro",
         "Branchement sur prise 220 V, sans travaux",
         "Achat comptant ou leasing avec Cohesif Leasing"
       ],
+      "sav": {
+        "kicker": "SAV & garanties",
+        "titre": "Vous achetez une filmeuse.",
+        "accent": "Nous restons à vos côtés.",
+        "intro": "Une filmeuse est un outil de production : si elle s'arrête, vos expéditions s'arrêtent. C'est pourquoi chaque vente Cohesif Agro comprend un vrai suivi.",
+        "items": [
+          ["bouclier", "Garantie 12 mois", "Chaque machine neuve est couverte par une garantie constructeur. En cas de souci, un seul numéro : le nôtre."],
+          ["camion", "Livraison sur site", "Livraison jusqu'à votre site et contrôle de la machine à l'arrivée. Mise en service et réglages sur place en option, sur devis."],
+          ["personne", "Prise en main de vos opérateurs", "Programmes, changement de rouleau de film, règles de sécurité : nous vous guidons à distance, ou sur place avec l'option mise en service."],
+          ["engrenage", "Pièces détachées", "Pièces d'usure et de rechange (rouleaux de pré-étirage, courroies, capteurs, moteurs) disponibles sur commande."],
+          ["cle", "Entretien préventif", "Nous vous accompagnons pour l'entretien courant : réglages, contrôle des capteurs et de la tension du film."],
+          ["telephone", "Assistance réactive", "Une question, une panne ? Téléphone, email ou WhatsApp : un conseiller vous répond en jours ouvrés."]
+        ],
+        "horaires": "Du lundi au vendredi, de 8 h à 18 h."
+      },
       "faq": [
         ["Pourquoi le prix n'est-il pas affiché ?", "Le prix dépend des options choisies (taille du plateau, hauteur de colonne, pesée, rampe…) et du lieu de livraison. Nous vous envoyons un devis tout compris sous 48 h : machine, transport, dédouanement et livraison en France."],
         ["Est-ce compliqué à installer et à utiliser ?", "Non. La machine se pose au sol et se branche sur une prise 220 V classique. L'opérateur pose la palette, choisit un programme sur l'écran tactile et lance le filmage : la prise en main est rapide."],
         ["Quel film utiliser ? Pouvez-vous le fournir ?", "Un film étirable PE pré-étirable de 500 mm de large et 25 µm d'épaisseur, sur mandrin de 76,2 mm. Cohesif Agro source aussi le packaging : nous pouvons vous livrer le film avec la machine, puis en réassort."],
+        ["Que comprend le service après-vente ?", "Garantie constructeur de 12 mois, livraison sur votre site, aide à la prise en main, mise en service sur place en option, pièces détachées disponibles et assistance par téléphone, email ou WhatsApp. Un seul interlocuteur, avant et après l'achat : Cohesif Agro."],
+        ["Et si la machine tombe en panne ?", "Vous nous appelez ou nous écrivez sur WhatsApp : un conseiller fait le diagnostic avec vous et, si une pièce doit être remplacée, nous vous l'envoyons. Les capteurs, l'automate et l'écran sont des composants industriels standard (Omron, Panasonic, Inovance), faciles à remplacer."],
         ["La machine est-elle conforme pour la France ?", "Oui. Elle est livrée avec le marquage CE et la déclaration UE de conformité, comme tous les équipements Cohesif Agro."],
         ["Quel est le délai de livraison ?", "Comptez en moyenne 30 à 45 jours entre la validation de la commande et la livraison sur site. Le planning précis figure dans votre devis."],
         ["Puis-je payer en plusieurs fois ?", "Oui. Avec Cohesif Leasing, la société de financement du Groupe Cohesif, vous payez une mensualité fixe et préservez votre trésorerie. Indiquez « Leasing » dans votre demande."]

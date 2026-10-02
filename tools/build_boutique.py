@@ -302,6 +302,46 @@ def ld(obj):
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False) + "</script>"
 
 
+# ─────────────────────────── bloc SAV (fiche produit)
+
+ICONES = {
+    "bouclier": '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    "camion": '<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+    "personne": '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+    "engrenage": '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+    "cle": '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6z"/>',
+    "telephone": '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+}
+
+
+def sav_html(p):
+    s = p.get("sav")
+    if not s:
+        return ""
+    items = "".join(
+        f'<div class="bq-sav-it"><span class="bq-ico"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES[i]}</svg></span>'
+        f'<h3>{E(h)}</h3><p>{E(d)}</p></div>' for i, h, d in s["items"])
+    tel = WA[2:]
+    tel_txt = "0" + tel[0] + " " + " ".join(tel[i:i + 2] for i in range(1, 9, 2))
+    return f"""<section class="bq-sec bq-sav" id="sav">
+    <div class="bq-in">
+      <div class="bq-sec-head">
+        <p class="bq-kicker">{E(s["kicker"])}</p>
+        <h2>{E(s["titre"])} <span class="bq-accent">{E(s["accent"])}</span></h2>
+        <p>{E(s["intro"])}</p>
+      </div>
+      <div class="bq-sav-grid">{items}</div>
+      <div class="bq-sav-cta">
+        <div><b>Un interlocuteur unique, avant et après l'achat.</b><span>{E(s["horaires"])}</span></div>
+        <div class="bq-sav-btns">
+          <a href="tel:+{WA}" class="bq-btn bq-btn-lg bq-btn-light"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg> {tel_txt}</a>
+          <a href="{wa_link(f"Bonjour, j'ai une question sur la « {p['nom']} ».")}" class="bq-btn bq-btn-lg bq-btn-wa" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>"""
+
+
 # ─────────────────────────── page catalogue
 
 def equipements_html():
@@ -321,6 +361,8 @@ def equipements_html():
         <h3>Un interlocuteur en France, du devis à la livraison</h3>
         <ul class="bq-checks bq-checks-dark">
           <li>Machines conformes CE, déclaration UE de conformité fournie</li>
+          <li>Garantie 12 mois, pièces détachées et SAV assurés par nos soins</li>
+          <li>Livraison sur site, mise en service en option</li>
           <li>Composants industriels de grandes marques (Omron, Panasonic…)</li>
           <li>Transport, dédouanement et livraison gérés par nos soins</li>
           <li>Consommables fournis : film étirable, packaging alimentaire</li>
@@ -552,6 +594,7 @@ def build_fiche(p):
   </section>""" if autres else ""
 
     faq_fiche = [tuple(x) for x in p["faq"]] if p.get("faq") else [FAQ[0], FAQ[2], FAQ[6], FAQ[4]]
+    tags = ('<ul class="bq-ptags">' + "".join(f"<li>{E(x)}</li>" for x in p["tags"]) + "</ul>") if p.get("tags") else ""
     reass = "".join(f"<li>{E(r)}</li>" for r in p.get("reass", [
         "Conforme CE, déclaration UE de conformité fournie",
         "Prix tout compris : transport et dédouanement inclus",
@@ -572,6 +615,7 @@ def build_fiche(p):
     <div class="bq-info">
       <p class="bq-card-cat">{E(CATS[p["categorie"]])} · {lieu} · Réf. {E(p["ref"])}</p>
       <h1>{E(p["nom"])}</h1>
+      {tags}
       <p class="bq-acc">{E(p["accroche"])}</p>
       <div class="bq-kpis">{chiffres}</div>
       <div class="bq-buy">
@@ -609,6 +653,8 @@ def build_fiche(p):
       <table class="bq-specs"><tbody>{specs}</tbody></table>
     </div>
   </section>
+
+  {sav_html(p)}
 
   {gamme}
 
