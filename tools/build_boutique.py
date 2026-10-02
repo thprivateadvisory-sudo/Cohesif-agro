@@ -362,7 +362,7 @@ def equipements_html():
         <ul class="bq-checks bq-checks-dark">
           <li>Machines conformes CE, déclaration UE de conformité fournie</li>
           <li>Garantie 12 mois, pièces détachées et SAV assurés par nos soins</li>
-          <li>Livraison sur site, mise en service et prise en main</li>
+          <li>Livraison sur site, mise en service en option</li>
           <li>Composants industriels de grandes marques (Omron, Panasonic…)</li>
           <li>Transport, dédouanement et livraison gérés par nos soins</li>
           <li>Consommables fournis : film étirable, packaging alimentaire</li>
