@@ -349,3 +349,67 @@ button,input,select,textarea{font:inherit;color:inherit}
   .bq-fiche ~ .bq-foot{padding-bottom:90px}
   .bq-wa{width:52px;height:52px;right:16px;bottom:16px}
 }
+
+/* barre d'info + appel direct */
+.bq-top{background:var(--deep);color:rgba(255,255,255,.85);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-align:center;padding:.35rem 16px;display:flex;justify-content:center;flex-wrap:wrap;gap:.25rem .5rem}
+.bq-top-sep{color:var(--gold)}
+.bq-call{display:inline-flex;align-items:center;gap:.4rem;font-weight:700;font-size:.85rem;color:var(--deep);padding:.45rem .7rem;border-radius:999px;border:1px solid var(--line);background:#fff;white-space:nowrap}
+.bq-call:hover{border-color:var(--accent);background:var(--pale)}
+.bq-call svg,.bq-sticky-call svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+
+/* accès rapide aux machines (hero catalogue) */
+.bq-quick{margin-top:clamp(20px,3vw,32px)}
+.bq-quick-t{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.bq-quick-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem}
+.bq-q{display:flex;align-items:center;gap:.65rem;background:#fff;color:var(--deep);border-radius:14px;padding:.45rem .7rem .45rem .45rem;border:2px solid transparent;transition:border-color .2s,transform .2s}
+.bq-q:hover{border-color:var(--gold);transform:translateY(-2px)}
+.bq-q img{width:56px;height:56px;object-fit:contain;border-radius:10px;background:var(--paper);flex-shrink:0}
+.bq-q span{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.bq-q b{font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bq-q small{font-size:.72rem;color:var(--txm)}
+
+/* livraison partout en France */
+.bq-france{background:var(--pale)}
+.bq-france-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.bq-france h2{font-family:var(--ff);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.15;color:var(--deep);margin-bottom:.8rem}
+.bq-france-grid > div > p{color:var(--txm);margin-bottom:1rem}
+.bq-france .bq-checks{margin-bottom:1.4rem}
+.bq-france-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.4rem}
+.bq-france-card h3{font-size:1rem;color:var(--deep);margin-bottom:.8rem}
+.bq-france-card p{font-size:.85rem;color:var(--txm);margin-top:.8rem}
+.bq-villes{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem}
+.bq-villes li{font-size:.8rem;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:.25rem .65rem}
+.bq-buy-2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+
+@media (max-width:1100px){.bq-quick-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1024px){.bq-call span{display:none}.bq-call{padding:.55rem}}
+@media (max-width:860px){
+  .bq-france-grid{grid-template-columns:minmax(0,1fr)}
+  /* mobile : les machines d'abord, le visuel décoratif ensuite */
+  .bq-hero-vis{display:none}
+}
+@media (max-width:600px){
+  .bq-top{font-size:.68rem}
+  .bq-top span:nth-child(5),.bq-top span:nth-child(4){display:none}
+  .bq-hero{padding-top:28px}
+  .bq-hero h1{font-size:1.85rem}
+  .bq-hero-p{font-size:.95rem;margin-bottom:1.1rem}
+  .bq-hero-btns .bq-btn-line{display:none}
+  .bq-quick-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 6px;scrollbar-width:none}
+  .bq-quick-row::-webkit-scrollbar{display:none}
+  .bq-q{flex:0 0 72%;scroll-snap-align:start}
+  .bq-gal-main{height:300px;padding:16px}
+  .bq-sticky-call{padding:.55rem .8rem}
+  .bq-sticky ~ .bq-wa{bottom:84px}
+  .bq-sticky ~ .bq-foot{padding-bottom:90px}
+}
+@media (max-width:600px){
+  .bq-sticky div{flex:1}
+  .bq-sticky-call:first-child ~ .bq-btn{flex:1}
+}
+@media (min-width:861px){
+  .bq-hero{padding-top:clamp(32px,4vw,56px)}
+  .bq-hero h1{font-size:clamp(2rem,3.4vw,3rem)}
+  .bq-hero-vis{height:360px}
+  .hv-c{height:340px}.hv-l{height:255px}.hv-r{height:265px}
+}

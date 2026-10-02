@@ -7,6 +7,8 @@
   var menu = document.getElementById('bqMenu');
   if (burger && menu) {
     burger.addEventListener('click', function () {
+      var nav = burger.closest('.bq-nav');
+      if (nav) menu.style.top = nav.getBoundingClientRect().bottom + 'px';
       var open = menu.classList.toggle('open');
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
