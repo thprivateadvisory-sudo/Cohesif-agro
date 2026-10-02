@@ -12,6 +12,7 @@ Pour afficher un prix : renseigner "prix" (€ HT) et, si besoin, "leasingMois"
 dans data/boutique.json, puis relancer le script. Tant que "prix" vaut null,
 la fiche affiche « Prix sur demande » et le bouton ouvre la demande de prix.
 """
+import hashlib
 import html
 import json
 from pathlib import Path
@@ -28,6 +29,15 @@ CATS = DATA["categories"]
 EQUIPEMENTS = [p for p in PRODUITS if p.get("famille") == "equipement"]
 DISTRIBUTEURS = [p for p in PRODUITS if p.get("famille") != "equipement"]
 E = html.escape
+
+
+def version(fichier):
+    """Empreinte du fichier : force les navigateurs à recharger CSS/JS après chaque mise à jour."""
+    return hashlib.md5((ROOT / fichier).read_bytes()).hexdigest()[:8]
+
+
+CSS_V = version("boutique.css")
+JS_V = version("boutique.js")
 
 
 def euros(n):
@@ -116,7 +126,7 @@ def head(title, desc, url, image, extra_ld="", image_alt=""):
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="boutique.css"/>
+<link rel="stylesheet" href="boutique.css?v={CSS_V}"/>
 {extra_ld}
 </head>
 <body>
@@ -283,7 +293,7 @@ def wa_float(texte):
 """
 
 
-TAIL = '<script src="boutique.js" defer></script>\n</body>\n</html>\n'
+TAIL = f'<script src="boutique.js?v={JS_V}" defer></script>\n</body>\n</html>\n'
 
 
 def card(p):
