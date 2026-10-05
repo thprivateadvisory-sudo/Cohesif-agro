@@ -798,9 +798,7 @@ def build_fiche(p):
     </div>
   </section>
 
-  {options}
-
-  {sav_html(p)}
+  {options}{sav_html(p)}
 
   {gamme}
 
