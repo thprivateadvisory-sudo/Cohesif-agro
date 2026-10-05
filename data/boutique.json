@@ -25,7 +25,7 @@
       "badge": "Idéal pour démarrer",
       "cible": ["Centres commerciaux", "Gares et aéroports", "Campus et écoles", "Hôpitaux", "Halls d'entreprise"],
       "image": "img/boutique/pizza-interieur.webp",
-      "galerie": ["img/boutique/pizza-interieur.webp", "img/boutique/pizza-v-interieur-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp"],
+      "galerie": ["img/boutique/pizza-interieur.webp", "img/boutique/pizza-v-interieur-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp", "img/boutique/pizza-boites.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["90 s", "de cuisson"], ["69", "pizzas en stock"], ["32\"", "écran tactile"], ["350 °C", "four"]],
       "points": [
         ["Cuisson express", "Four double mode (micro-ondes + four jusqu'à 350 °C) : une pizza de 30 cm dorée et croustillante en 90 secondes environ."],
@@ -75,7 +75,7 @@
       "badge": "Vente 24 h/24 en extérieur",
       "cible": ["Parkings et stations-service", "Zones d'activité", "Résidences et quartiers", "Campings", "Devant votre commerce"],
       "image": "img/boutique/pizza-exterieur.webp",
-      "galerie": ["img/boutique/pizza-exterieur.webp", "img/boutique/pizza-v-kiosque-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp"],
+      "galerie": ["img/boutique/pizza-exterieur.webp", "img/boutique/pizza-v-kiosque-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp", "img/boutique/pizza-boites.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["90 s", "de cuisson"], ["69", "pizzas en stock"], ["24/7", "en extérieur"], ["350 °C", "four"]],
       "points": [
         ["Pensée pour l'extérieur", "Carrosserie entièrement fermée et auvent de protection : adaptée au froid, à la pluie et à la neige."],
@@ -125,7 +125,7 @@
       "badge": "Le plus visible",
       "cible": ["Emplacements à fort passage", "Centres-villes", "Parkings de centres commerciaux", "Zones touristiques", "Franchises et réseaux"],
       "image": "img/boutique/pizza-premium.webp",
-      "galerie": ["img/boutique/pizza-premium.webp", "img/boutique/pizza-v-interieur-55.webp", "img/boutique/pizza-v-kiosque-55.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-3.webp"],
+      "galerie": ["img/boutique/pizza-premium.webp", "img/boutique/pizza-v-interieur-55.webp", "img/boutique/pizza-v-kiosque-55.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-3.webp", "img/boutique/pizza-boites.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["55\"", "écran vidéo"], ["90 s", "de cuisson"], ["69", "pizzas en stock"], ["18,5\"", "écran de commande"]],
       "points": [
         ["Une vitrine qui attire", "Écran géant 55\" : diffusez vos vidéos, vos promotions et vos menus, visibles à plusieurs dizaines de mètres."],
@@ -174,7 +174,7 @@
       "badge": "Snacking star",
       "cible": ["Stades et salles de sport", "Parcs de loisirs", "Bowlings et cinémas", "Stations-service", "Campus"],
       "image": "img/boutique/frites.webp",
-      "galerie": ["img/boutique/frites.webp", "img/boutique/frites-detail-1.webp", "img/boutique/frites-detail-2.webp", "img/boutique/frites-detail-3.webp"],
+      "galerie": ["img/boutique/frites.webp", "img/boutique/frites-detail-1.webp", "img/boutique/frites-detail-2.webp", "img/boutique/frites-detail-3.webp", "img/boutique/frites-barquettes.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["3 min", "par portion"], ["120", "portions en stock"], ["2", "paniers simultanés"], ["6", "saveurs"]],
       "points": [
         ["Frites à la minute", "Vraie friture, servie chaude en 180 secondes : le goût d'une baraque à frites, sans personnel."],

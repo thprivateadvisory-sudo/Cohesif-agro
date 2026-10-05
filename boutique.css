@@ -437,3 +437,4 @@ button,input,select,textarea{font:inherit;color:inherit}
 .bq-quick-pro-it:hover{border-color:var(--gold);background:rgba(255,255,255,.06)}
 .bq-quick-pro-it img{width:34px;height:34px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
 .bq-quick-pro-it i{font-style:normal;color:var(--gold);font-weight:700}
+.bq-foot-id{margin-top:.6rem;font-size:.78rem;opacity:.7}

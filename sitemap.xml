@@ -87,6 +87,14 @@
       <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-3.webp</image:loc>
       <image:title>Distributeur de pizzas 32&quot; Intérieur - photo 5</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-boites.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur - photo 6</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/caisse-bois.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Intérieur - photo 7</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-pizza-exterieur.html</loc>
@@ -112,6 +120,14 @@
     <image:image>
       <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-3.webp</image:loc>
       <image:title>Distributeur de pizzas 32&quot; Extérieur - photo 5</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-boites.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur - photo 6</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/caisse-bois.webp</image:loc>
+      <image:title>Distributeur de pizzas 32&quot; Extérieur - photo 7</image:title>
     </image:image>
   </url>
   <url>
@@ -139,6 +155,14 @@
       <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-detail-3.webp</image:loc>
       <image:title>Distributeur de pizzas Premium 55&quot; Extérieur - photo 5</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/pizza-boites.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur - photo 6</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/caisse-bois.webp</image:loc>
+      <image:title>Distributeur de pizzas Premium 55&quot; Extérieur - photo 7</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.cohesifagro.fr/boutique-distributeur-frites.html</loc>
@@ -160,6 +184,14 @@
     <image:image>
       <image:loc>https://www.cohesifagro.fr/img/boutique/frites-detail-3.webp</image:loc>
       <image:title>Distributeur de frites fraîches - photo 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/frites-barquettes.webp</image:loc>
+      <image:title>Distributeur de frites fraîches - photo 5</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cohesifagro.fr/img/boutique/caisse-bois.webp</image:loc>
+      <image:title>Distributeur de frites fraîches - photo 6</image:title>
     </image:image>
   </url>
   <url>
