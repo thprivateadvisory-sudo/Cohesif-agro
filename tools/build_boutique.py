@@ -13,6 +13,9 @@ dans data/boutique.json, puis relancer le script. Tant que "prix" vaut null,
 la fiche affiche « Prix sur demande » et le bouton ouvre la demande de prix.
 "options" : liste [libellé, prix € HT] (0 = offert) affichée sur la fiche ;
 "plateforme" : conditions de l'abonnement à la gestion à distance.
+"stripeAcompte" : lien de paiement Stripe de l'acompte (réglages dans "reservation") ;
+créer les liens avec tools/stripe_acomptes.py. La fiche affiche alors le détail du prix et
+le bouton « Commander maintenant » qui ouvre le paiement de l'acompte.
 """
 import hashlib
 import html
@@ -46,11 +49,30 @@ def euros(n):
     return f"{n:,.0f}".replace(",", " ") + " €"
 
 
+def euros2(n):
+    """Montant au centime : 5 972,40 €."""
+    return f"{n:,.2f}".replace(",", " ").replace(".", ",") + " €"
+
+
+RESA = DATA.get("reservation", {"acomptePct": 30, "tva": 20})
+
+
+def ttc(n):
+    return round(n * (1 + RESA["tva"] / 100), 2)
+
+
+def acompte_ttc(p):
+    return round(p["prix"] * RESA["acomptePct"] / 100 * (1 + RESA["tva"] / 100), 2)
+
+
 def prix_html(p, grand=False):
     if p.get("prix"):
         out = f'<span class="px-val">{euros(p["prix"])} <small>HT</small></span>'
         if p.get("leasingMois"):
             out += f'<span class="px-sub">ou {euros(p["leasingMois"])} HT/mois avec Cohesif Leasing</span>'
+        elif p.get("stripeAcompte"):
+            out += (f'<span class="px-sub">Livré en France · commande en ligne avec un acompte de '
+                    f'{euros2(acompte_ttc(p))} TTC</span>')
         elif p.get("options"):
             out += '<span class="px-sub">Livré en France, transport et douane inclus · paiement en option</span>'
         else:
@@ -138,7 +160,7 @@ def head(title, desc, url, image, extra_ld="", image_alt=""):
 
 
 TOPBAR = f"""<div class="bq-top">
-  <span>Livraison partout en France</span><span class="bq-top-sep">·</span><span>Conformes CE</span><span class="bq-top-sep">·</span><span>Devis tout compris sous 48 h</span>
+  <span>Livraison partout en France</span><span class="bq-top-sep">·</span><span>Conformes CE</span><span class="bq-top-sep">·</span><span>Garantie 12 mois</span><span class="bq-top-sep">·</span><span>Paiement sécurisé</span>
 </div>
 """
 
@@ -172,9 +194,12 @@ NAV = TOPBAR + f"""<nav class="bq-nav" aria-label="Navigation principale">
 """
 
 
-def form_html(selected=None, titre="Recevez les prix et un devis sous 48 h"):
+def form_html(selected=None, titre="Commandez votre machine ou recevez un devis"):
     sel = next((p for p in PRODUITS if p["slug"] == selected), None)
-    if sel and est_equipement(sel):
+    if sel and sel.get("prix"):
+        sujet = f"Cohesif Agro · Commande / devis {sel['court'].lower()}"
+        wa_txt = f"Bonjour, je souhaite commander le « {sel['nom']} » ({euros(sel['prix'])} HT)."
+    elif sel and est_equipement(sel):
         sujet = f"Cohesif Agro · Demande de prix {sel['court'].lower()}"
         wa_txt = f"Bonjour, je souhaite recevoir le prix de la « {sel['nom']} »."
     else:
@@ -186,13 +211,14 @@ def form_html(selected=None, titre="Recevez les prix et un devis sous 48 h"):
     return f"""<section class="bq-devis" id="devis">
   <div class="bq-in bq-devis-grid">
     <div class="bq-devis-txt">
-      <p class="bq-kicker">Demande de prix gratuite</p>
+      <p class="bq-kicker">Commande et devis gratuits</p>
       <h2>{titre}</h2>
-      <p>Dites-nous quelle machine vous intéresse et où vous voulez l'installer. Vous recevez un devis <strong>tout compris</strong> : machine, transport, dédouanement et livraison en France. Sans engagement.</p>
+      <p>Choisissez votre machine et dites-nous où vous voulez l'installer. Un conseiller vous rappelle sous 48 h pour valider avec vous les options, le financement et la date de livraison. <strong>Cette demande est gratuite et sans engagement.</strong></p>
       <ul class="bq-checks">
-        <li>Réponse d'un conseiller sous 48 h</li>
-        <li>Achat comptant ou financement en leasing</li>
-        <li>Conseil sur l'emplacement et la rentabilité</li>
+        <li>Vous préférez commander directement ? Acompte de {RESA["acomptePct"]} % en ligne sur la fiche de chaque machine</li>
+        <li>Facture au nom de votre société, TVA récupérable</li>
+        <li>Un conseiller unique en France, avant et après la livraison</li>
+        <li>Conseil gratuit sur l'emplacement et la rentabilité</li>
       </ul>
       <a class="bq-wa-inline" href="{wa_link(wa_txt)}" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.05 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.5A9.9 9.9 0 1 0 12.05 2zm5.8 14.1c-.25.7-1.45 1.33-2 1.4-.52.08-1.17.11-1.88-.12-.43-.13-.99-.32-1.7-.62-3-1.3-4.94-4.3-5.1-4.5-.14-.2-1.2-1.6-1.2-3.07s.76-2.18 1.04-2.48c.27-.3.6-.37.8-.37h.57c.18 0 .43-.07.67.5.25.6.84 2.06.92 2.2.07.15.12.33.02.52-.1.2-.15.32-.3.5-.14.17-.3.38-.44.52-.15.15-.3.3-.13.6.17.3.77 1.27 1.65 2.05 1.14 1.01 2.1 1.33 2.4 1.48.3.15.47.12.64-.07.18-.2.75-.87.94-1.17.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.35.07.12.07.7-.18 1.4z"/></svg>
@@ -211,6 +237,13 @@ def form_html(selected=None, titre="Recevez les prix et un devis sous 48 h"):
         <label>Email<input type="email" name="email" required autocomplete="email"/></label>
         <label>Téléphone<input type="tel" name="telephone" required autocomplete="tel"/></label>
       </div>
+      <label>Votre demande
+        <select name="demande" required>
+          <option>Je souhaite commander</option>
+          <option>Je souhaite un devis</option>
+          <option>J'ai une question avant de me décider</option>
+        </select>
+      </label>
       <label>Machine qui vous intéresse
         <select name="machine" required>
           <option value="">Choisir une machine…</option>
@@ -242,11 +275,11 @@ def form_html(selected=None, titre="Recevez les prix et un devis sous 48 h"):
         </label>
       </div>
       <label>Votre projet <span>(facultatif)</span><textarea name="message" rows="3" placeholder="Nombre de machines, ville, date souhaitée…"></textarea></label>
-      <button type="submit" class="bq-btn bq-btn-lg">Recevoir les prix</button>
-      <p class="bq-form-note">Vos données servent uniquement à vous répondre. <a href="politique-confidentialite.html">Confidentialité</a></p>
+      <button type="submit" class="bq-btn bq-btn-lg">Envoyer ma demande</button>
+      <p class="bq-form-note">Sans engagement. Vos données servent uniquement à vous répondre. <a href="politique-confidentialite.html">Confidentialité</a></p>
       <div class="bq-form-ok" role="status" hidden>
         <strong>Merci, votre demande est bien envoyée.</strong>
-        <span>Un conseiller Cohesif Agro vous recontacte sous 48 h avec les prix et les délais.</span>
+        <span>Un conseiller Cohesif Agro vous rappelle sous 48 h pour confirmer votre commande ou vous envoyer votre devis.</span>
       </div>
     </form>
   </div>
@@ -259,6 +292,7 @@ FOOTER = f"""<footer class="bq-foot">
     <div>
       <img src="img/boutique/logo-cohesif-agro-trim.webp" alt="Cohesif Agro" width="520" height="133" class="bq-foot-logo"/>
       <p>Équipements agroalimentaires et distributeurs automatiques, conformes CE, livrés en France. Une société du Groupe Cohesif.</p>
+      <p class="bq-foot-id">Groupe Cohesif · 200 rue de la Croix-Nivert, 75015 Paris · SIRET 889 287 462 000 36</p>
     </div>
     <div>
       <h4>Boutique</h4>
@@ -284,7 +318,7 @@ FOOTER = f"""<footer class="bq-foot">
   </div>
   <div class="bq-in bq-foot-bot">
     <span>2026 Groupe Cohesif · cohesifagro.fr</span>
-    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Confidentialité</a></span>
+    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">CGV</a> · <a href="politique-confidentialite.html">Confidentialité</a></span>
   </div>
 </footer>
 """
@@ -317,7 +351,7 @@ def card(p):
       <div class="bq-px">{prix_html(p)}</div>
       <div class="bq-card-btns">
         <a href="{p["slug"]}.html" class="bq-btn bq-btn-ghost">Voir la fiche</a>
-        <a href="#devis" class="bq-btn" data-machine="{p["slug"]}">{"Demander un devis" if p.get("prix") else "Demander le prix"}</a>
+        {f'<a href="{p["slug"]}.html#commander" class="bq-btn">Commander</a>' if p.get("stripeAcompte") else f'<a href="#devis" class="bq-btn" data-machine="{p["slug"]}">{"Commander" if p.get("prix") else "Demander le prix"}</a>'}
       </div>
     </div>
   </div>
@@ -337,6 +371,12 @@ FAQ = [
      "Dans tout lieu de passage : centre commercial, parking, station-service, entreprise, gare, campus, devant votre commerce… Sur un terrain privé, il suffit de l'accord du propriétaire. Sur la voie publique, une autorisation d'occupation doit être demandée à la mairie. Nous vous aidons à choisir la bonne machine selon l'emplacement."),
     ("Y a-t-il des démarches pour vendre de l'alimentaire ?",
      "Oui, comme toute activité alimentaire : une déclaration auprès de la DDPP de votre département et le respect des règles d'hygiène (chaîne du froid, traçabilité des produits). Ces démarches sont simples, nous vous indiquons les étapes."),
+    ("Comment se passe le paiement ?",
+     "Vous commandez en ligne en réglant un acompte de 30 % par carte bancaire, sur la plateforme sécurisée Stripe : nous n'avons jamais accès à votre numéro de carte. La facture d'acompte vous est envoyée automatiquement. Un conseiller vous appelle sous 48 h pour confirmer la commande et la date de livraison. Le solde est réglé par virement avant l'expédition. Si nous ne pouvons pas confirmer la commande, l'acompte est remboursé en totalité. Vous préférez un leasing ou parler d'abord à un conseiller ? Demandez un devis gratuit."),
+    ("Que se passe-t-il en cas de panne ?",
+     "Vous appelez Cohesif Agro, votre interlocuteur en France. La machine est garantie 12 mois pièces : nous diagnostiquons la panne avec vous, souvent à distance grâce à la plateforme connectée, et nous vous envoyons la pièce de rechange. Après la garantie, les pièces détachées restent disponibles sur commande."),
+    ("Qui est Cohesif Agro ?",
+     "Cohesif Agro est une société française du Groupe Cohesif, basée au 200 rue de la Croix-Nivert à Paris (SIRET 889 287 462 000 36). Nous sélectionnons des équipements agroalimentaires et des distributeurs automatiques, et nous gérons pour vous l'importation, la conformité, la livraison et le service après-vente."),
     ("Puis-je payer en plusieurs fois ?",
      "Oui. Avec Cohesif Leasing, la société de financement du Groupe Cohesif, vous payez une mensualité fixe et la machine commence à rapporter dès son installation. Indiquez « Leasing » dans votre demande."),
     ("Peut-on mettre la machine à nos couleurs ?",
@@ -346,7 +386,7 @@ FAQ = [
     ("Livrez-vous partout en France ?",
      "Oui. Nous livrons et accompagnons nos clients partout en France : Paris et l'Île-de-France, Lyon, Marseille, Toulouse, Bordeaux, Lille, Nantes, Strasbourg, Nice, Montpellier, Rennes et toutes les autres villes. Le transport jusqu'à votre adresse est inclus dans le prix."),
 ]
-FAQ_FICHE_DEFAUT = [FAQ[0], FAQ[2], FAQ[9], FAQ[6], FAQ[4]]
+FAQ_FICHE_DEFAUT = [FAQ[0], FAQ[6], FAQ[7], FAQ[2], FAQ[12], FAQ[9], FAQ[8], FAQ[4]]
 
 
 def faq_html(items):
@@ -371,11 +411,29 @@ ICONES = {
     "engrenage": '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
     "cle": '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6z"/>',
     "telephone": '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+    "cadenas": '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4M12 15v2"/>',
+}
+
+
+SAV_DISTRIBUTEUR = {
+    "kicker": "Achat en toute confiance",
+    "titre": "Vous achetez une machine.",
+    "accent": "Nous restons à vos côtés.",
+    "intro": "Cohesif Agro est une société française du Groupe Cohesif, basée à Paris. De la commande à la première vente, puis pendant toute la vie de la machine, vous avez un seul interlocuteur, qui parle votre langue et décroche le téléphone.",
+    "items": [
+        ["bouclier", "Garantie 12 mois", "Pièces garanties 12 mois. En cas de souci, un seul numéro : le nôtre, pas un fournisseur à l'autre bout du monde."],
+        ["camion", "Livrée jusqu'à chez vous", "Transport, dédouanement et livraison inclus dans le prix. La machine voyage en caisse bois renforcée et elle est contrôlée à l'arrivée."],
+        ["cadenas", "Paiement sécurisé", "Acompte de 30 % par carte via Stripe, solde par virement avant l'expédition. Si nous ne pouvons pas confirmer votre commande, l'acompte est remboursé en totalité."],
+        ["personne", "Démarrage accompagné", "Chargement des produits, réglages, application de gestion : nous vous guidons pas à pas jusqu'à vos premières ventes."],
+        ["engrenage", "Pièces détachées", "Pièces de rechange disponibles pendant et après la garantie, expédiées sur simple demande."],
+        ["telephone", "Assistance réactive", "Une question, une panne ? Téléphone, email ou WhatsApp : un conseiller vous répond en jours ouvrés."],
+    ],
+    "horaires": "Du lundi au vendredi, de 8 h à 18 h.",
 }
 
 
 def sav_html(p):
-    s = p.get("sav")
+    s = p.get("sav") or (SAV_DISTRIBUTEUR if not est_equipement(p) else None)
     if not s:
         return ""
     items = "".join(
@@ -395,7 +453,7 @@ def sav_html(p):
         <div><b>Un interlocuteur unique, avant et après l'achat.</b><span>{E(s["horaires"])}</span></div>
         <div class="bq-sav-btns">
           <a href="tel:+{WA}" class="bq-btn bq-btn-lg bq-btn-light"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg> {tel_txt}</a>
-          <a href="{wa_link(f"Bonjour, j'ai une question sur la « {p['nom']} ».")}" class="bq-btn bq-btn-lg bq-btn-wa" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="{wa_link(f"Bonjour, j'ai une question sur la « {p['nom']} »." if p.get("nom") else "Bonjour, j'ai une question sur vos distributeurs automatiques.")}" class="bq-btn bq-btn-lg bq-btn-wa" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
     </div>
@@ -409,7 +467,8 @@ def quick_html():
     def item(p, sous_titre):
         return (f'<a href="{p["slug"]}.html" class="bq-q"><img src="{p["image"]}" alt="" width="64" height="64"/>'
                 f'<span><b>{E(p["court"])}</b><small>{E(sous_titre)}</small></span></a>')
-    distrib = "".join(item(p, f'{CATS[p["categorie"]]} · {lieu_label(p)}') for p in DISTRIBUTEURS)
+    distrib = "".join(item(p, f'{CATS[p["categorie"]]} · {lieu_label(p)}' + (f' · {euros(p["prix"])} HT' if p.get("prix") else ""))
+                      for p in DISTRIBUTEURS)
     pro = "".join(
         f'<a href="{p["slug"]}.html" class="bq-quick-pro-it"><img src="{p["image"]}" alt="" width="40" height="40"/>'
         f'<span><b>{E(p["court"])}</b> · {E(CATS[p["categorie"]])}</span><i aria-hidden="true">→</i></a>'
@@ -434,12 +493,12 @@ def france_html():
       <h2>Distributeurs automatiques livrés dans toute la France</h2>
       <p>Cohesif Agro est basé à Paris et livre ses distributeurs automatiques et équipements professionnels dans toutes les régions : Île-de-France, Auvergne-Rhône-Alpes, Provence-Alpes-Côte d'Azur, Occitanie, Nouvelle-Aquitaine, Hauts-de-France, Grand Est, Pays de la Loire, Bretagne, Normandie, Bourgogne-Franche-Comté, Centre-Val de Loire et Corse.</p>
       <ul class="bq-checks">
-        <li>Transport et livraison jusqu'à votre adresse inclus dans le devis</li>
+        <li>Transport et livraison jusqu'à votre adresse inclus dans le prix</li>
         <li>Un conseiller unique, joignable par téléphone, email et WhatsApp</li>
         <li>Aide au choix de l'emplacement, où que vous soyez</li>
       </ul>
       <div class="bq-hero-btns">
-        <a href="#devis" class="bq-btn bq-btn-lg">Demander les prix</a>
+        <a href="#devis" class="bq-btn bq-btn-lg">Commander ou demander un devis</a>
         <a href="tel:{TEL}" class="bq-btn bq-btn-lg bq-btn-ghost">Appeler le {TEL_TXT}</a>
       </div>
     </div>
@@ -529,7 +588,7 @@ def build_catalogue():
       <h1>Distributeurs automatiques à vendre, <em>ouverts 24 h/24</em> sans personnel.</h1>
       <p class="bq-hero-p">Pizzas chaudes en 90 secondes, frites, burgers, glaces et café : des machines conformes CE, livrées prêtes à vendre partout en France. Prix affichés, transport et douane inclus.</p>
       <div class="bq-hero-btns">
-        <a href="#devis" class="bq-btn bq-btn-lg">Recevoir les prix</a>
+        <a href="#machines" class="bq-btn bq-btn-lg">Voir les machines et les prix</a>
         <a href="#rentabilite" class="bq-btn bq-btn-lg bq-btn-line">Calculer mes revenus</a>
       </div>
     </div>
@@ -543,9 +602,9 @@ def build_catalogue():
   <div class="bq-in">{quick_html()}</div>
   <ul class="bq-in bq-trust">
     <li><b>Conformes CE</b><span>Déclaration UE de conformité fournie</span></li>
-    <li><b>Prix tout compris</b><span>Machine, transport, douane</span></li>
+    <li><b>Prix affichés</b><span>Transport et douane inclus</span></li>
     <li><b>Partout en France</b><span>Livraison jusqu'à votre adresse</span></li>
-    <li><b>Achat ou leasing</b><span>Avec Cohesif Leasing</span></li>
+    <li><b>Garantie 12 mois</b><span>SAV et pièces en France</span></li>
   </ul>
 </header>
 
@@ -570,6 +629,7 @@ def build_catalogue():
   </div>
 </section>
 
+{sav_html({})}
 {equipements_html()}
 <section class="bq-sec bq-why">
   <div class="bq-in">
@@ -602,7 +662,7 @@ def build_catalogue():
         <div><span>Par mois</span><b data-sim-mois>0 €</b></div>
         <div><span>Par an</span><b data-sim-an>0 €</b></div>
       </div>
-      <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">Recevoir le prix de la machine</a>
+      <a href="#machines" class="bq-btn bq-btn-lg bq-btn-full">Voir les prix des machines</a>
     </div>
   </div>
 </section>
@@ -614,9 +674,9 @@ def build_catalogue():
       <h2>De votre demande à la première vente</h2>
     </div>
     <ol class="bq-steps">
-      <li><b>1</b><h3>Votre demande</h3><p>Vous choisissez une machine et nous parlons de votre emplacement.</p></li>
-      <li><b>2</b><h3>Devis sous 48 h</h3><p>Un prix tout compris, en achat ou en leasing, sans surprise.</p></li>
-      <li><b>3</b><h3>Fabrication et transport</h3><p>Contrôle qualité, transport et dédouanement gérés par nos soins.</p></li>
+      <li><b>1</b><h3>Votre commande</h3><p>En ligne avec un acompte de 30 % par carte, ou sur devis par téléphone et WhatsApp.</p></li>
+      <li><b>2</b><h3>Confirmation sous 48 h</h3><p>Un conseiller valide avec vous les options et la date de livraison. Solde par virement avant l'expédition.</p></li>
+      <li><b>3</b><h3>Fabrication et transport</h3><p>Contrôle qualité, caisse bois renforcée, transport et dédouanement gérés par nos soins.</p></li>
       <li><b>4</b><h3>Livraison et ventes</h3><p>La machine est livrée chez vous, vous la remplissez, elle vend.</p></li>
     </ol>
   </div>
@@ -636,7 +696,7 @@ def build_catalogue():
     </div>
     <div class="bq-lease-card">
       <img src="cohesif-leasing-logo.png" alt="Cohesif Leasing" width="120" height="60"/>
-      <p>Cochez « Leasing » dans votre demande de prix : vous recevez le prix comptant et la mensualité.</p>
+      <p>Choisissez « Leasing » dans votre demande : vous recevez le prix comptant et la mensualité.</p>
       <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full" data-financement="Leasing (paiement mensuel)">Demander un financement</a>
     </div>
   </div>
@@ -657,7 +717,7 @@ def build_catalogue():
 </main>
 <div class="bq-sticky">
   <a href="tel:{TEL}" class="bq-btn bq-btn-ghost bq-sticky-call" aria-label="Appeler un conseiller"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg> Appeler</a>
-  <a href="#devis" class="bq-btn">Recevoir les prix</a>
+  <a href="#machines" class="bq-btn">Choisir et commander</a>
 </div>
 """ + FOOTER + wa_float("Bonjour, je souhaite des informations sur vos distributeurs automatiques.") + TAIL
     (ROOT / "boutique.html").write_text(body, encoding="utf-8")
@@ -665,10 +725,31 @@ def build_catalogue():
 
 # ─────────────────────────── fiches produit
 
+def achat_html(p):
+    """Bloc de commande : détail du prix, acompte en ligne (Stripe) et solde ; sinon demande de prix."""
+    if not p.get("stripeAcompte"):
+        return (f'<a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">'
+                f'{"Commander cette machine" if p.get("prix") else "Recevoir le prix et le devis"}</a>')
+    total = ttc(p["prix"])
+    ac = acompte_ttc(p)
+    return f"""<dl class="bq-acpt" id="commander">
+          <div><dt>Prix de la machine HT</dt><dd>{euros2(p["prix"])}</dd></div>
+          <div><dt>TVA {RESA["tva"]} %</dt><dd>{euros2(total - p["prix"])}</dd></div>
+          <div><dt>Total TTC, livraison en France incluse</dt><dd>{euros2(total)}</dd></div>
+          <div class="is-ac"><dt>À payer aujourd'hui : acompte {RESA["acomptePct"]} %</dt><dd>{euros2(ac)} TTC</dd></div>
+          <div><dt>Solde par virement, avant l'expédition</dt><dd>{euros2(round(total - ac, 2))} TTC</dd></div>
+        </dl>
+        <a href="{p["stripeAcompte"]}" class="bq-btn bq-btn-lg bq-btn-full bq-btn-buy" rel="noopener">Commander maintenant<small>Acompte de {euros2(ac)} TTC par carte</small></a>
+        <p class="bq-pay-note"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["cadenas"]}</svg><span>Paiement sécurisé par Stripe · facture d'acompte par email. Commande non confirmée sous 48 h : acompte remboursé en totalité. <a href="cgv.html#vente-en-ligne">Voir les CGV</a></span></p>
+        <a href="#devis" class="bq-link-devis">Une question, des options ou un leasing ? Demander un devis gratuit</a>"""
+
+
 def build_fiche(p):
     url = f"{SITE}/{p['slug']}.html"
     title = p.get("seoTitre") or f"{p['nom']} à vendre | Cohesif Agro"
-    desc = f"{p['accroche']} Conforme CE, livré partout en France. Devis tout compris sous 48 h, achat ou leasing."
+    desc = (f"{p['accroche']} {euros(p['prix'])} HT livré en France, transport et douane inclus. Conforme CE, garantie 12 mois, achat ou leasing."
+            if p.get("prix") else
+            f"{p['accroche']} Conforme CE, livré partout en France. Devis tout compris sous 48 h, achat ou leasing.")
     lieu = lieu_label(p)
     faq_ld_fiche = [faq_ld([tuple(x) for x in p["faq"]])] if p.get("faq") else []
     produit_ld = {"@type": "Product", "name": p["nom"], "sku": p["ref"], "description": p["accroche"],
@@ -696,7 +777,7 @@ def build_fiche(p):
     specs = "".join(f'<tr><th>{E(k)}</th><td>{E(v)}</td></tr>' for k, v in p["specs"])
     cibles = "".join(f"<li>{E(c)}</li>" for c in p["cible"])
     prevoir = "".join(f"<li>{E(c)}</li>" for c in p["prevoir"])
-    wa_txt = (f"Bonjour, je souhaite un devis pour le « {p['nom']} »." if p.get("prix") else
+    wa_txt = (f"Bonjour, je souhaite commander le « {p['nom']} » ({euros(p['prix'])} HT)." if p.get("prix") else
               f"Bonjour, je souhaite recevoir le prix {'de la' if est_equipement(p) else 'du'} « {p['nom']} ».")
     options = ""
     if p.get("options"):
@@ -705,7 +786,7 @@ def build_fiche(p):
             lignes += f'<tr><th>Plateforme de gestion à distance</th><td>{E(p["plateforme"].capitalize())}</td></tr>'
         options = f"""<section class="bq-sec">
     <div class="bq-in bq-spec-wrap">
-      <div class="bq-sec-head"><p class="bq-kicker">Options et accessoires</p><h2>Composez votre machine</h2><p>Choisissez les moyens de paiement adaptés à votre emplacement : la carte bancaire est conseillée partout, les espèces sont utiles en extérieur et dans les lieux de loisirs. Le pack complet (carte, billets, pièces et rendeur) revient à {euros(sum(v for l, v in p["options"] if "Kit" not in l))} HT.</p></div>
+      <div class="bq-sec-head"><p class="bq-kicker">Options et accessoires</p><h2>Composez votre machine</h2><p>Choisissez les moyens de paiement adaptés à votre emplacement : la carte bancaire est conseillée partout, les espèces sont utiles en extérieur et dans les lieux de loisirs. Le pack complet (carte, billets, pièces et rendeur) revient à {euros(sum(v for l, v in p["options"] if "Kit" not in l))} HT. Les options s'ajoutent à la facture de solde : vous les choisissez avec le conseiller qui vous appelle après la commande.</p></div>
       <table class="bq-specs"><tbody>{lignes}</tbody></table>
     </div>
   </section>"""
@@ -739,6 +820,9 @@ def build_fiche(p):
     reass = "".join(f"<li>{E(r)}</li>" for r in p.get("reass", [
         "Conforme CE, déclaration UE de conformité fournie",
         "Prix tout compris : transport et dédouanement inclus",
+        "Garantie 12 mois, SAV et pièces assurés par Cohesif Agro",
+        "Acompte de 30 % en ligne, paiement sécurisé Stripe",
+        "Commande non confirmée : acompte remboursé en totalité",
         "Livraison partout en France en 2 à 3 mois",
         "Achat comptant ou leasing avec Cohesif Leasing"]))
 
@@ -761,7 +845,7 @@ def build_fiche(p):
       <div class="bq-kpis">{chiffres}</div>
       <div class="bq-buy">
         <div class="bq-px bq-px-lg">{prix_html(p)}</div>
-        <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">{"Recevoir mon devis" if p.get("prix") else "Recevoir le prix et le devis"}</a>
+        {achat_html(p)}
         <div class="bq-buy-2">
           <a href="{wa_link(wa_txt)}" class="bq-btn bq-btn-lg bq-btn-wa" target="_blank" rel="noopener">WhatsApp</a>
           <a href="tel:{TEL}" class="bq-btn bq-btn-lg bq-btn-ghost">Appeler</a>
@@ -809,14 +893,14 @@ def build_fiche(p):
     </div>
   </section>
 
-  {form_html(p["slug"], "Recevez le prix de cette machine sous 48 h")}
+  {form_html(p["slug"], f"Commander votre {p['nom'][0].lower() + p['nom'][1:]}" if p.get("prix") else "Recevez le prix de cette machine sous 48 h")}
 
   {alt}
 </main>
 <div class="bq-sticky">
   <div><b>{E(p["court"])}</b><span>{"Prix sur demande" if not p.get("prix") else euros(p["prix"]) + " HT"}</span></div>
   <a href="tel:{TEL}" class="bq-btn bq-btn-ghost bq-sticky-call" aria-label="Appeler un conseiller"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg></a>
-  <a href="#devis" class="bq-btn">{"Recevoir mon devis" if p.get("prix") else "Recevoir le prix"}</a>
+  {f'<a href="{p["stripeAcompte"]}" class="bq-btn" rel="noopener">Commander</a>' if p.get("stripeAcompte") else f'<a href="#devis" class="bq-btn">{"Commander" if p.get("prix") else "Recevoir le prix"}</a>'}
 </div>
 """ + FOOTER + wa_float(wa_txt) + TAIL
     (ROOT / f"{p['slug']}.html").write_text(body, encoding="utf-8")

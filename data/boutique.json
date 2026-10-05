@@ -25,7 +25,7 @@
       "badge": "Idéal pour démarrer",
       "cible": ["Centres commerciaux", "Gares et aéroports", "Campus et écoles", "Hôpitaux", "Halls d'entreprise"],
       "image": "img/boutique/pizza-interieur.webp",
-      "galerie": ["img/boutique/pizza-interieur.webp", "img/boutique/pizza-v-interieur-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp"],
+      "galerie": ["img/boutique/pizza-interieur.webp", "img/boutique/pizza-v-interieur-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp", "img/boutique/pizza-boites.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["90 s", "de cuisson"], ["69", "pizzas en stock"], ["32\"", "écran tactile"], ["350 °C", "four"]],
       "points": [
         ["Cuisson express", "Four double mode (micro-ondes + four jusqu'à 350 °C) : une pizza de 30 cm dorée et croustillante en 90 secondes environ."],
@@ -53,6 +53,7 @@
       ],
       "prevoir": ["Une surface au sol d'environ 1,8 × 1 m, plus l'espace d'accès client", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "Un sol capable de supporter 650 kg", "Un fournisseur de pizzas 30 cm (nous pouvons vous orienter)"],
       "prix": 16590,
+      "stripeAcompte": "https://buy.stripe.com/cNi6oJezgb0gejmcf7aVa0L",
       "leasingMois": null,
       "options": [
         ["Lecteur carte bancaire et sans contact", 710],
@@ -75,7 +76,7 @@
       "badge": "Vente 24 h/24 en extérieur",
       "cible": ["Parkings et stations-service", "Zones d'activité", "Résidences et quartiers", "Campings", "Devant votre commerce"],
       "image": "img/boutique/pizza-exterieur.webp",
-      "galerie": ["img/boutique/pizza-exterieur.webp", "img/boutique/pizza-v-kiosque-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp"],
+      "galerie": ["img/boutique/pizza-exterieur.webp", "img/boutique/pizza-v-kiosque-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp", "img/boutique/pizza-boites.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["90 s", "de cuisson"], ["69", "pizzas en stock"], ["24/7", "en extérieur"], ["350 °C", "four"]],
       "points": [
         ["Pensée pour l'extérieur", "Carrosserie entièrement fermée et auvent de protection : adaptée au froid, à la pluie et à la neige."],
@@ -103,6 +104,7 @@
       ],
       "prevoir": ["Un emplacement de plain-pied d'environ 2 × 1,2 m avec l'auvent", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "L'accord du propriétaire du terrain (ou une autorisation de la mairie sur la voie publique)", "Un fournisseur de pizzas 30 cm (nous pouvons vous orienter)"],
       "prix": 17090,
+      "stripeAcompte": "https://buy.stripe.com/fZu6oJ0Iqd8o7UY1AtaVa0M",
       "leasingMois": null,
       "options": [
         ["Lecteur carte bancaire et sans contact", 710],
@@ -125,7 +127,7 @@
       "badge": "Le plus visible",
       "cible": ["Emplacements à fort passage", "Centres-villes", "Parkings de centres commerciaux", "Zones touristiques", "Franchises et réseaux"],
       "image": "img/boutique/pizza-premium.webp",
-      "galerie": ["img/boutique/pizza-premium.webp", "img/boutique/pizza-v-interieur-55.webp", "img/boutique/pizza-v-kiosque-55.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-3.webp"],
+      "galerie": ["img/boutique/pizza-premium.webp", "img/boutique/pizza-v-interieur-55.webp", "img/boutique/pizza-v-kiosque-55.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-3.webp", "img/boutique/pizza-boites.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["55\"", "écran vidéo"], ["90 s", "de cuisson"], ["69", "pizzas en stock"], ["18,5\"", "écran de commande"]],
       "points": [
         ["Une vitrine qui attire", "Écran géant 55\" : diffusez vos vidéos, vos promotions et vos menus, visibles à plusieurs dizaines de mètres."],
@@ -152,6 +154,7 @@
       ],
       "prevoir": ["Un emplacement de plain-pied visible depuis la rue ou le parking", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "L'accord du propriétaire du terrain (ou une autorisation de la mairie sur la voie publique)", "Un fournisseur de pizzas 30 cm (nous pouvons vous orienter)"],
       "prix": 17690,
+      "stripeAcompte": "https://buy.stripe.com/28E3cx4YG6K08Z2gvnaVa0N",
       "leasingMois": null,
       "options": [
         ["Lecteur carte bancaire et sans contact", 710],
@@ -174,7 +177,7 @@
       "badge": "Snacking star",
       "cible": ["Stades et salles de sport", "Parcs de loisirs", "Bowlings et cinémas", "Stations-service", "Campus"],
       "image": "img/boutique/frites.webp",
-      "galerie": ["img/boutique/frites.webp", "img/boutique/frites-detail-1.webp", "img/boutique/frites-detail-2.webp", "img/boutique/frites-detail-3.webp"],
+      "galerie": ["img/boutique/frites.webp", "img/boutique/frites-detail-1.webp", "img/boutique/frites-detail-2.webp", "img/boutique/frites-detail-3.webp", "img/boutique/frites-barquettes.webp", "img/boutique/caisse-bois.webp"],
       "chiffres": [["3 min", "par portion"], ["120", "portions en stock"], ["2", "paniers simultanés"], ["6", "saveurs"]],
       "points": [
         ["Frites à la minute", "Vraie friture, servie chaude en 180 secondes : le goût d'une baraque à frites, sans personnel."],
@@ -200,6 +203,7 @@
       ],
       "prevoir": ["Une surface au sol d'environ 1,8 × 1,1 m", "Une alimentation électrique adaptée à 9,8 kW", "Un sol capable de supporter 750 kg", "Un approvisionnement en frites et en huile"],
       "prix": 16690,
+      "stripeAcompte": "https://buy.stripe.com/dRmfZj62K0lCdfi3IBaVa0O",
       "leasingMois": null,
       "options": [
         ["120 barquettes à frites 650 ml", 0],
@@ -424,6 +428,11 @@
       "leasingMois": null
     }
   ],
+  "reservation": {
+    "note": "Commande en ligne : acompte de acomptePct % du prix HT, payé TTC (TVA tva %) par lien Stripe (stripeAcompte sur chaque machine). Solde par virement avant l'expédition. Si un prix change, créer un nouveau lien Stripe (tools/stripe_acomptes.py) et désactiver l'ancien.",
+    "acomptePct": 30,
+    "tva": 20
+  },
   "gammePizza": [
     ["img/boutique/pizza-v-interieur-32.webp", "Intérieur", "Écran tactile 32\"", 16590],
     ["img/boutique/pizza-exterieur.webp", "Extérieur avec auvent", "Écran tactile 32\"", 17090],
