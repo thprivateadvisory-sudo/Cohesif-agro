@@ -13,6 +13,9 @@ dans data/boutique.json, puis relancer le script. Tant que "prix" vaut null,
 la fiche affiche « Prix sur demande » et le bouton ouvre la demande de prix.
 "options" : liste [libellé, prix € HT] (0 = offert) affichée sur la fiche ;
 "plateforme" : conditions de l'abonnement à la gestion à distance.
+"stripeAcompte" : lien de paiement Stripe de l'acompte (réglages dans "reservation") ;
+créer les liens avec tools/stripe_acomptes.py. La fiche affiche alors le détail du prix et
+le bouton « Commander maintenant » qui ouvre le paiement de l'acompte.
 """
 import hashlib
 import html
@@ -46,11 +49,30 @@ def euros(n):
     return f"{n:,.0f}".replace(",", " ") + " €"
 
 
+def euros2(n):
+    """Montant au centime : 5 972,40 €."""
+    return f"{n:,.2f}".replace(",", " ").replace(".", ",") + " €"
+
+
+RESA = DATA.get("reservation", {"acomptePct": 30, "tva": 20})
+
+
+def ttc(n):
+    return round(n * (1 + RESA["tva"] / 100), 2)
+
+
+def acompte_ttc(p):
+    return round(p["prix"] * RESA["acomptePct"] / 100 * (1 + RESA["tva"] / 100), 2)
+
+
 def prix_html(p, grand=False):
     if p.get("prix"):
         out = f'<span class="px-val">{euros(p["prix"])} <small>HT</small></span>'
         if p.get("leasingMois"):
             out += f'<span class="px-sub">ou {euros(p["leasingMois"])} HT/mois avec Cohesif Leasing</span>'
+        elif p.get("stripeAcompte"):
+            out += (f'<span class="px-sub">Livré en France · commande en ligne avec un acompte de '
+                    f'{euros2(acompte_ttc(p))} TTC</span>')
         elif p.get("options"):
             out += '<span class="px-sub">Livré en France, transport et douane inclus · paiement en option</span>'
         else:
@@ -191,10 +213,10 @@ def form_html(selected=None, titre="Commandez votre machine ou recevez un devis"
     <div class="bq-devis-txt">
       <p class="bq-kicker">Commande et devis gratuits</p>
       <h2>{titre}</h2>
-      <p>Choisissez votre machine et dites-nous où vous voulez l'installer. Un conseiller vous rappelle sous 48 h pour valider avec vous les options, le bon de commande et la date de livraison. <strong>Rien n'est engagé avant la signature du bon de commande.</strong></p>
+      <p>Choisissez votre machine et dites-nous où vous voulez l'installer. Un conseiller vous rappelle sous 48 h pour valider avec vous les options, le financement et la date de livraison. <strong>Cette demande est gratuite et sans engagement.</strong></p>
       <ul class="bq-checks">
-        <li>Aucun paiement en ligne : règlement par virement sur facture ou en leasing</li>
-        <li>Bon de commande et facture au nom de votre société, TVA récupérable</li>
+        <li>Vous préférez commander directement ? Acompte de {RESA["acomptePct"]} % en ligne sur la fiche de chaque machine</li>
+        <li>Facture au nom de votre société, TVA récupérable</li>
         <li>Un conseiller unique en France, avant et après la livraison</li>
         <li>Conseil gratuit sur l'emplacement et la rentabilité</li>
       </ul>
@@ -296,7 +318,7 @@ FOOTER = f"""<footer class="bq-foot">
   </div>
   <div class="bq-in bq-foot-bot">
     <span>2026 Groupe Cohesif · cohesifagro.fr</span>
-    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Confidentialité</a></span>
+    <span><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">CGV</a> · <a href="politique-confidentialite.html">Confidentialité</a></span>
   </div>
 </footer>
 """
@@ -329,7 +351,7 @@ def card(p):
       <div class="bq-px">{prix_html(p)}</div>
       <div class="bq-card-btns">
         <a href="{p["slug"]}.html" class="bq-btn bq-btn-ghost">Voir la fiche</a>
-        <a href="#devis" class="bq-btn" data-machine="{p["slug"]}">{"Commander" if p.get("prix") else "Demander le prix"}</a>
+        {f'<a href="{p["slug"]}.html#commander" class="bq-btn">Commander</a>' if p.get("stripeAcompte") else f'<a href="#devis" class="bq-btn" data-machine="{p["slug"]}">{"Commander" if p.get("prix") else "Demander le prix"}</a>'}
       </div>
     </div>
   </div>
@@ -350,7 +372,7 @@ FAQ = [
     ("Y a-t-il des démarches pour vendre de l'alimentaire ?",
      "Oui, comme toute activité alimentaire : une déclaration auprès de la DDPP de votre département et le respect des règles d'hygiène (chaîne du froid, traçabilité des produits). Ces démarches sont simples, nous vous indiquons les étapes."),
     ("Comment se passe le paiement ?",
-     "Il n'y a aucun paiement en ligne. Après votre demande, un conseiller vous appelle et vous envoie un bon de commande. Vous réglez par virement bancaire sur facture, au nom de votre société, ou en leasing avec Cohesif Leasing. Rien n'est engagé avant la signature du bon de commande."),
+     "Vous commandez en ligne en réglant un acompte de 30 % par carte bancaire, sur la plateforme sécurisée Stripe : nous n'avons jamais accès à votre numéro de carte. La facture d'acompte vous est envoyée automatiquement. Un conseiller vous appelle sous 48 h pour confirmer la commande et la date de livraison. Le solde est réglé par virement avant l'expédition. Si nous ne pouvons pas confirmer la commande, l'acompte est remboursé en totalité. Vous préférez un leasing ou parler d'abord à un conseiller ? Demandez un devis gratuit."),
     ("Que se passe-t-il en cas de panne ?",
      "Vous appelez Cohesif Agro, votre interlocuteur en France. La machine est garantie 12 mois pièces : nous diagnostiquons la panne avec vous, souvent à distance grâce à la plateforme connectée, et nous vous envoyons la pièce de rechange. Après la garantie, les pièces détachées restent disponibles sur commande."),
     ("Qui est Cohesif Agro ?",
@@ -401,7 +423,7 @@ SAV_DISTRIBUTEUR = {
     "items": [
         ["bouclier", "Garantie 12 mois", "Pièces garanties 12 mois. En cas de souci, un seul numéro : le nôtre, pas un fournisseur à l'autre bout du monde."],
         ["camion", "Livrée jusqu'à chez vous", "Transport, dédouanement et livraison inclus dans le prix. La machine voyage en caisse bois renforcée et elle est contrôlée à l'arrivée."],
-        ["cadenas", "Paiement sécurisé", "Aucun paiement en ligne. Vous réglez par virement sur facture après signature du bon de commande, ou en leasing."],
+        ["cadenas", "Paiement sécurisé", "Acompte de 30 % par carte via Stripe, solde par virement avant l'expédition. Si nous ne pouvons pas confirmer votre commande, l'acompte est remboursé en totalité."],
         ["personne", "Démarrage accompagné", "Chargement des produits, réglages, application de gestion : nous vous guidons pas à pas jusqu'à vos premières ventes."],
         ["engrenage", "Pièces détachées", "Pièces de rechange disponibles pendant et après la garantie, expédiées sur simple demande."],
         ["telephone", "Assistance réactive", "Une question, une panne ? Téléphone, email ou WhatsApp : un conseiller vous répond en jours ouvrés."],
@@ -652,8 +674,8 @@ def build_catalogue():
       <h2>De votre demande à la première vente</h2>
     </div>
     <ol class="bq-steps">
-      <li><b>1</b><h3>Votre commande</h3><p>Sur le site, par téléphone ou WhatsApp : vous choisissez votre machine et vos options.</p></li>
-      <li><b>2</b><h3>Confirmation sous 48 h</h3><p>Un conseiller valide avec vous l'emplacement et le bon de commande. Paiement par virement ou leasing.</p></li>
+      <li><b>1</b><h3>Votre commande</h3><p>En ligne avec un acompte de 30 % par carte, ou sur devis par téléphone et WhatsApp.</p></li>
+      <li><b>2</b><h3>Confirmation sous 48 h</h3><p>Un conseiller valide avec vous les options et la date de livraison. Solde par virement avant l'expédition.</p></li>
       <li><b>3</b><h3>Fabrication et transport</h3><p>Contrôle qualité, caisse bois renforcée, transport et dédouanement gérés par nos soins.</p></li>
       <li><b>4</b><h3>Livraison et ventes</h3><p>La machine est livrée chez vous, vous la remplissez, elle vend.</p></li>
     </ol>
@@ -703,6 +725,25 @@ def build_catalogue():
 
 # ─────────────────────────── fiches produit
 
+def achat_html(p):
+    """Bloc de commande : détail du prix, acompte en ligne (Stripe) et solde ; sinon demande de prix."""
+    if not p.get("stripeAcompte"):
+        return (f'<a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">'
+                f'{"Commander cette machine" if p.get("prix") else "Recevoir le prix et le devis"}</a>')
+    total = ttc(p["prix"])
+    ac = acompte_ttc(p)
+    return f"""<dl class="bq-acpt" id="commander">
+          <div><dt>Prix de la machine HT</dt><dd>{euros2(p["prix"])}</dd></div>
+          <div><dt>TVA {RESA["tva"]} %</dt><dd>{euros2(total - p["prix"])}</dd></div>
+          <div><dt>Total TTC, livraison en France incluse</dt><dd>{euros2(total)}</dd></div>
+          <div class="is-ac"><dt>À payer aujourd'hui : acompte {RESA["acomptePct"]} %</dt><dd>{euros2(ac)} TTC</dd></div>
+          <div><dt>Solde par virement, avant l'expédition</dt><dd>{euros2(round(total - ac, 2))} TTC</dd></div>
+        </dl>
+        <a href="{p["stripeAcompte"]}" class="bq-btn bq-btn-lg bq-btn-full bq-btn-buy" rel="noopener">Commander maintenant<small>Acompte de {euros2(ac)} TTC par carte</small></a>
+        <p class="bq-pay-note"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["cadenas"]}</svg><span>Paiement sécurisé par Stripe · facture d'acompte par email. Commande non confirmée sous 48 h : acompte remboursé en totalité. <a href="cgv.html#vente-en-ligne">Voir les CGV</a></span></p>
+        <a href="#devis" class="bq-link-devis">Une question, des options ou un leasing ? Demander un devis gratuit</a>"""
+
+
 def build_fiche(p):
     url = f"{SITE}/{p['slug']}.html"
     title = p.get("seoTitre") or f"{p['nom']} à vendre | Cohesif Agro"
@@ -745,7 +786,7 @@ def build_fiche(p):
             lignes += f'<tr><th>Plateforme de gestion à distance</th><td>{E(p["plateforme"].capitalize())}</td></tr>'
         options = f"""<section class="bq-sec">
     <div class="bq-in bq-spec-wrap">
-      <div class="bq-sec-head"><p class="bq-kicker">Options et accessoires</p><h2>Composez votre machine</h2><p>Choisissez les moyens de paiement adaptés à votre emplacement : la carte bancaire est conseillée partout, les espèces sont utiles en extérieur et dans les lieux de loisirs. Le pack complet (carte, billets, pièces et rendeur) revient à {euros(sum(v for l, v in p["options"] if "Kit" not in l))} HT.</p></div>
+      <div class="bq-sec-head"><p class="bq-kicker">Options et accessoires</p><h2>Composez votre machine</h2><p>Choisissez les moyens de paiement adaptés à votre emplacement : la carte bancaire est conseillée partout, les espèces sont utiles en extérieur et dans les lieux de loisirs. Le pack complet (carte, billets, pièces et rendeur) revient à {euros(sum(v for l, v in p["options"] if "Kit" not in l))} HT. Les options s'ajoutent à la facture de solde : vous les choisissez avec le conseiller qui vous appelle après la commande.</p></div>
       <table class="bq-specs"><tbody>{lignes}</tbody></table>
     </div>
   </section>"""
@@ -780,7 +821,8 @@ def build_fiche(p):
         "Conforme CE, déclaration UE de conformité fournie",
         "Prix tout compris : transport et dédouanement inclus",
         "Garantie 12 mois, SAV et pièces assurés par Cohesif Agro",
-        "Aucun paiement en ligne : virement sur facture ou leasing",
+        "Acompte de 30 % en ligne, paiement sécurisé Stripe",
+        "Commande non confirmée : acompte remboursé en totalité",
         "Livraison partout en France en 2 à 3 mois",
         "Achat comptant ou leasing avec Cohesif Leasing"]))
 
@@ -803,7 +845,7 @@ def build_fiche(p):
       <div class="bq-kpis">{chiffres}</div>
       <div class="bq-buy">
         <div class="bq-px bq-px-lg">{prix_html(p)}</div>
-        <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">{"Commander cette machine" if p.get("prix") else "Recevoir le prix et le devis"}</a>
+        {achat_html(p)}
         <div class="bq-buy-2">
           <a href="{wa_link(wa_txt)}" class="bq-btn bq-btn-lg bq-btn-wa" target="_blank" rel="noopener">WhatsApp</a>
           <a href="tel:{TEL}" class="bq-btn bq-btn-lg bq-btn-ghost">Appeler</a>
@@ -858,7 +900,7 @@ def build_fiche(p):
 <div class="bq-sticky">
   <div><b>{E(p["court"])}</b><span>{"Prix sur demande" if not p.get("prix") else euros(p["prix"]) + " HT"}</span></div>
   <a href="tel:{TEL}" class="bq-btn bq-btn-ghost bq-sticky-call" aria-label="Appeler un conseiller"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg></a>
-  <a href="#devis" class="bq-btn">{"Commander" if p.get("prix") else "Recevoir le prix"}</a>
+  {f'<a href="{p["stripeAcompte"]}" class="bq-btn" rel="noopener">Commander</a>' if p.get("stripeAcompte") else f'<a href="#devis" class="bq-btn">{"Commander" if p.get("prix") else "Recevoir le prix"}</a>'}
 </div>
 """ + FOOTER + wa_float(wa_txt) + TAIL
     (ROOT / f"{p['slug']}.html").write_text(body, encoding="utf-8")

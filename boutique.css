@@ -438,3 +438,17 @@ button,input,select,textarea{font:inherit;color:inherit}
 .bq-quick-pro-it img{width:34px;height:34px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
 .bq-quick-pro-it i{font-style:normal;color:var(--gold);font-weight:700}
 .bq-foot-id{margin-top:.6rem;font-size:.78rem;opacity:.7}
+/* commande en ligne avec acompte */
+.bq-acpt{margin:.9rem 0 1rem;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.bq-acpt div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem .9rem;font-size:.86rem}
+.bq-acpt div+div{border-top:1px solid var(--line)}
+.bq-acpt dt{color:var(--txm)}
+.bq-acpt dd{font-weight:600;color:var(--deep);white-space:nowrap;text-align:right}
+.bq-acpt .is-ac{background:var(--pale,#EAF4ED)}
+.bq-acpt .is-ac dt,.bq-acpt .is-ac dd{color:var(--deep);font-weight:700}
+.bq-pay-note{display:flex;gap:.45rem;align-items:flex-start;font-size:.78rem;color:var(--txm);margin:.6rem 0 .2rem;line-height:1.45}
+.bq-pay-note svg{flex:0 0 16px;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;margin-top:1px}
+.bq-pay-note a{text-decoration:underline}
+.bq-link-devis{display:block;text-align:center;font-size:.85rem;font-weight:600;color:var(--deep);text-decoration:underline;margin:.5rem 0 .8rem}
+.bq-btn-buy{flex-direction:column;gap:.1rem;line-height:1.2;white-space:normal;text-align:center}
+.bq-btn-buy small{font-size:.74rem;font-weight:500;opacity:.85}
