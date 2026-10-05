@@ -717,7 +717,7 @@ def build_catalogue():
 </main>
 <div class="bq-sticky">
   <a href="tel:{TEL}" class="bq-btn bq-btn-ghost bq-sticky-call" aria-label="Appeler un conseiller"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg> Appeler</a>
-  <a href="#devis" class="bq-btn">Commander</a>
+  <a href="#machines" class="bq-btn">Choisir et commander</a>
 </div>
 """ + FOOTER + wa_float("Bonjour, je souhaite des informations sur vos distributeurs automatiques.") + TAIL
     (ROOT / "boutique.html").write_text(body, encoding="utf-8")
