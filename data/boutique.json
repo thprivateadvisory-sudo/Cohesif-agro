@@ -3,7 +3,7 @@
   "site": "https://www.cohesifagro.fr",
   "formspree": "https://formspree.io/f/mzdnndna",
   "whatsapp": "33756855727",
-  "misAJour": "2026-10-02",
+  "misAJour": "2026-10-05",
   "note": "prix : null = « Prix sur demande ». Renseigner un nombre (€ HT) puis relancer python3 tools/build_boutique.py. leasingMois : mensualité indicative facultative (€ HT/mois).",
   "categories": {
     "pizza": "Pizza",
@@ -28,7 +28,7 @@
       "galerie": ["img/boutique/pizza-interieur.webp", "img/boutique/pizza-v-interieur-32.webp", "img/boutique/pizza-detail-1.webp", "img/boutique/pizza-detail-2.webp", "img/boutique/pizza-detail-3.webp"],
       "chiffres": [["90 s", "de cuisson"], ["69", "pizzas en stock"], ["32\"", "écran tactile"], ["350 °C", "four"]],
       "points": [
-        ["Cuisson express", "Four double mode (micro-ondes + four jusqu'à 350 °C) : une pizza de 25 cm dorée et croustillante en 90 secondes environ."],
+        ["Cuisson express", "Four double mode (micro-ondes + four jusqu'à 350 °C) : une pizza de 30 cm dorée et croustillante en 90 secondes environ."],
         ["69 pizzas prêtes à vendre", "Les pizzas sont stockées au froid dans la machine. Vous remplissez, elle vend."],
         ["Le client fait tout seul", "Il choisit sur l'écran tactile 32\", paie et récupère sa pizza chaude. Aucun salarié nécessaire."],
         ["Vos ventes sur votre téléphone", "Application de gestion à distance : chiffre d'affaires, stocks, alertes en cas de panne ou de rupture."],
@@ -41,19 +41,27 @@
         ["Puissance", "8 700 W"],
         ["Alimentation", "220 V / 380 V"],
         ["Capacité", "69 pizzas"],
-        ["Taille des pizzas", "10 pouces (≈ 25 cm)"],
+        ["Taille des pizzas", "12 pouces (≈ 30 cm)"],
         ["Température de stockage", "-10 °C"],
         ["Température du four", "Jusqu'à 350 °C"],
         ["Temps de cuisson", "≈ 90 secondes"],
         ["Écran", "Tactile 32 pouces"],
         ["Sécurité", "Trappe de sortie anti-pincement"],
         ["Gestion", "Application mobile de gestion à distance"],
-        ["Paiement", "Carte bancaire, pièces, billets"],
+        ["Paiement", "Carte bancaire, billets, pièces (en option)"],
         ["Structure", "Tôle d'acier galvanisé"]
       ],
-      "prevoir": ["Une surface au sol d'environ 1,8 × 1 m, plus l'espace d'accès client", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "Un sol capable de supporter 650 kg", "Un fournisseur de pizzas 25 cm (nous pouvons vous orienter)"],
-      "prix": null,
-      "leasingMois": null
+      "prevoir": ["Une surface au sol d'environ 1,8 × 1 m, plus l'espace d'accès client", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "Un sol capable de supporter 650 kg", "Un fournisseur de pizzas 30 cm (nous pouvons vous orienter)"],
+      "prix": 16590,
+      "leasingMois": null,
+      "options": [
+        ["Lecteur carte bancaire et sans contact", 710],
+        ["Lecteur de billets", 320],
+        ["Monnayeur pièces", 50],
+        ["Rendeur de monnaie", 210],
+        ["Kit de démarrage : 100 boîtes à pizza + 100 plaques de cuisson", 80]
+      ],
+      "plateforme": "offerte la 1re année, puis 50 € HT/an"
     },
     {
       "slug": "boutique-distributeur-pizza-exterieur",
@@ -72,30 +80,38 @@
       "points": [
         ["Pensée pour l'extérieur", "Carrosserie entièrement fermée et auvent de protection : adaptée au froid, à la pluie et à la neige."],
         ["Un point de vente ouvert en permanence", "La nuit, le dimanche, les jours fériés : la machine continue de vendre quand tout est fermé."],
-        ["Cuisson express", "Four double mode jusqu'à 350 °C : une pizza de 25 cm prête en 90 secondes environ."],
+        ["Cuisson express", "Four double mode jusqu'à 350 °C : une pizza de 30 cm prête en 90 secondes environ."],
         ["69 pizzas prêtes à vendre", "Stockage au froid intégré, rechargement rapide par l'avant."],
         ["Pilotage à distance", "Suivez vos ventes et vos stocks depuis votre smartphone, recevez une alerte en cas de panne."],
         ["Anti-corrosion", "Tôle d'acier galvanisé pour résister aux intempéries et durer dans le temps."]
       ],
       "specs": [
         ["Dimensions", "L 1790 × l 974 × H 2275 mm (hors auvent)"],
-        ["Poids", "650 kg"],
+        ["Poids", "750 kg"],
         ["Puissance", "8 700 W"],
         ["Alimentation", "220 V / 380 V"],
         ["Capacité", "69 pizzas"],
-        ["Taille des pizzas", "10 pouces (≈ 25 cm)"],
+        ["Taille des pizzas", "12 pouces (≈ 30 cm)"],
         ["Température de stockage", "-10 °C"],
         ["Température du four", "Jusqu'à 350 °C"],
         ["Temps de cuisson", "≈ 90 secondes"],
         ["Écran", "Tactile 32 pouces"],
         ["Protection", "Carrosserie fermée + auvent extérieur"],
         ["Gestion", "Application mobile de gestion à distance"],
-        ["Paiement", "Carte bancaire, pièces, billets"],
+        ["Paiement", "Carte bancaire, billets, pièces (en option)"],
         ["Structure", "Tôle d'acier galvanisé"]
       ],
-      "prevoir": ["Un emplacement de plain-pied d'environ 2 × 1,2 m avec l'auvent", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "L'accord du propriétaire du terrain (ou une autorisation de la mairie sur la voie publique)", "Un fournisseur de pizzas 25 cm (nous pouvons vous orienter)"],
-      "prix": null,
-      "leasingMois": null
+      "prevoir": ["Un emplacement de plain-pied d'environ 2 × 1,2 m avec l'auvent", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "L'accord du propriétaire du terrain (ou une autorisation de la mairie sur la voie publique)", "Un fournisseur de pizzas 30 cm (nous pouvons vous orienter)"],
+      "prix": 17090,
+      "leasingMois": null,
+      "options": [
+        ["Lecteur carte bancaire et sans contact", 710],
+        ["Lecteur de billets", 320],
+        ["Monnayeur pièces", 50],
+        ["Rendeur de monnaie", 210],
+        ["Kit de démarrage : 100 boîtes à pizza + 100 plaques de cuisson", 80]
+      ],
+      "plateforme": "offerte la 1re année, puis 50 € HT/an"
     },
     {
       "slug": "boutique-distributeur-pizza-premium-55",
@@ -115,7 +131,7 @@
         ["Une vitrine qui attire", "Écran géant 55\" : diffusez vos vidéos, vos promotions et vos menus, visibles à plusieurs dizaines de mètres."],
         ["Commande simple", "Écran tactile dédié de 18,5\" pour choisir et payer en quelques secondes."],
         ["Faite pour l'extérieur", "Carrosserie fermée et auvent : elle vend par tous les temps, de jour comme de nuit."],
-        ["Cuisson express", "Four double mode jusqu'à 350 °C : une pizza de 25 cm prête en 90 secondes environ."],
+        ["Cuisson express", "Four double mode jusqu'à 350 °C : une pizza de 30 cm prête en 90 secondes environ."],
         ["Pilotage à distance", "Ventes, stocks et alertes sur votre smartphone, où que vous soyez."],
         ["Anti-corrosion", "Tôle d'acier galvanisé pour une longue durée de vie."]
       ],
@@ -124,19 +140,27 @@
         ["Puissance", "8 700 W"],
         ["Alimentation", "220 V / 380 V"],
         ["Capacité", "69 pizzas"],
-        ["Taille des pizzas", "10 pouces (≈ 25 cm)"],
+        ["Taille des pizzas", "12 pouces (≈ 30 cm)"],
         ["Température de stockage", "-10 °C"],
         ["Température du four", "Jusqu'à 350 °C"],
         ["Temps de cuisson", "≈ 90 secondes"],
         ["Écrans", "Écran vidéo 55\" + écran tactile 18,5\""],
         ["Protection", "Carrosserie fermée + auvent extérieur"],
         ["Gestion", "Application mobile de gestion à distance"],
-        ["Paiement", "Carte bancaire, pièces, billets"],
+        ["Paiement", "Carte bancaire, billets, pièces (en option)"],
         ["Structure", "Tôle d'acier galvanisé"]
       ],
-      "prevoir": ["Un emplacement de plain-pied visible depuis la rue ou le parking", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "L'accord du propriétaire du terrain (ou une autorisation de la mairie sur la voie publique)", "Un fournisseur de pizzas 25 cm (nous pouvons vous orienter)"],
-      "prix": null,
-      "leasingMois": null
+      "prevoir": ["Un emplacement de plain-pied visible depuis la rue ou le parking", "Une alimentation électrique adaptée à 8,7 kW (220 V ou 380 V)", "L'accord du propriétaire du terrain (ou une autorisation de la mairie sur la voie publique)", "Un fournisseur de pizzas 30 cm (nous pouvons vous orienter)"],
+      "prix": 17690,
+      "leasingMois": null,
+      "options": [
+        ["Lecteur carte bancaire et sans contact", 710],
+        ["Lecteur de billets", 320],
+        ["Monnayeur pièces", 50],
+        ["Rendeur de monnaie", 210],
+        ["Kit de démarrage : 100 boîtes à pizza + 100 plaques de cuisson", 80]
+      ],
+      "plateforme": "offerte la 1re année, puis 50 € HT/an"
     },
     {
       "slug": "boutique-distributeur-frites",
@@ -163,19 +187,28 @@
       "specs": [
         ["Dimensions", "L 1790 × l 1043 × H 2278 mm"],
         ["Poids", "750 kg"],
-        ["Puissance", "10 000 W"],
+        ["Puissance", "9 800 W"],
         ["Temps de service", "180 secondes"],
         ["Capacité", "120 portions"],
+        ["Température de stockage", "-3 °C"],
         ["Sauces / assaisonnements", "120 à 180 sachets, 6 saveurs"],
         ["Friture", "2 paniers fonctionnant simultanément"],
         ["Structure", "Tôle d'acier + inox"],
         ["Gestion", "Plateforme en ligne + suivi mobile"],
-        ["Paiement", "Carte bancaire, pièces, billets"],
+        ["Paiement", "Carte bancaire, billets, pièces (en option)"],
         ["Personnalisation", "Logo et langue de la machine"]
       ],
-      "prevoir": ["Une surface au sol d'environ 1,8 × 1,1 m", "Une alimentation électrique adaptée à 10 kW", "Un sol capable de supporter 750 kg", "Un approvisionnement en frites et en huile"],
-      "prix": null,
-      "leasingMois": null
+      "prevoir": ["Une surface au sol d'environ 1,8 × 1,1 m", "Une alimentation électrique adaptée à 9,8 kW", "Un sol capable de supporter 750 kg", "Un approvisionnement en frites et en huile"],
+      "prix": 16690,
+      "leasingMois": null,
+      "options": [
+        ["120 barquettes à frites 650 ml", 0],
+        ["Lecteur carte bancaire et sans contact", 710],
+        ["Lecteur de billets", 320],
+        ["Monnayeur pièces", 50],
+        ["Rendeur de monnaie", 210]
+      ],
+      "plateforme": "offerte les 2 premières années, puis 50 € HT/an"
     },
     {
       "slug": "boutique-distributeur-burgers",
@@ -392,11 +425,11 @@
     }
   ],
   "gammePizza": [
-    ["img/boutique/pizza-v-interieur-32.webp", "Intérieur", "Écran tactile 32\""],
-    ["img/boutique/pizza-exterieur.webp", "Extérieur avec auvent", "Écran tactile 32\""],
-    ["img/boutique/pizza-v-kiosque-32.webp", "Kiosque extérieur", "Écran tactile 32\""],
-    ["img/boutique/pizza-v-interieur-55.webp", "Intérieur", "Écran tactile 55\""],
-    ["img/boutique/pizza-v-kiosque-55.webp", "Kiosque extérieur", "Écran tactile 55\""],
-    ["img/boutique/pizza-premium.webp", "Extérieur avec auvent", "Écran 55\" + tactile 18,5\""]
+    ["img/boutique/pizza-v-interieur-32.webp", "Intérieur", "Écran tactile 32\"", 16590],
+    ["img/boutique/pizza-exterieur.webp", "Extérieur avec auvent", "Écran tactile 32\"", 17090],
+    ["img/boutique/pizza-v-kiosque-32.webp", "Kiosque extérieur", "Écran tactile 32\"", 19590],
+    ["img/boutique/pizza-v-interieur-55.webp", "Intérieur", "Écran tactile 55\"", 17290],
+    ["img/boutique/pizza-v-kiosque-55.webp", "Kiosque extérieur", "Écran tactile 55\"", 20190],
+    ["img/boutique/pizza-premium.webp", "Extérieur avec auvent", "Écran 55\" + tactile 18,5\"", 17690]
   ]
 }

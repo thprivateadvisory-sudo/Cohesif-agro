@@ -11,6 +11,8 @@ Produit :
 Pour afficher un prix : renseigner "prix" (€ HT) et, si besoin, "leasingMois"
 dans data/boutique.json, puis relancer le script. Tant que "prix" vaut null,
 la fiche affiche « Prix sur demande » et le bouton ouvre la demande de prix.
+"options" : liste [libellé, prix € HT] (0 = offert) affichée sur la fiche ;
+"plateforme" : conditions de l'abonnement à la gestion à distance.
 """
 import hashlib
 import html
@@ -49,6 +51,8 @@ def prix_html(p, grand=False):
         out = f'<span class="px-val">{euros(p["prix"])} <small>HT</small></span>'
         if p.get("leasingMois"):
             out += f'<span class="px-sub">ou {euros(p["leasingMois"])} HT/mois avec Cohesif Leasing</span>'
+        elif p.get("options"):
+            out += '<span class="px-sub">Livré en France, transport et douane inclus · paiement en option</span>'
         else:
             out += '<span class="px-sub">Transport et dédouanement inclus</span>'
         return out
@@ -150,7 +154,7 @@ NAV = TOPBAR + f"""<nav class="bq-nav" aria-label="Navigation principale">
   </ul>
   <div class="bq-nav-r">
     <a href="tel:{TEL}" class="bq-call" aria-label="Appeler un conseiller au {TEL_TXT}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><span>{TEL_TXT}</span></a>
-    <a href="#devis" class="bq-btn bq-btn-sm">Demander les prix</a>
+    <a href="#devis" class="bq-btn bq-btn-sm">Demander un devis</a>
     <button class="bq-burger" id="bqBurger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -163,7 +167,7 @@ NAV = TOPBAR + f"""<nav class="bq-nav" aria-label="Navigation principale">
   <a href="boutique.html#france">Livraison en France</a>
   <a href="index.html">Cohesif Agro</a>
   <a href="tel:{TEL}">Appeler un conseiller : {TEL_TXT}</a>
-  <a href="#devis" class="bq-btn">Demander les prix</a>
+  <a href="#devis" class="bq-btn">Demander un devis</a>
 </div>
 """
 
@@ -313,7 +317,7 @@ def card(p):
       <div class="bq-px">{prix_html(p)}</div>
       <div class="bq-card-btns">
         <a href="{p["slug"]}.html" class="bq-btn bq-btn-ghost">Voir la fiche</a>
-        <a href="#devis" class="bq-btn" data-machine="{p["slug"]}">Demander le prix</a>
+        <a href="#devis" class="bq-btn" data-machine="{p["slug"]}">{"Demander un devis" if p.get("prix") else "Demander le prix"}</a>
       </div>
     </div>
   </div>
@@ -321,12 +325,12 @@ def card(p):
 
 
 FAQ = [
-    ("Pourquoi les prix ne sont-ils pas affichés ?",
-     "Le prix dépend de la version, de la personnalisation (habillage à vos couleurs) et du lieu de livraison. Nous vous envoyons un devis tout compris sous 48 h : machine, transport, dédouanement et livraison en France."),
+    ("Que comprend le prix affiché ?",
+     "Les prix sont indiqués hors taxes, machine livrée chez vous en France : caisse de transport, fret, dédouanement et livraison compris. Le système de paiement (carte bancaire, billets, pièces) est en option, à choisir selon votre emplacement. Pour les machines sans prix affiché, nous vous envoyons un devis tout compris sous 48 h."),
     ("Les machines sont-elles conformes pour la France ?",
      "Oui. Les machines sont livrées avec le marquage CE et la déclaration UE de conformité, comme tous les équipements Cohesif Agro. Les paiements par carte bancaire sont pris en charge."),
     ("Quel est le délai de livraison ?",
-     "Comptez en moyenne 30 à 45 jours entre la validation de la commande et la livraison sur site. Le planning précis figure dans votre devis."),
+     "Pour un distributeur, comptez 2 à 3 mois entre la commande et la livraison sur site : environ 6 à 7 semaines de fabrication, puis le transport maritime et le dédouanement. Le planning précis figure dans votre devis."),
     ("Faut-il du personnel pour faire tourner la machine ?",
      "Non. Le client commande, paie et récupère son produit tout seul. Vous passez seulement pour recharger les produits et faire l'entretien courant, et vous suivez vos ventes et vos stocks à distance sur votre smartphone."),
     ("Où puis-je installer un distributeur ?",
@@ -340,7 +344,7 @@ FAQ = [
     ("Qui fournit les pizzas, frites ou burgers ?",
      "Vous choisissez librement vos fournisseurs de produits. Et comme Cohesif Agro source aussi le packaging alimentaire (boîtes à pizza, barquettes, gobelets), nous pouvons fournir vos emballages au meilleur prix."),
     ("Livrez-vous partout en France ?",
-     "Oui. Nous livrons et accompagnons nos clients partout en France : Paris et l'Île-de-France, Lyon, Marseille, Toulouse, Bordeaux, Lille, Nantes, Strasbourg, Nice, Montpellier, Rennes et toutes les autres villes. Le transport jusqu'à votre adresse est inclus dans le devis."),
+     "Oui. Nous livrons et accompagnons nos clients partout en France : Paris et l'Île-de-France, Lyon, Marseille, Toulouse, Bordeaux, Lille, Nantes, Strasbourg, Nice, Montpellier, Rennes et toutes les autres villes. Le transport jusqu'à votre adresse est inclus dans le prix."),
 ]
 FAQ_FICHE_DEFAUT = [FAQ[0], FAQ[2], FAQ[9], FAQ[6], FAQ[4]]
 
@@ -523,7 +527,7 @@ def build_catalogue():
     <div class="bq-hero-txt">
       <p class="bq-kicker">Boutique · Livraison partout en France</p>
       <h1>Distributeurs automatiques à vendre, <em>ouverts 24 h/24</em> sans personnel.</h1>
-      <p class="bq-hero-p">Pizzas chaudes en 90 secondes, frites, burgers, glaces et café : des machines conformes CE, livrées prêtes à vendre partout en France. Prix tout compris sous 48 h.</p>
+      <p class="bq-hero-p">Pizzas chaudes en 90 secondes, frites, burgers, glaces et café : des machines conformes CE, livrées prêtes à vendre partout en France. Prix affichés, transport et douane inclus.</p>
       <div class="bq-hero-btns">
         <a href="#devis" class="bq-btn bq-btn-lg">Recevoir les prix</a>
         <a href="#rentabilite" class="bq-btn bq-btn-lg bq-btn-line">Calculer mes revenus</a>
@@ -692,7 +696,19 @@ def build_fiche(p):
     specs = "".join(f'<tr><th>{E(k)}</th><td>{E(v)}</td></tr>' for k, v in p["specs"])
     cibles = "".join(f"<li>{E(c)}</li>" for c in p["cible"])
     prevoir = "".join(f"<li>{E(c)}</li>" for c in p["prevoir"])
-    wa_txt = f"Bonjour, je souhaite recevoir le prix {'de la' if est_equipement(p) else 'du'} « {p['nom']} »."
+    wa_txt = (f"Bonjour, je souhaite un devis pour le « {p['nom']} »." if p.get("prix") else
+              f"Bonjour, je souhaite recevoir le prix {'de la' if est_equipement(p) else 'du'} « {p['nom']} ».")
+    options = ""
+    if p.get("options"):
+        lignes = "".join(f'<tr><th>{E(l)}</th><td>{euros(v) + " HT" if v else "Offert"}</td></tr>' for l, v in p["options"])
+        if p.get("plateforme"):
+            lignes += f'<tr><th>Plateforme de gestion à distance</th><td>{E(p["plateforme"].capitalize())}</td></tr>'
+        options = f"""<section class="bq-sec">
+    <div class="bq-in bq-spec-wrap">
+      <div class="bq-sec-head"><p class="bq-kicker">Options et accessoires</p><h2>Composez votre machine</h2><p>Choisissez les moyens de paiement adaptés à votre emplacement : la carte bancaire est conseillée partout, les espèces sont utiles en extérieur et dans les lieux de loisirs. Le pack complet (carte, billets, pièces et rendeur) revient à {euros(sum(v for l, v in p["options"] if "Kit" not in l))} HT.</p></div>
+      <table class="bq-specs"><tbody>{lignes}</tbody></table>
+    </div>
+  </section>"""
 
     gamme = ""
     if p["categorie"] == "pizza":
@@ -701,10 +717,10 @@ def build_fiche(p):
     <div class="bq-sec-head">
       <p class="bq-kicker">Toute la gamme pizza</p>
       <h2>6 versions pour s'adapter à votre emplacement</h2>
-      <p>Même cuisson en 90 secondes et même capacité de 69 pizzas. Seuls l'habillage et les écrans changent.</p>
+      <p>Même cuisson en 90 secondes et même capacité de 69 pizzas. Seuls l'habillage et les écrans changent. Prix HT livré en France.</p>
     </div>
     <div class="bq-gamme-grid">
-      {"".join(f'<figure><img src="{i}" alt="Distributeur de pizzas {E(a)}, {E(b)}" loading="lazy"/><figcaption><b>{E(a)}</b>{E(b)}</figcaption></figure>' for i, a, b in DATA["gammePizza"])}
+      {"".join(f'<figure><img src="{i}" alt="Distributeur de pizzas {E(a)}, {E(b)}" loading="lazy"/><figcaption><b>{E(a)}</b>{E(b)}<br/><strong>{euros(px)} HT</strong></figcaption></figure>' for i, a, b, px in DATA["gammePizza"])}
     </div>
   </div>
 </section>"""
@@ -723,7 +739,7 @@ def build_fiche(p):
     reass = "".join(f"<li>{E(r)}</li>" for r in p.get("reass", [
         "Conforme CE, déclaration UE de conformité fournie",
         "Prix tout compris : transport et dédouanement inclus",
-        "Livraison partout en France en 30 à 45 jours en moyenne",
+        "Livraison partout en France en 2 à 3 mois",
         "Achat comptant ou leasing avec Cohesif Leasing"]))
 
     body = head(title, desc, url, p["image"], ld(ld_obj), p["nom"]) + NAV + f"""
@@ -745,7 +761,7 @@ def build_fiche(p):
       <div class="bq-kpis">{chiffres}</div>
       <div class="bq-buy">
         <div class="bq-px bq-px-lg">{prix_html(p)}</div>
-        <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">Recevoir le prix et le devis</a>
+        <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full">{"Recevoir mon devis" if p.get("prix") else "Recevoir le prix et le devis"}</a>
         <div class="bq-buy-2">
           <a href="{wa_link(wa_txt)}" class="bq-btn bq-btn-lg bq-btn-wa" target="_blank" rel="noopener">WhatsApp</a>
           <a href="tel:{TEL}" class="bq-btn bq-btn-lg bq-btn-ghost">Appeler</a>
@@ -782,6 +798,8 @@ def build_fiche(p):
     </div>
   </section>
 
+  {options}
+
   {sav_html(p)}
 
   {gamme}
@@ -800,7 +818,7 @@ def build_fiche(p):
 <div class="bq-sticky">
   <div><b>{E(p["court"])}</b><span>{"Prix sur demande" if not p.get("prix") else euros(p["prix"]) + " HT"}</span></div>
   <a href="tel:{TEL}" class="bq-btn bq-btn-ghost bq-sticky-call" aria-label="Appeler un conseiller"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONES["telephone"]}</svg></a>
-  <a href="#devis" class="bq-btn">Recevoir le prix</a>
+  <a href="#devis" class="bq-btn">{"Recevoir mon devis" if p.get("prix") else "Recevoir le prix"}</a>
 </div>
 """ + FOOTER + wa_float(wa_txt) + TAIL
     (ROOT / f"{p['slug']}.html").write_text(body, encoding="utf-8")
