@@ -107,7 +107,7 @@ REGIONS = ["Île-de-France", "Auvergne-Rhône-Alpes", "Provence-Alpes-Côte d'Az
            "Hauts-de-France", "Grand Est", "Pays de la Loire", "Bretagne", "Normandie", "Bourgogne-Franche-Comté",
            "Centre-Val de Loire", "Corse"]
 ORGA = {"@type": "Organization", "@id": f"{SITE}/#organization", "name": "Cohesif Agro", "alternateName": "Cohésif Agro",
-        "url": f"{SITE}/", "logo": f"{SITE}/logo-cohesif-agro.png", "email": "cohesifagro@outlook.com", "telephone": TEL,
+        "url": f"{SITE}/", "logo": f"{SITE}/img/brand/logo-cohesif-agro-512.png", "image": f"{SITE}/img/brand/og-cohesif-agro.jpg", "email": "cohesifagro@outlook.com", "telephone": TEL,
         "address": {"@type": "PostalAddress", "streetAddress": "200 rue de la Croix-Nivert", "addressLocality": "Paris",
                     "postalCode": "75015", "addressRegion": "Île-de-France", "addressCountry": "FR"},
         "areaServed": [{"@type": "Country", "name": "France"}] + [{"@type": "AdministrativeArea", "name": r} for r in REGIONS],
@@ -146,7 +146,8 @@ def head(title, desc, url, image, extra_ld="", image_alt=""):
 <meta name="twitter:image" content="{SITE}/{image}"/>
 <meta name="theme-color" content="#1A3A2A"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<link rel="apple-touch-icon" href="favicon.svg"/>
+<link rel="icon" type="image/png" sizes="32x32" href="img/brand/icon-32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
 <link rel="manifest" href="site.webmanifest"/>
 <link rel="preload" as="image" href="{image}" fetchpriority="high"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -695,7 +696,7 @@ def build_catalogue():
       </ul>
     </div>
     <div class="bq-lease-card">
-      <img src="cohesif-leasing-logo.png" alt="Cohesif Leasing" width="120" height="60"/>
+      <img src="img/logos/leasing-modal.webp" alt="Cohesif Leasing" width="234" height="40" loading="lazy"/>
       <p>Choisissez « Leasing » dans votre demande : vous recevez le prix comptant et la mensualité.</p>
       <a href="#devis" class="bq-btn bq-btn-lg bq-btn-full" data-financement="Leasing (paiement mensuel)">Demander un financement</a>
     </div>
@@ -760,7 +761,14 @@ def build_fiche(p):
     if p.get("prix"):
         produit_ld["offers"] = {"@type": "Offer", "price": p["prix"], "priceCurrency": "EUR", "url": url,
                                 "availability": "https://schema.org/PreOrder",
-                                "seller": {"@type": "Organization", "name": "Cohesif Agro"}}
+                                "itemCondition": "https://schema.org/NewCondition",
+                                "priceSpecification": {"@type": "UnitPriceSpecification", "price": p["prix"],
+                                                       "priceCurrency": "EUR", "valueAddedTaxIncluded": False},
+                                # transport et dédouanement inclus dans le prix : livraison offerte en France
+                                "shippingDetails": {"@type": "OfferShippingDetails",
+                                                    "shippingRate": {"@type": "MonetaryAmount", "value": 0, "currency": "EUR"},
+                                                    "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "FR"}},
+                                "seller": {"@id": f"{SITE}/#organization"}}
     ld_obj = {"@context": "https://schema.org", "@graph": [
         ORGA,
         produit_ld,
@@ -920,7 +928,7 @@ def update_sitemap():
                 f"    <changefreq>{freq}</changefreq>\n    <priority>{prio}</priority>\n{images}  </url>\n")
 
     out = url("", "1.0", images=(
-        img("logo-cohesif-agro-full.png", "Cohesif Agro - Équipements agroalimentaires et distributeurs automatiques",
+        img("img/brand/og-cohesif-agro.jpg", "Cohesif Agro - Équipements agroalimentaires et distributeurs automatiques",
             "Cohesif Agro, filiale du Groupe Cohesif : équipements IAA, packaging alimentaire et distributeurs automatiques livrés partout en France.")
         + img("img/boutique/pizza-interieur.webp", "Distributeur automatique de pizzas - Boutique Cohesif Agro")))
     out += url("boutique.html", "0.9", images="".join(

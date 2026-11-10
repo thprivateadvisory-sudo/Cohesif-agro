@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data" / "boutique.json"
 API = "https://api.stripe.com/v1/"
-CGV = "https://www.cohesifagro.fr/cgv.html#vente-en-ligne"
+CGV = "https://cohesifagro.fr/cgv.html#vente-en-ligne"
 PIED = "Groupe Cohesif — Cohesif Agro · 200 rue de la Croix Nivert, 75015 Paris · SIRET 889 287 462 00036"
 
 
@@ -50,7 +50,7 @@ def lien_acompte(p, centimes, resa):
     ht = round(centimes / (1 + resa["tva"] / 100))
     produit = stripe("products", {"name": f"Acompte {resa['acomptePct']} % — {p['nom']} {ref}",
                                   "description": "Acompte de commande. Le solde est réglé par virement avant l'expédition. Livraison en France incluse.",
-                                  "images[0]": f"https://www.cohesifagro.fr/img/boutique/stripe/{ref.lower()}.jpg",
+                                  "images[0]": f"https://cohesifagro.fr/img/boutique/stripe/{ref.lower()}.jpg",
                                   "metadata[marque]": "Cohesif Agro", "metadata[ref]": ref})
     prix = stripe("prices", {"product": produit["id"], "currency": "eur",
                              "unit_amount": centimes, "metadata[cohesif_ref]": ref})

@@ -1,9 +1,9 @@
 {
   "marque": "Cohesif Agro",
-  "site": "https://www.cohesifagro.fr",
+  "site": "https://cohesifagro.fr",
   "formspree": "https://formspree.io/f/mzdnndna",
   "whatsapp": "33756855727",
-  "misAJour": "2026-10-05",
+  "misAJour": "2026-11-10",
   "note": "prix : null = « Prix sur demande ». Renseigner un nombre (€ HT) puis relancer python3 tools/build_boutique.py. leasingMois : mensualité indicative facultative (€ HT/mois).",
   "categories": {
     "pizza": "Pizza",

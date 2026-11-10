@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://www.cohesifagro.fr/sitemap.xml
+Sitemap: https://cohesifagro.fr/sitemap.xml
